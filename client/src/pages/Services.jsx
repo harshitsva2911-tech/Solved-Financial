@@ -8,10 +8,11 @@ import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import FooterCTA from '../components/common/FooterCTA';
 import PageHero from '../components/common/PageHero';
+import API_BASE from '../utils/config';
 
 const HERO_BG = 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-services.png';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Fallback services (mirrors seed.js)

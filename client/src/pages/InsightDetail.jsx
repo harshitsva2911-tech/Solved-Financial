@@ -8,8 +8,9 @@ import FooterCTA from '../components/common/FooterCTA';
 import Footer from '../components/common/Footer';
 import Navbar from '../components/common/Navbar';
 import { FALLBACK_ARTICLES } from '../data/insightsData';
+import API_BASE from '../utils/config';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 function formatDate(dateStr) {
   if (!dateStr) return '';

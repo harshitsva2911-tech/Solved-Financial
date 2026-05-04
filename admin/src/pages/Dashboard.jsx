@@ -265,7 +265,7 @@ export default function Dashboard() {
               </div>
               <div className="flex justify-between">
                 <span>API Server</span>
-                <span className="text-green-600 font-medium">localhost:5000</span>
+                <span className="text-green-600 font-medium">{process.env.REACT_APP_API_URL || 'localhost:5000'}</span>
               </div>
               <div className="flex justify-between">
                 <span>Last login</span>

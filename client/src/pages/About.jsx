@@ -15,6 +15,7 @@ import FooterCTA from '../components/common/FooterCTA';
 import PageHero from '../components/common/PageHero';
 import SectionHeader from '../components/common/SectionHeader';
 import AnimatedSection from '../components/common/AnimatedSection';
+import API_BASE from '../utils/config';
 
 const HERO_BG = 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-about.png';
 
@@ -25,7 +26,7 @@ const LinkedInIcon = ({ size = 16 }) => (
   </svg>
 );
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Static fallback data

@@ -9,8 +9,9 @@ import Footer from '../components/common/Footer';
 import FooterCTA from '../components/common/FooterCTA';
 import PageHero from '../components/common/PageHero';
 import AnimatedSection from '../components/common/AnimatedSection';
+import API_BASE from '../utils/config';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Full fallback data (matches seed.js exactly)

@@ -69,6 +69,7 @@ app.use(rateLimit({
 const allowedOrigins = [
   process.env.CLIENT_URL,
   process.env.ADMIN_URL,
+  // Local development
   'http://localhost:3000',
   'http://localhost:3001',
 ].filter(Boolean);
@@ -77,8 +78,14 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (curl, mobile, server-to-server)
     if (!origin) return callback(null, true);
-    // Allow explicitly listed origins or any Vercel preview URL
-    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+    // Allow explicitly listed origins
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow CloudFront, Vercel preview, and amazonaws.com domains
+    if (
+      origin.endsWith('.cloudfront.net') ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.amazonaws.com')
+    ) {
       return callback(null, true);
     }
     callback(new Error('Not allowed by CORS'));
@@ -121,13 +128,19 @@ app.use('/api/seed', require('./routes/seed'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
-// ─── Start (skipped on Vercel — exports app as serverless function) ───────────
+// ─── Start server ────────────────────────────────────────────────────────────
 
+// On Vercel (serverless) the app is exported and Vercel handles listening.
+// On EC2 / local, we start the HTTP server ourselves.
 if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
   connectDB().then(() => {
-    app.listen(process.env.PORT || 5000, () =>
-      console.log(`Server running on port ${process.env.PORT || 5000}`)
+    app.listen(PORT, '0.0.0.0', () =>
+      console.log(`Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`)
     );
+  }).catch((err) => {
+    console.error('Failed to connect to DB on startup:', err.message);
+    process.exit(1);
   });
 }
 

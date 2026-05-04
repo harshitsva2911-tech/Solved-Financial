@@ -9,10 +9,11 @@ import Footer from '../components/common/Footer';
 import FooterCTA from '../components/common/FooterCTA';
 import PageHero from '../components/common/PageHero';
 import AnimatedSection from '../components/common/AnimatedSection';
+import API_BASE from '../utils/config';
 
 const HERO_BG = 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-jurisdictions.png';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 const FALLBACK_JURISDICTIONS = [
   {

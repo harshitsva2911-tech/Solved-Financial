@@ -4,8 +4,9 @@ import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import PageHero from '../components/common/PageHero';
+import API_BASE from '../utils/config';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 const PAGE_CONFIG = {
   'privacy-policy': {

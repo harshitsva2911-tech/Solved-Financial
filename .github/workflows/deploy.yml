@@ -1,0 +1,130 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allow manual trigger from GitHub UI
+
+jobs:
+  # ─── 1. Deploy Client (React) → S3 + CloudFront ──────────────────────────
+  deploy-client:
+    name: Deploy Client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Build
+        working-directory: client
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          NODE_ENV: production
+          CI: false # prevent treating warnings as errors
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync client/build/ s3://${{ secrets.S3_CLIENT_BUCKET }}/ --delete --cache-control "public,max-age=31536000,immutable" --exclude "index.html"
+
+      - name: Deploy index.html (no-cache)
+        run: aws s3 cp client/build/index.html s3://${{ secrets.S3_CLIENT_BUCKET }}/index.html --cache-control "no-cache,no-store,must-revalidate"
+
+      - name: Invalidate CloudFront cache
+        if: ${{ secrets.CLOUDFRONT_CLIENT_ID != '' }}
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_CLIENT_ID }} --paths "/*"
+
+  # ─── 2. Deploy Admin (React) → S3 + CloudFront ───────────────────────────
+  deploy-admin:
+    name: Deploy Admin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: admin/package-lock.json
+
+      - name: Install dependencies
+        working-directory: admin
+        run: npm ci
+
+      - name: Build
+        working-directory: admin
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          NODE_ENV: production
+          CI: false
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync admin/build/ s3://${{ secrets.S3_ADMIN_BUCKET }}/ --delete --cache-control "public,max-age=31536000,immutable" --exclude "index.html"
+
+      - name: Deploy index.html (no-cache)
+        run: aws s3 cp admin/build/index.html s3://${{ secrets.S3_ADMIN_BUCKET }}/index.html --cache-control "no-cache,no-store,must-revalidate"
+
+      - name: Invalidate CloudFront cache
+        if: ${{ secrets.CLOUDFRONT_ADMIN_ID != '' }}
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_ADMIN_ID }} --paths "/*"
+
+  # ─── 3. Deploy Server (Node.js) → EC2 via SSH ────────────────────────────
+  deploy-server:
+    name: Deploy Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            # Navigate to app directory (adjust path if different)
+            cd /home/${{ secrets.EC2_USER }}/app
+
+            # Pull latest code
+            git pull origin main
+
+            # Install production dependencies
+            cd server
+            npm ci --omit=dev
+
+            # Reload server with PM2 (zero-downtime reload)
+            pm2 reload ecosystem.config.js --env production || pm2 start ecosystem.config.js --env production
+
+            # Save PM2 process list so it survives reboots
+            pm2 save
+
+            echo "Server deployed successfully"

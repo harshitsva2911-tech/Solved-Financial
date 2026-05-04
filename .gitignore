@@ -1,2 +1,37 @@
-server/.env
+# ─── Environment files (NEVER commit these) ───────────────────────────────────
 .env
+.env.local
+.env.production.local
+.env.development.local
+.env.test.local
+server/.env
+client/.env
+admin/.env
+
+# ─── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+client/node_modules/
+admin/node_modules/
+server/node_modules/
+
+# ─── Build output ─────────────────────────────────────────────────────────────
+client/build/
+admin/build/
+
+# ─── Uploads (local dev only — production uses S3) ────────────────────────────
+server/uploads/
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ─── Vercel artifacts ─────────────────────────────────────────────────────────
+.vercel/
+server/.vercel/
+client/.vercel/
+admin/.vercel/
+
+# ─── OS / Editor ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import API_BASE from './config';
 
-const API = axios.create({ baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api' });
+const API = axios.create({ baseURL: API_BASE });
 
 export const getArticles = (params) => API.get('/articles', { params });
 export const getArticle = (slug) => API.get(`/articles/${slug}`);

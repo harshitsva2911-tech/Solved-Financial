@@ -10,6 +10,7 @@ import PageHero from '../components/common/PageHero';
 import AnimatedSection from '../components/common/AnimatedSection';
 import FooterCTA from '../components/common/FooterCTA';
 import Footer from '../components/common/Footer';
+import API_BASE from '../utils/config';
 
 const COUNTRY_CODES = [
   { code: '+93',  flag: 'ðŸ‡¦ðŸ‡«', name: 'Afghanistan' },
@@ -186,7 +187,7 @@ const COUNTRY_CODES = [
 
 const HERO_BG = 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-contact.png';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API = API_BASE;
 
 // â”€â”€â”€ Validation schema â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
