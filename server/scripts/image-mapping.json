@@ -1,0 +1,292 @@
+{
+  "generated": "2026-05-01T11:18:52.535Z",
+  "mapping": {
+    "https://www.figma.com/api/mcp/asset/a7b22855-27e1-40fe-bf65-701d6ed9f423": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-home.png",
+    "https://www.figma.com/api/mcp/asset/0bdc64fb-c454-4e4f-9eda-20f6487dc2c3": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-about.png",
+    "https://www.figma.com/api/mcp/asset/22ee5cfe-e49a-4a80-a24c-a90129fc998e": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-contact.png",
+    "https://www.figma.com/api/mcp/asset/dcd6c064-dd6a-4323-b7dc-2ce35c3f210d": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-experience.png",
+    "https://www.figma.com/api/mcp/asset/394503d2-84ea-431f-8b1a-8897d509b507": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-industries.png",
+    "https://www.figma.com/api/mcp/asset/93599998-8187-41ce-b463-71a7eb28aa18": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-insights.png",
+    "https://www.figma.com/api/mcp/asset/afaa9639-8239-4ff7-b618-8f26a5cc58de": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-jurisdictions.png",
+    "https://www.figma.com/api/mcp/asset/b71d94ae-7262-4927-8e26-9e460f315ff3": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-services.png",
+    "https://www.figma.com/api/mcp/asset/c0d141dd-0980-4a68-bdde-6037715094ff": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/footer-cta-bg.png",
+    "https://www.figma.com/api/mcp/asset/37fa88fd-b879-44fa-8bb6-efef5879c7db": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png",
+    "https://www.figma.com/api/mcp/asset/451cb826-3d2d-4486-9c64-6d8a2d8229d4": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-2.png",
+    "https://www.figma.com/api/mcp/asset/cf009be8-0e75-451e-ad08-530200244b29": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-3.png",
+    "https://www.figma.com/api/mcp/asset/a8f71cd2-5946-4c94-a815-1b5bca2c12ad": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cfo-advisory.png",
+    "https://www.figma.com/api/mcp/asset/eb427811-735f-45b6-97e1-344e8a5f4cd1": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-finance-setup.png",
+    "https://www.figma.com/api/mcp/asset/733abf8a-fad7-4d79-9c7a-0e9eeb7e806c": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-accounting.png",
+    "https://www.figma.com/api/mcp/asset/849ddde9-0afc-4412-9b5b-c05bc718a19b": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-operations-advisory.png",
+    "https://www.figma.com/api/mcp/asset/8ca3e77d-1fa8-49af-8a8d-2e8ab15b3a3a": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-company-incorporation.png",
+    "https://www.figma.com/api/mcp/asset/f749ae56-2209-450a-bb63-a89f11268cba": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-audit-assurance.png",
+    "https://www.figma.com/api/mcp/asset/060ca6a8-dc5f-4df1-8916-d4c4f5d37c98": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cross-border-advisory.png",
+    "https://www.figma.com/api/mcp/asset/4c20d896-610c-4514-9914-f67d18e5ca29": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-financial-services.png",
+    "https://www.figma.com/api/mcp/asset/4d6ebfa2-0fb8-4732-baaa-2a0456144677": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-investment-management.png",
+    "https://www.figma.com/api/mcp/asset/42358b8d-4420-47ab-b380-76a8d0c8aa46": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-technology-fintech.png",
+    "https://www.figma.com/api/mcp/asset/511802bf-703f-4fb1-94f4-cb3c25b004b2": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-real-estate.png",
+    "https://www.figma.com/api/mcp/asset/e48d200d-9bf7-4b9e-905d-a402a6711795": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-shipping-maritime.png",
+    "https://www.figma.com/api/mcp/asset/f0489053-8e02-4c15-8922-ce5f45efb882": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-cyprus-photo.png",
+    "https://www.figma.com/api/mcp/asset/91c26ec4-adc4-494d-a295-e086b62c21e6": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-netherlands-photo.png",
+    "https://www.figma.com/api/mcp/asset/a05c1fb1-3d2f-43f5-8b1b-dc664dd33f60": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-greece-photo.png",
+    "https://www.figma.com/api/mcp/asset/054bdc3d-2f42-4812-a78d-cba568e34419": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-1.png",
+    "https://www.figma.com/api/mcp/asset/324bd48e-b95a-4fb6-8d31-2f5dd99a254b": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-2.png",
+    "https://www.figma.com/api/mcp/asset/52452a28-b309-478c-82ff-9af8074ad68a": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-3.png",
+    "https://www.figma.com/api/mcp/asset/18976f01-a671-4601-92b7-3ad6b427e17c": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-asset-manager.png",
+    "https://www.figma.com/api/mcp/asset/4a97ff9b-f97d-4b46-ab20-9af0efa130ee": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-fintech-licensing.png",
+    "https://www.figma.com/api/mcp/asset/979533b3-e5e4-411f-94a6-ae0a2cf06006": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-shipping-restructure.png",
+    "https://www.figma.com/api/mcp/asset/c8526372-9326-46ab-9994-6c062d980025": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-investment-bank.png",
+    "https://www.figma.com/api/mcp/asset/003b3fa5-5220-4d99-9dc6-fb83f3ee5372": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-1.png",
+    "https://www.figma.com/api/mcp/asset/e936f564-e5c8-4375-a7ba-d3d67ab26c41": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-2.png",
+    "https://www.figma.com/api/mcp/asset/2072c4ec-da89-4ab9-97d9-3caeed6f8cb5": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-3.png",
+    "https://www.figma.com/api/mcp/asset/cca84feb-e1b1-4be1-9d22-e94c9dd732ad": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-4.png",
+    "https://www.figma.com/api/mcp/asset/d5fdd197-8070-4407-b6cc-44f9128d0557": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-5.png",
+    "https://www.figma.com/api/mcp/asset/fe51bd3d-0959-4f62-bee1-e3fc7d7bb672": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-6.png"
+  },
+  "results": [
+    {
+      "name": "hero-home",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/a7b22855-27e1-40fe-bf65-701d6ed9f423",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-home.png",
+      "size": 3003792
+    },
+    {
+      "name": "hero-about",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/0bdc64fb-c454-4e4f-9eda-20f6487dc2c3",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-about.png",
+      "size": 2496439
+    },
+    {
+      "name": "hero-contact",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/22ee5cfe-e49a-4a80-a24c-a90129fc998e",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-contact.png",
+      "size": 2385957
+    },
+    {
+      "name": "hero-experience",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/dcd6c064-dd6a-4323-b7dc-2ce35c3f210d",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-experience.png",
+      "size": 2887740
+    },
+    {
+      "name": "hero-industries",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/394503d2-84ea-431f-8b1a-8897d509b507",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-industries.png",
+      "size": 2887740
+    },
+    {
+      "name": "hero-insights",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/93599998-8187-41ce-b463-71a7eb28aa18",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-insights.png",
+      "size": 2158214
+    },
+    {
+      "name": "hero-jurisdictions",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/afaa9639-8239-4ff7-b618-8f26a5cc58de",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-jurisdictions.png",
+      "size": 1394351
+    },
+    {
+      "name": "hero-services",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/b71d94ae-7262-4927-8e26-9e460f315ff3",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-services.png",
+      "size": 2496439
+    },
+    {
+      "name": "footer-cta-bg",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/c0d141dd-0980-4a68-bdde-6037715094ff",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/footer-cta-bg.png",
+      "size": 2562401
+    },
+    {
+      "name": "team-photo-1",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/37fa88fd-b879-44fa-8bb6-efef5879c7db",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png",
+      "size": 2507913
+    },
+    {
+      "name": "team-photo-2",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/451cb826-3d2d-4486-9c64-6d8a2d8229d4",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-2.png",
+      "size": 1986801
+    },
+    {
+      "name": "team-photo-3",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/cf009be8-0e75-451e-ad08-530200244b29",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-3.png",
+      "size": 2549417
+    },
+    {
+      "name": "service-cfo-advisory",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/a8f71cd2-5946-4c94-a815-1b5bca2c12ad",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cfo-advisory.png",
+      "size": 1768797
+    },
+    {
+      "name": "service-finance-setup",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/eb427811-735f-45b6-97e1-344e8a5f4cd1",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-finance-setup.png",
+      "size": 1305373
+    },
+    {
+      "name": "service-accounting",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/733abf8a-fad7-4d79-9c7a-0e9eeb7e806c",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-accounting.png",
+      "size": 1026261
+    },
+    {
+      "name": "service-operations-advisory",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/849ddde9-0afc-4412-9b5b-c05bc718a19b",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-operations-advisory.png",
+      "size": 1906058
+    },
+    {
+      "name": "service-company-incorporation",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/8ca3e77d-1fa8-49af-8a8d-2e8ab15b3a3a",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-company-incorporation.png",
+      "size": 1026261
+    },
+    {
+      "name": "service-audit-assurance",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/f749ae56-2209-450a-bb63-a89f11268cba",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-audit-assurance.png",
+      "size": 1906058
+    },
+    {
+      "name": "service-cross-border-advisory",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/060ca6a8-dc5f-4df1-8916-d4c4f5d37c98",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cross-border-advisory.png",
+      "size": 1906058
+    },
+    {
+      "name": "industry-financial-services",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/4c20d896-610c-4514-9914-f67d18e5ca29",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-financial-services.png",
+      "size": 3812700
+    },
+    {
+      "name": "industry-investment-management",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/4d6ebfa2-0fb8-4732-baaa-2a0456144677",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-investment-management.png",
+      "size": 4038697
+    },
+    {
+      "name": "industry-technology-fintech",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/42358b8d-4420-47ab-b380-76a8d0c8aa46",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-technology-fintech.png",
+      "size": 4231981
+    },
+    {
+      "name": "industry-real-estate",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/511802bf-703f-4fb1-94f4-cb3c25b004b2",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-real-estate.png",
+      "size": 4194054
+    },
+    {
+      "name": "industry-shipping-maritime",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/e48d200d-9bf7-4b9e-905d-a402a6711795",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-shipping-maritime.png",
+      "size": 2540379
+    },
+    {
+      "name": "jurisdiction-cyprus-photo",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/f0489053-8e02-4c15-8922-ce5f45efb882",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-cyprus-photo.png",
+      "size": 212293
+    },
+    {
+      "name": "jurisdiction-netherlands-photo",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/91c26ec4-adc4-494d-a295-e086b62c21e6",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-netherlands-photo.png",
+      "size": 2384208
+    },
+    {
+      "name": "jurisdiction-greece-photo",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/a05c1fb1-3d2f-43f5-8b1b-dc664dd33f60",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-greece-photo.png",
+      "size": 10651197
+    },
+    {
+      "name": "jurisdiction-detail-photo-1",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/054bdc3d-2f42-4812-a78d-cba568e34419",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-1.png",
+      "size": 5017939
+    },
+    {
+      "name": "jurisdiction-detail-photo-2",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/324bd48e-b95a-4fb6-8d31-2f5dd99a254b",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-2.png",
+      "size": 1397631
+    },
+    {
+      "name": "jurisdiction-detail-photo-3",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/52452a28-b309-478c-82ff-9af8074ad68a",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-3.png",
+      "size": 1637580
+    },
+    {
+      "name": "case-study-asset-manager",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/18976f01-a671-4601-92b7-3ad6b427e17c",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-asset-manager.png",
+      "size": 4270766
+    },
+    {
+      "name": "case-study-fintech-licensing",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/4a97ff9b-f97d-4b46-ab20-9af0efa130ee",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-fintech-licensing.png",
+      "size": 2705825
+    },
+    {
+      "name": "case-study-shipping-restructure",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/979533b3-e5e4-411f-94a6-ae0a2cf06006",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-shipping-restructure.png",
+      "size": 3011351
+    },
+    {
+      "name": "case-study-investment-bank",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/c8526372-9326-46ab-9994-6c062d980025",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-investment-bank.png",
+      "size": 3001735
+    },
+    {
+      "name": "insight-article-1",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/003b3fa5-5220-4d99-9dc6-fb83f3ee5372",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-1.png",
+      "size": 2232721
+    },
+    {
+      "name": "insight-article-2",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/e936f564-e5c8-4375-a7ba-d3d67ab26c41",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-2.png",
+      "size": 1798488
+    },
+    {
+      "name": "insight-article-3",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/2072c4ec-da89-4ab9-97d9-3caeed6f8cb5",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-3.png",
+      "size": 2465420
+    },
+    {
+      "name": "insight-article-4",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/cca84feb-e1b1-4be1-9d22-e94c9dd732ad",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-4.png",
+      "size": 2211935
+    },
+    {
+      "name": "insight-article-5",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/d5fdd197-8070-4407-b6cc-44f9128d0557",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-5.png",
+      "size": 3052165
+    },
+    {
+      "name": "insight-article-6",
+      "sourceUrl": "https://www.figma.com/api/mcp/asset/fe51bd3d-0959-4f62-bee1-e3fc7d7bb672",
+      "s3Url": "https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-6.png",
+      "size": 2203606
+    },
+    {
+      "name": "world-map",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png",
+      "error": "HTTP 400 for https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"
+    }
+  ]
+}
