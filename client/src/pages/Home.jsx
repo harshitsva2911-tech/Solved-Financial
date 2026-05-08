@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, TrendingUp } from 'lucide-react';
+import axios from 'axios';
+import API_BASE from '../utils/config';
 
 import HeroSection from '../components/home/HeroSection';
 import LogoStrip from '../components/home/LogoStrip';
@@ -17,7 +19,7 @@ import Footer from '../components/common/Footer';
    Mid-page CTA Section
    Dark navy background, financial empowerment copy, gold Get Started CTA
 ------------------------------------------------------------------ */
-function MidCTA() {
+function MidCTA({ ctaTitle }) {
   return (
     <section className="relative py-24 overflow-hidden bg-midnight">
       {/* Subtle grid texture */}
@@ -69,17 +71,23 @@ function MidCTA() {
 
           {/* Headline */}
           <h2 className="font-urbanist text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-            Empowering Your Business with{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #D4B684 0%, #E8D4A8 50%, #B89A60 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Financial Clarity
-            </span>
+            {ctaTitle ? (
+              ctaTitle
+            ) : (
+              <>
+                Empowering Your Business with{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #D4B684 0%, #E8D4A8 50%, #B89A60 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  Financial Clarity
+                </span>
+              </>
+            )}
           </h2>
 
           {/* Body text */}
@@ -124,6 +132,18 @@ function MidCTA() {
    Home Page
 ------------------------------------------------------------------ */
 export default function Home() {
+  const [ctaTitle, setCtaTitle] = useState('');
+
+  useEffect(() => {
+    axios
+      .get(`${API_BASE}/settings`)
+      .then((res) => {
+        const data = res.data.settings ?? res.data ?? {};
+        setCtaTitle(data.ctaTitle || '');
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -144,7 +164,7 @@ export default function Home() {
       <InternationalPresence />
 
       {/* 6. Mid-page financial empowerment CTA */}
-      <MidCTA />
+      <MidCTA ctaTitle={ctaTitle} />
 
       {/* 7. Featured articles */}
       <FeaturedArticles />

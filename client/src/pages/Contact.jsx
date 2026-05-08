@@ -428,11 +428,11 @@ export default function Contact() {
                       <Label htmlFor="phone" required>Phone Number</Label>
                       <div className={`flex rounded-sm overflow-hidden border ${errors.phone ? 'border-red-400' : 'border-gray-200 hover:border-gray-300'} transition-all duration-200 focus-within:ring-2 focus-within:ring-gold focus-within:border-gold`}>
                         {/* Country code dropdown */}
-                        <div className="relative flex-shrink-0 border-r border-gray-200 bg-gray-50">
+                        <div className="relative flex-shrink-0 border-r border-gray-200 bg-gray-50" style={{ width: '112px' }}>
                           <select
                             value={countryCode}
                             onChange={(e) => setCountryCode(e.target.value)}
-                            className="appearance-none h-full pl-3 pr-7 bg-transparent text-midnight text-sm font-medium focus:outline-none cursor-pointer"
+                            className="appearance-none w-full h-full pl-3 pr-7 bg-transparent text-midnight text-sm font-medium focus:outline-none cursor-pointer"
                             aria-label="Country code"
                           >
                             {COUNTRY_CODES.map((c) => (

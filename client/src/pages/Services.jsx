@@ -150,6 +150,22 @@ function ServiceTabs({ services, activeSlug }) {
     window.scrollTo({ top, behavior: 'smooth' });
   }, []);
 
+  // Auto-scroll the tab bar so the active tab is always visible
+  useEffect(() => {
+    if (!tabsRef.current || !activeSlug) return;
+    const container = tabsRef.current;
+    const activeBtn = container.querySelector(`[data-slug="${activeSlug}"]`);
+    if (!activeBtn) return;
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    const scrollLeft =
+      container.scrollLeft +
+      (btnRect.left - containerRect.left) -
+      containerRect.width / 2 +
+      btnRect.width / 2;
+    container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+  }, [activeSlug]);
+
   return (
     <div
       className="sticky top-[80px] z-30 bg-white border-b border-gray-200 shadow-sm"
@@ -168,6 +184,7 @@ function ServiceTabs({ services, activeSlug }) {
               key={service.slug}
               role="tab"
               aria-selected={isActive}
+              data-slug={service.slug}
               onClick={() => scrollToService(service.slug)}
               className={`relative flex-shrink-0 px-4 py-4 text-sm font-medium tracking-wide transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold whitespace-nowrap
                 ${isActive ? 'text-gold' : 'text-gray-500 hover:text-midnight'}`}

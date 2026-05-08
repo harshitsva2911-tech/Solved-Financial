@@ -112,6 +112,7 @@ function RelatedArticleCard({ article }) {
 export default function InsightDetail() {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
+  const [allArticles, setAllArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -121,24 +122,36 @@ export default function InsightDetail() {
     setError(null);
     setArticle(null);
 
-    axios
-      .get(`${API}/articles/${slug}`)
-      .then((res) => {
-        if (!cancelled) setArticle(res.data.article ?? res.data);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          const fallback = FALLBACK_ARTICLES.find((a) => a.slug === slug);
-          if (fallback) {
-            setArticle(fallback);
-          } else {
-            setError('This article could not be loaded. Please try again later.');
-          }
+    // Fetch the current article and all articles in parallel
+    Promise.allSettled([
+      axios.get(`${API}/articles/${slug}`),
+      axios.get(`${API}/articles`),
+    ]).then(([articleRes, allRes]) => {
+      if (cancelled) return;
+
+      // Handle current article
+      if (articleRes.status === 'fulfilled') {
+        setArticle(articleRes.value.data.article ?? articleRes.value.data);
+      } else {
+        const fallback = FALLBACK_ARTICLES.find((a) => a.slug === slug);
+        if (fallback) {
+          setArticle(fallback);
+        } else {
+          setError('This article could not be loaded. Please try again later.');
         }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+      }
+
+      // Handle all articles for related section
+      if (allRes.status === 'fulfilled') {
+        const data = allRes.value.data;
+        const list = Array.isArray(data) ? data : data?.articles ?? data?.data ?? [];
+        setAllArticles(list);
+      } else {
+        setAllArticles(FALLBACK_ARTICLES);
+      }
+    }).finally(() => {
+      if (!cancelled) setLoading(false);
+    });
 
     return () => { cancelled = true; };
   }, [slug]);
@@ -176,8 +189,27 @@ export default function InsightDetail() {
     );
   }
 
-  const related = article.relatedArticles ?? article.related ?? [];
+  // Build related articles: same category, excluding current article, up to 4
   const breadcrumbCategory = article.category ?? 'Insights';
+  const related = (() => {
+    const pool = allArticles.length ? allArticles : FALLBACK_ARTICLES;
+    const sameCat = pool.filter(
+      (a) =>
+        (a.slug || a._id) !== (article.slug || article._id) &&
+        a.published !== false &&
+        article.category &&
+        a.category?.toLowerCase() === article.category?.toLowerCase()
+    );
+    // If not enough same-category articles, pad with other recent articles
+    if (sameCat.length >= 4) return sameCat.slice(0, 4);
+    const others = pool.filter(
+      (a) =>
+        (a.slug || a._id) !== (article.slug || article._id) &&
+        a.published !== false &&
+        !sameCat.includes(a)
+    );
+    return [...sameCat, ...others].slice(0, 4);
+  })();
 
   return (
     <main className="bg-cream min-h-screen">

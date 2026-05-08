@@ -221,7 +221,7 @@ export default function ServicesCarousel() {
               className="services-swiper pb-12"
             >
               {services.map((service, i) => (
-                <SwiperSlide key={service._id || service.id || i} className="h-auto">
+                <SwiperSlide key={service._id || service.id || i} style={{ height: 'auto', display: 'flex', flexDirection: 'column' }}>
                   <ServiceCard service={service} index={i} />
                 </SwiperSlide>
               ))}
@@ -232,6 +232,15 @@ export default function ServicesCarousel() {
 
       {/* Swiper custom styles */}
       <style>{`
+        .services-swiper .swiper-wrapper {
+          align-items: stretch;
+        }
+        .services-swiper .swiper-slide {
+          height: auto !important;
+        }
+        .services-swiper .swiper-slide > a {
+          height: 100%;
+        }
         .services-swiper .swiper-pagination {
           bottom: 0;
           display: flex;

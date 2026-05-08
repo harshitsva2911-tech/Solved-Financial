@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, TrendingUp, Shield, Globe } from 'lucide-react';
+import axios from 'axios';
+import API_BASE from '../../utils/config';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -26,7 +28,69 @@ const pillData = [
   { icon: Globe, label: 'International Expansion' },
 ];
 
+const DEFAULTS = {
+  heroTitle: 'Strategic Financial Leadership for Ambitious Enterprises',
+  heroSubtitle:
+    'Board-level advisory, financial structuring, and international expansion services for scale-ups, start-ups, and established enterprises.',
+};
+
 export default function HeroSection() {
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${API_BASE}/settings`)
+      .then((res) => setSettings(res.data.settings ?? res.data))
+      .catch(() => { /* silently use defaults */ });
+  }, []);
+
+  const heroTitle = settings?.heroTitle || DEFAULTS.heroTitle;
+  const heroSubtitle = settings?.heroSubtitle || DEFAULTS.heroSubtitle;
+
+  // Split the heroTitle to apply gradient on last word(s) — find where "Leadership" or last natural break is
+  // Use the full title as-is but highlight a portion with gold gradient
+  const renderTitle = () => {
+    // If title matches default, render with gold on "Leadership"
+    const idx = heroTitle.indexOf('Leadership');
+    if (idx !== -1) {
+      return (
+        <>
+          {heroTitle.slice(0, idx)}
+          <span
+            className="relative"
+            style={{
+              background: 'linear-gradient(135deg, #D4B684 0%, #E8D4A8 50%, #B89A60 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            Leadership
+          </span>
+          {heroTitle.slice(idx + 'Leadership'.length)}
+        </>
+      );
+    }
+    // For custom titles: highlight the last word with gold
+    const words = heroTitle.trim().split(' ');
+    const lastWord = words.pop();
+    return (
+      <>
+        {words.join(' ')}{' '}
+        <span
+          style={{
+            background: 'linear-gradient(135deg, #D4B684 0%, #E8D4A8 50%, #B89A60 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
+          {lastWord}
+        </span>
+      </>
+    );
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-midnight">
       {/* Background image with overlay */}
@@ -107,19 +171,7 @@ export default function HeroSection() {
             animate="visible"
             className="font-urbanist text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-6"
           >
-            Strategic Financial{' '}
-            <span
-              className="relative"
-              style={{
-                background: 'linear-gradient(135deg, #D4B684 0%, #E8D4A8 50%, #B89A60 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Leadership
-            </span>{' '}
-            for Ambitious Enterprises
+            {renderTitle()}
           </motion.h1>
 
           {/* Subtitle */}
@@ -130,8 +182,7 @@ export default function HeroSection() {
             animate="visible"
             className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-10 max-w-2xl"
           >
-            Board-level advisory, financial structuring, and international expansion services
-            for scale-ups, start-ups, and established enterprises.
+            {heroSubtitle}
           </motion.p>
 
           {/* CTA Buttons */}

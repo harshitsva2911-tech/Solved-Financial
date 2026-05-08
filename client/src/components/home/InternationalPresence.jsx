@@ -131,7 +131,23 @@ export default function InternationalPresence() {
     getJurisdictions()
       .then((res) => {
         const data = Array.isArray(res.data) ? res.data : res.data?.jurisdictions || [];
-        setJurisdictions(data.length ? data : FALLBACK_JURISDICTIONS);
+        if (data.length) {
+          // Merge API data with fallback descriptions for any missing fields
+          const merged = data.map((j) => {
+            const fallback = FALLBACK_JURISDICTIONS.find(
+              (f) => f.country?.toLowerCase() === j.country?.toLowerCase() || f.slug === j.slug
+            );
+            return {
+              ...j,
+              description: j.description || fallback?.description || '',
+              flagUrl: j.flagUrl || j.imageUrl || fallback?.flagUrl || '',
+              flagEmoji: j.flagEmoji || fallback?.flagEmoji || '',
+            };
+          });
+          setJurisdictions(merged);
+        } else {
+          setJurisdictions(FALLBACK_JURISDICTIONS);
+        }
       })
       .catch(() => {
         setJurisdictions(FALLBACK_JURISDICTIONS);

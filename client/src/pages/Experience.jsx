@@ -22,7 +22,7 @@ const STATIC_CASE_STUDIES = [
     title: 'Regulatory Restructuring for a Pan-European Asset Manager',
     subtitle: 'Transforming compliance complexity into strategic advantage',
     situation:
-      'A mid-sized asset manager with AUM of â‚¬2.3bn faced increasingly fragmented regulatory obligations across three EU jurisdictions. Disparate compliance teams, duplicated processes, and escalating regulatory costs were impeding growth and attracting supervisory scrutiny.',
+      'A mid-sized asset manager with AUM of €2.3bn faced increasingly fragmented regulatory obligations across three EU jurisdictions. Disparate compliance teams, duplicated processes, and escalating regulatory costs were impeding growth and attracting supervisory scrutiny.',
     approach:
       'We conducted a full regulatory gap analysis and designed a unified compliance framework leveraging Cyprus as a passporting hub. By consolidating licensing under a single CySEC authorisation and implementing a shared-services compliance model, we reduced operational duplication while maintaining full local regulatory coverage.',
     outcomes: [
@@ -58,7 +58,7 @@ const STATIC_CASE_STUDIES = [
     approach:
       'Our team performed a comprehensive structural audit and redesigned the holding architecture using a Cyprus-based intermediate holding company, supported by a Limassol ship management entity. We coordinated with tax counsel across three jurisdictions to model and implement the optimal structure.',
     outcomes: [
-      'Estimated annual tax savings of â‚¬1.8m through tonnage tax optimisation',
+      'Estimated annual tax savings of €1.8m through tonnage tax optimisation',
       'Clear inheritance structure established for third-generation succession',
       'New investor admitted with ring-fenced liability at vessel-level SPVs',
       'Full regulatory compliance maintained throughout restructure',
@@ -88,21 +88,21 @@ const STATIC_CASE_STUDIES = [
 const JURISDICTIONS = [
   {
     country: 'Cyprus',
-    flag: 'ðŸ‡¨ðŸ‡¾',
+    flag: '🇨🇾',
     description:
       'Our primary hub for EU financial services, offering CySEC regulatory expertise and access to EU passporting rights.',
     highlights: ['CySEC licensed advisory', 'EU passporting', 'Holding company structures'],
   },
   {
     country: 'Netherlands',
-    flag: 'ðŸ‡³ðŸ‡±',
+    flag: '🇳🇱',
     description:
       'A gateway to Northern European markets with AFM/DNB regulatory coverage and extensive double-tax treaty networks.',
     highlights: ['AFM & DNB regulated', 'Extensive treaty network', 'Fund domiciliation'],
   },
   {
     country: 'Greece',
-    flag: 'ðŸ‡¬ðŸ‡·',
+    flag: '🇬🇷',
     description:
       'Strategic presence supporting Hellenic market entry, HCMC compliance, and investment opportunities in SE Europe.',
     highlights: ['HCMC compliance', 'SE Europe market access', 'Investment incentives'],
