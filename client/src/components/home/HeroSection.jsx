@@ -92,13 +92,14 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-midnight">
+    <section className="relative min-h-[100svh] min-h-screen flex items-center overflow-hidden bg-midnight">
       {/* Background image with overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-no-repeat"
         style={{
           backgroundImage:
             "url('https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-home.png')",
+          backgroundPosition: 'center 20%',
         }}
       />
       {/* Multi-layer dark overlay */}
@@ -147,7 +148,7 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-24 pt-36">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-20 pt-28 sm:py-24 sm:pt-36">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <motion.div

@@ -65,6 +65,7 @@ const placeholderGradients = [
 ];
 
 function ServiceCard({ service, index }) {
+  const [imgError, setImgError] = React.useState(false);
   return (
     <Link
       to={`/services#${service.slug}`}
@@ -72,10 +73,11 @@ function ServiceCard({ service, index }) {
     >
       {/* Image / Placeholder */}
       <div className="relative h-44 overflow-hidden flex-shrink-0">
-        {service.image ? (
+        {service.image && !imgError ? (
           <img
             src={service.image}
             alt={service.title}
+            onError={() => setImgError(true)}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -154,7 +156,7 @@ export default function ServicesCarousel() {
 
   return (
     <section className="py-20 bg-cream overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -181,16 +183,16 @@ export default function ServicesCarousel() {
           </Link>
         </motion.div>
 
-        {/* Custom navigation buttons */}
+        {/* Custom navigation buttons — hidden on mobile, visible on md+ */}
         <div className="relative">
           <button
-            className="swiper-prev-services absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
+            className="swiper-prev-services hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
             aria-label="Previous"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
-            className="swiper-next-services absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md flex items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
+            className="swiper-next-services hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
             aria-label="Next"
           >
             <ChevronRight className="w-5 h-5" />

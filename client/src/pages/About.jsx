@@ -38,7 +38,7 @@ const FALLBACK_TEAM = [
     role: 'Founder & Managing Partner',
     bio: 'Alice brings over 20 years of senior financial leadership across European jurisdictions, guiding ambitious enterprises through growth, restructuring, and cross-border expansion.',
     linkedin: 'https://linkedin.com',
-    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-2.png',
+    image: null,
   },
 ];
 
@@ -310,10 +310,10 @@ export default function About() {
       {/* 3. Team photos row */}
       <section className="py-14 bg-cream overflow-hidden" aria-label="Team gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png', wide: false },
-              { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-2.png', wide: true },
+              { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png', wide: true },
               { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-3.png', wide: false },
             ].map((photo, i) => (
               <AnimatedSection key={i} delay={i * 0.08} className={`${photo.wide ? 'col-span-1' : 'col-span-1'} aspect-square rounded-lg overflow-hidden`}>
@@ -416,10 +416,10 @@ export default function About() {
       {/* 6. Gallery row */}
       <section className="py-8 bg-cream overflow-hidden" aria-label="Office gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png',
-              'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-2.png',
+              'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png',
               'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-3.png',
             ].map((src, i) => (
               <AnimatedSection

@@ -35,7 +35,7 @@ function formatDate(dateStr) {
 function FeaturedSkeletonLeft() {
   return (
     <div className="animate-pulse flex flex-col gap-4">
-      <div className="w-full h-[572px] bg-gray-200 rounded" />
+      <div className="w-full h-[300px] sm:h-[572px] bg-gray-200 rounded" />
       <div className="h-5 bg-gray-200 rounded w-1/3" />
       <div className="h-8 bg-gray-200 rounded w-4/5" />
       <div className="h-8 bg-gray-200 rounded w-3/5" />
@@ -79,17 +79,19 @@ function ArticleCardSkeleton() {
 // â”€â”€â”€ Large Featured Card (left side) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function FeaturedLargeCard({ article }) {
+  const [imgError, setImgError] = useState(false);
   return (
     <Link
       to={`/insights/${article.slug}`}
       className="group block relative overflow-hidden rounded"
       aria-label={article.title}
     >
-      <div className="relative h-[572px] overflow-hidden bg-midnight">
-        {article.image ? (
+      <div className="relative h-[300px] sm:h-[572px] overflow-hidden bg-midnight">
+        {article.image && !imgError ? (
           <img
             src={article.image}
             alt={article.title}
+            onError={() => setImgError(true)}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
@@ -135,6 +137,7 @@ function FeaturedLargeCard({ article }) {
 // â”€â”€â”€ Small Featured Card (right stack) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function FeaturedSmallCard({ article }) {
+  const [imgError, setImgError] = useState(false);
   return (
     <Link
       to={`/insights/${article.slug}`}
@@ -142,10 +145,11 @@ function FeaturedSmallCard({ article }) {
       aria-label={article.title}
     >
       <div className="flex-shrink-0 w-[120px] h-[65px] overflow-hidden rounded bg-midnight">
-        {article.image ? (
+        {article.image && !imgError ? (
           <img
             src={article.image}
             alt={article.title}
+            onError={() => setImgError(true)}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -175,6 +179,7 @@ function FeaturedSmallCard({ article }) {
 // â”€â”€â”€ Browse Article Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function ArticleCard({ article }) {
+  const [imgError, setImgError] = useState(false);
   return (
     <AnimatedSection>
       <Link
@@ -183,10 +188,11 @@ function ArticleCard({ article }) {
         aria-label={article.title}
       >
         <div className="relative h-48 overflow-hidden bg-midnight flex-shrink-0">
-          {article.image ? (
+          {article.image && !imgError ? (
             <img
               src={article.image}
               alt={article.title}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (

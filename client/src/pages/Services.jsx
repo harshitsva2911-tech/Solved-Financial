@@ -211,6 +211,7 @@ function ServiceTabs({ services, activeSlug }) {
 function ServiceSection({ service, index }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.15, once: true });
+  const [imgError, setImgError] = useState(false);
   const isEven = index % 2 === 0; // even: image right, odd: image left
 
   const gradient = SERVICE_GRADIENTS[index % SERVICE_GRADIENTS.length];
@@ -263,10 +264,11 @@ function ServiceSection({ service, index }) {
       className="relative w-full h-72 lg:h-full min-h-[320px] rounded-lg overflow-hidden"
       aria-hidden="true"
     >
-      {service.image ? (
+      {service.image && !imgError ? (
         <img
           src={service.image}
           alt={service.title}
+          onError={() => setImgError(true)}
           className="w-full h-full object-cover"
         />
       ) : (

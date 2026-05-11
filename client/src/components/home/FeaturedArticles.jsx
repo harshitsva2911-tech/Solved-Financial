@@ -112,6 +112,7 @@ function SmallSkeleton() {
 
 /* ---- Main Featured Article Card ---- */
 function MainArticleCard({ article }) {
+  const [imgError, setImgError] = React.useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -125,10 +126,11 @@ function MainArticleCard({ article }) {
       >
         {/* Image */}
         <div className="relative h-72 sm:h-80 overflow-hidden bg-gray-100">
-          {article.image ? (
+          {article.image && !imgError ? (
             <img
               src={article.image}
               alt={article.title}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
@@ -181,6 +183,7 @@ function MainArticleCard({ article }) {
 
 /* ---- Small Article Card ---- */
 function SmallArticleCard({ article, index }) {
+  const [imgError, setImgError] = React.useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -194,10 +197,11 @@ function SmallArticleCard({ article, index }) {
       >
         {/* Thumbnail */}
         <div className="w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-          {article.image ? (
+          {article.image && !imgError ? (
             <img
               src={article.image}
               alt={article.title}
+              onError={() => setImgError(true)}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
           ) : (
@@ -261,7 +265,7 @@ export default function FeaturedArticles() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

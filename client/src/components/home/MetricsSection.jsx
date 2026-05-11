@@ -55,7 +55,7 @@ function MetricCard({ metric, index, shouldCount }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="relative flex flex-col items-center text-center p-8 group"
+      className="relative flex flex-col items-center text-center p-5 sm:p-8 group"
     >
       {/* Vertical divider (except last) */}
       {index < 3 && (
@@ -65,7 +65,7 @@ function MetricCard({ metric, index, shouldCount }) {
       {/* Value */}
       <div className="mb-3">
         <span
-          className="text-5xl lg:text-6xl font-bold tabular-nums"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold tabular-nums"
           style={{
             background: 'linear-gradient(135deg, #D4B684 0%, #B89A60 100%)',
             WebkitBackgroundClip: 'text',
@@ -87,7 +87,7 @@ function MetricCard({ metric, index, shouldCount }) {
           )}
         </span>
         <span
-          className="text-4xl lg:text-5xl font-bold"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold"
           style={{
             background: 'linear-gradient(135deg, #D4B684 0%, #B89A60 100%)',
             WebkitBackgroundClip: 'text',
@@ -143,7 +143,7 @@ export default function MetricsSection() {
 
   return (
     <section ref={ref} className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

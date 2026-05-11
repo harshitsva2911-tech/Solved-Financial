@@ -11,12 +11,14 @@ const TeamMember = require('../models/TeamMember');
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
 
+const S3 = 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website';
+
 const ARTICLES = [
   {
     slug: 'navigating-cross-border-tax-structures',
     title: 'Navigating Cross-Border Tax Structures in the Post-BEPS Era',
     excerpt: 'How multinational enterprises can build resilient, compliant tax structures in a rapidly evolving international regulatory landscape.',
-    image: 'https://www.figma.com/api/mcp/asset/003b3fa5-5220-4d99-9dc6-fb83f3ee5372',
+    image: `${S3}/insight-article-1.png`,
     publishedAt: new Date('2026-03-18'),
     category: 'Regulatory',
     author: 'Solved Financial Services',
@@ -28,7 +30,7 @@ const ARTICLES = [
     slug: 'cfo-role-scale-ups',
     title: 'The Evolving CFO Role in High-Growth Scale-Ups',
     excerpt: 'Why ambitious scale-ups need strategic financial leadership from day one — and how to structure it.',
-    image: 'https://www.figma.com/api/mcp/asset/e936f564-e5c8-4375-a7ba-d3d67ab26c41',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-2.png',
     publishedAt: new Date('2026-03-16'),
     category: 'Strategy',
     author: 'Solved Financial Services',
@@ -40,7 +42,7 @@ const ARTICLES = [
     slug: 'cyprus-holding-structures',
     title: 'Cyprus Holding Structures: A Current Outlook',
     excerpt: 'Key regulatory and tax developments affecting Cyprus-based international holding companies.',
-    image: 'https://www.figma.com/api/mcp/asset/2072c4ec-da89-4ab9-97d9-3caeed6f8cb5',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-3.png',
     publishedAt: new Date('2026-03-15'),
     category: 'Regulatory',
     author: 'Solved Financial Services',
@@ -52,7 +54,7 @@ const ARTICLES = [
     slug: 'financial-readiness-series-a',
     title: 'Financial Readiness Before Your Series A Round',
     excerpt: 'The financial housekeeping, KPIs, and documentation investors will scrutinise before committing.',
-    image: 'https://www.figma.com/api/mcp/asset/cca84feb-e1b1-4be1-9d22-e94c9dd732ad',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-4.png',
     publishedAt: new Date('2026-03-12'),
     category: 'Strategy',
     author: 'Solved Financial Services',
@@ -64,7 +66,7 @@ const ARTICLES = [
     slug: 'netherlands-holding-gateway',
     title: "Why the Netherlands Remains Europe's Top Holding Gateway",
     excerpt: 'An in-depth look at participation exemption, treaty networks, and substance requirements.',
-    image: 'https://www.figma.com/api/mcp/asset/d5fdd197-8070-4407-b6cc-44f9128d0557',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-5.png',
     publishedAt: new Date('2026-03-10'),
     category: 'Markets',
     author: 'Solved Financial Services',
@@ -76,7 +78,7 @@ const ARTICLES = [
     slug: 'greece-non-dom-regime',
     title: "Greece's Non-Dom Tax Regime: What High-Net-Worth Individuals Need to Know",
     excerpt: 'A practical guide to the Greek non-domicile programme and its implications for international investors.',
-    image: 'https://www.figma.com/api/mcp/asset/fe51bd3d-0959-4f62-bee1-e3fc7d7bb672',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-6.png',
     publishedAt: new Date('2026-03-08'),
     category: 'Regulatory',
     author: 'Solved Financial Services',
@@ -88,7 +90,7 @@ const ARTICLES = [
     slug: 'transfer-pricing-european-smes',
     title: 'Transfer Pricing Essentials for European SMEs',
     excerpt: 'How smaller businesses can establish defensible transfer pricing policies without enterprise-level compliance costs.',
-    image: 'https://www.figma.com/api/mcp/asset/003b3fa5-5220-4d99-9dc6-fb83f3ee5372',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-1.png',
     publishedAt: new Date('2026-03-05'),
     category: 'Strategy',
     author: 'Solved Financial Services',
@@ -100,7 +102,7 @@ const ARTICLES = [
     slug: 'fintech-licensing-eu-landscape',
     title: 'The EU Fintech Licensing Landscape in 2026',
     excerpt: 'A comprehensive review of payment institution and e-money licensing options across key EU jurisdictions.',
-    image: 'https://www.figma.com/api/mcp/asset/e936f564-e5c8-4375-a7ba-d3d67ab26c41',
+    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/insight-article-2.png',
     publishedAt: new Date('2026-03-01'),
     category: 'Technology',
     author: 'Solved Financial Services',
@@ -111,33 +113,33 @@ const ARTICLES = [
 ];
 
 const SERVICES = [
-  { title: 'CFO & Strategic Advisory', slug: 'cfo-strategic-advisory', excerpt: 'Solved Financial Services provides CFO-level expertise to founders, management teams, and boards requiring senior financial leadership, strategic insight, and decision-making support.', description: 'Solved Financial Services provides CFO-level expertise to founders, management teams, and boards requiring senior financial leadership, strategic insight, and decision-making support. We act as your trusted financial co-pilot — bridging the gap between strategy and execution.', features: ['Strategic financial planning', 'Board-level reporting', 'Investor relations support', 'KPI frameworks & dashboards', 'Business model optimisation'], image: 'https://www.figma.com/api/mcp/asset/a8f71cd2-5946-4c94-a815-1b5bca2c12ad', order: 1, active: true },
-  { title: 'Finance Setup & Structuring', slug: 'finance-setup-structuring', excerpt: 'We design and implement structured financial ecosystems that support sustainable growth. From establishing a new finance function to restructuring an existing one.', description: 'We design and implement structured financial ecosystems that support sustainable growth. From establishing a new finance function to restructuring an existing one, we provide the framework for high-performance financial management.', features: ['Chart of accounts setup', 'Financial process design', 'Accounting system implementation', 'Reporting infrastructure', 'Financial controls framework'], image: 'https://www.figma.com/api/mcp/asset/eb427811-735f-45b6-97e1-344e8a5f4cd1', order: 2, active: true },
-  { title: 'Accounting & Financial Administration', slug: 'accounting-financial-administration', excerpt: 'Solved Financial Services delivers structured, compliant, and transparent financial administration tailored to the operational and regulatory needs of growing organisations.', description: 'Solved Financial Services delivers structured, compliant, and transparent financial administration tailored to the operational and regulatory needs of growing organisations. Our team handles the full spectrum of bookkeeping, reconciliations, payroll support, and financial reporting.', features: ['Bookkeeping & reconciliations', 'VAT filing & compliance', 'Financial statements preparation', 'Payroll administration support', 'Multi-currency accounting'], image: 'https://www.figma.com/api/mcp/asset/733abf8a-fad7-4d79-9c7a-0e9eeb7e806c', order: 3, active: true },
-  { title: 'Operations & Performance Advisory', slug: 'operations-performance-advisory', excerpt: 'We help leadership teams understand the financial drivers behind their operations, linking financial data to operational KPIs to support better decision-making.', description: 'We help leadership teams understand the financial drivers behind their operations. By linking financial data to operational KPIs, we support better decision-making and performance improvement across the business.', features: ['Cost optimisation strategies', 'Supply chain financial analysis', 'Performance management systems', 'Operational budgeting', 'Variance analysis & reporting'], image: 'https://www.figma.com/api/mcp/asset/849ddde9-0afc-4412-9b5b-c05bc718a19b', order: 4, active: true },
-  { title: 'Company Incorporation', slug: 'company-incorporation', excerpt: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece.', description: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece. We manage the full incorporation process, including nominee services, regulatory filings, and post-incorporation setup.', features: ['Jurisdiction selection advice', 'Full incorporation process', 'Nominee director services', 'Bank account opening support', 'Post-incorporation compliance'], image: 'https://www.figma.com/api/mcp/asset/8ca3e77d-1fa8-49af-8a8d-2e8ab15b3a3a', order: 5, active: true },
-  { title: 'Audit & Assurance', slug: 'audit-assurance', excerpt: 'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements.', description: 'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.', features: ['Statutory audit coordination', 'Financial due diligence', 'Internal audit support', 'Regulatory compliance review', 'Audit readiness preparation'], image: 'https://www.figma.com/api/mcp/asset/f749ae56-2209-450a-bb63-a89f11268cba', order: 6, active: true },
-  { title: 'Cross-Border & International Advisory', slug: 'cross-border-international-advisory', excerpt: 'Solved Financial Services provides specialist advisory for businesses operating or expanding across borders, navigating regulatory, structural, and financial complexities.', description: 'Solved Financial Services provides specialist advisory for businesses operating or expanding across borders. We help clients navigate the regulatory, structural, and financial complexities of international expansion, particularly within European jurisdictions.', features: ['Cross-border tax structuring', 'Transfer pricing advisory', 'International entity structuring', 'Regulatory mapping', 'Multi-jurisdiction compliance'], image: 'https://www.figma.com/api/mcp/asset/060ca6a8-dc5f-4df1-8916-d4c4f5d37c98', order: 7, active: true },
+  { title: 'CFO & Strategic Advisory', slug: 'cfo-strategic-advisory', excerpt: 'Solved Financial Services provides CFO-level expertise to founders, management teams, and boards requiring senior financial leadership, strategic insight, and decision-making support.', description: 'Solved Financial Services provides CFO-level expertise to founders, management teams, and boards requiring senior financial leadership, strategic insight, and decision-making support. We act as your trusted financial co-pilot — bridging the gap between strategy and execution.', features: ['Strategic financial planning', 'Board-level reporting', 'Investor relations support', 'KPI frameworks & dashboards', 'Business model optimisation'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cfo-advisory.png', order: 1, active: true },
+  { title: 'Finance Setup & Structuring', slug: 'finance-setup-structuring', excerpt: 'We design and implement structured financial ecosystems that support sustainable growth. From establishing a new finance function to restructuring an existing one.', description: 'We design and implement structured financial ecosystems that support sustainable growth. From establishing a new finance function to restructuring an existing one, we provide the framework for high-performance financial management.', features: ['Chart of accounts setup', 'Financial process design', 'Accounting system implementation', 'Reporting infrastructure', 'Financial controls framework'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-finance-setup.png', order: 2, active: true },
+  { title: 'Accounting & Financial Administration', slug: 'accounting-financial-administration', excerpt: 'Solved Financial Services delivers structured, compliant, and transparent financial administration tailored to the operational and regulatory needs of growing organisations.', description: 'Solved Financial Services delivers structured, compliant, and transparent financial administration tailored to the operational and regulatory needs of growing organisations. Our team handles the full spectrum of bookkeeping, reconciliations, payroll support, and financial reporting.', features: ['Bookkeeping & reconciliations', 'VAT filing & compliance', 'Financial statements preparation', 'Payroll administration support', 'Multi-currency accounting'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-accounting.png', order: 3, active: true },
+  { title: 'Operations & Performance Advisory', slug: 'operations-performance-advisory', excerpt: 'We help leadership teams understand the financial drivers behind their operations, linking financial data to operational KPIs to support better decision-making.', description: 'We help leadership teams understand the financial drivers behind their operations. By linking financial data to operational KPIs, we support better decision-making and performance improvement across the business.', features: ['Cost optimisation strategies', 'Supply chain financial analysis', 'Performance management systems', 'Operational budgeting', 'Variance analysis & reporting'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-operations-advisory.png', order: 4, active: true },
+  { title: 'Company Incorporation', slug: 'company-incorporation', excerpt: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece.', description: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece. We manage the full incorporation process, including nominee services, regulatory filings, and post-incorporation setup.', features: ['Jurisdiction selection advice', 'Full incorporation process', 'Nominee director services', 'Bank account opening support', 'Post-incorporation compliance'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-company-incorporation.png', order: 5, active: true },
+  { title: 'Audit & Assurance', slug: 'audit-assurance', excerpt: 'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements.', description: 'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.', features: ['Statutory audit coordination', 'Financial due diligence', 'Internal audit support', 'Regulatory compliance review', 'Audit readiness preparation'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-audit-assurance.png', order: 6, active: true },
+  { title: 'Cross-Border & International Advisory', slug: 'cross-border-international-advisory', excerpt: 'Solved Financial Services provides specialist advisory for businesses operating or expanding across borders, navigating regulatory, structural, and financial complexities.', description: 'Solved Financial Services provides specialist advisory for businesses operating or expanding across borders. We help clients navigate the regulatory, structural, and financial complexities of international expansion, particularly within European jurisdictions.', features: ['Cross-border tax structuring', 'Transfer pricing advisory', 'International entity structuring', 'Regulatory mapping', 'Multi-jurisdiction compliance'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-cross-border-advisory.png', order: 7, active: true },
 ];
 
 const INDUSTRIES = [
-  { title: 'Financial Services & Banking', description: 'We partner with banks, investment firms, and financial institutions navigating evolving regulatory frameworks across European jurisdictions. Our team provides end-to-end advisory on compliance architecture, licensing strategy, and capital structure optimization.', challenges: ['Complex cross-border regulatory compliance', 'Capital adequacy and liquidity requirements', 'AML/KYC framework implementation', 'Ongoing supervisory reporting obligations'], support: ['Regulatory licensing and authorisation', 'Compliance framework design and implementation', 'Ongoing regulatory monitoring and reporting', 'Board-level governance advisory'], image: 'https://www.figma.com/api/mcp/asset/4c20d896-610c-4514-9914-f67d18e5ca29', order: 1, active: true },
-  { title: 'Investment Management', description: 'Asset managers, hedge funds, and family offices rely on our expertise to navigate fund structuring, investor relations, and cross-border investment strategies. We simplify complexity so you can focus on generating returns.', challenges: ['Fund structure selection and jurisdiction comparison', 'AIFMD and UCITS compliance requirements', 'Investor due diligence and onboarding', 'Tax-efficient cross-border structuring'], support: ['Fund formation and structuring advisory', 'Regulatory registration across jurisdictions', 'Investor relations and documentation', 'Performance and risk reporting frameworks'], image: 'https://www.figma.com/api/mcp/asset/4d6ebfa2-0fb8-4732-baaa-2a0456144677', order: 2, active: true },
-  { title: 'Technology & Fintech', description: 'Fintech innovators and technology companies entering regulated financial markets require both regulatory expertise and commercial acumen. We bridge the gap between innovation and compliance.', challenges: ['Obtaining payment institution or e-money licences', 'PSD2 and open banking compliance', 'Data privacy and GDPR obligations', 'Navigating sandbox environments and fast-changing rules'], support: ['Fintech regulatory strategy and licensing', 'Product compliance review', 'Data protection framework design', 'Partnership and distribution structuring'], image: 'https://www.figma.com/api/mcp/asset/42358b8d-4420-47ab-b380-76a8d0c8aa46', order: 3, active: true },
-  { title: 'Real Estate & Property', description: 'Institutional investors and developers operating across Europe need nuanced understanding of local property markets, tax regimes, and investment structures. We provide clarity on every dimension of cross-border real estate transactions.', challenges: ['Complex multi-jurisdiction transaction structures', 'Tax treatment and transfer pricing', 'Regulatory approvals and foreign ownership rules', 'Financing and capital stack optimisation'], support: ['Transaction structuring and due diligence', 'Tax-efficient ownership structures', 'Regulatory approvals management', 'Ongoing asset management advisory'], image: 'https://www.figma.com/api/mcp/asset/511802bf-703f-4fb1-94f4-cb3c25b004b2', order: 4, active: true },
-  { title: 'Shipping & Maritime', description: "Cyprus and the Netherlands are among Europe's premier shipping jurisdictions. We advise shipping groups on flag registration, corporate structuring, tax optimisation, and regulatory compliance in these strategic hubs.", challenges: ['Flag state selection and registration complexity', 'Tonnage tax eligibility and optimisation', 'Crew management and employment compliance', 'Environmental and ESG reporting requirements'], support: ['Shipping company formation and structuring', 'Tonnage tax and fiscal advisory', 'Flag registration and management', 'Regulatory compliance monitoring'], image: 'https://www.figma.com/api/mcp/asset/e48d200d-9bf7-4b9e-905d-a402a6711795', order: 5, active: true },
+  { title: 'Financial Services & Banking', description: 'We partner with banks, investment firms, and financial institutions navigating evolving regulatory frameworks across European jurisdictions. Our team provides end-to-end advisory on compliance architecture, licensing strategy, and capital structure optimization.', challenges: ['Complex cross-border regulatory compliance', 'Capital adequacy and liquidity requirements', 'AML/KYC framework implementation', 'Ongoing supervisory reporting obligations'], support: ['Regulatory licensing and authorisation', 'Compliance framework design and implementation', 'Ongoing regulatory monitoring and reporting', 'Board-level governance advisory'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-financial-services.png', order: 1, active: true },
+  { title: 'Investment Management', description: 'Asset managers, hedge funds, and family offices rely on our expertise to navigate fund structuring, investor relations, and cross-border investment strategies. We simplify complexity so you can focus on generating returns.', challenges: ['Fund structure selection and jurisdiction comparison', 'AIFMD and UCITS compliance requirements', 'Investor due diligence and onboarding', 'Tax-efficient cross-border structuring'], support: ['Fund formation and structuring advisory', 'Regulatory registration across jurisdictions', 'Investor relations and documentation', 'Performance and risk reporting frameworks'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-investment-management.png', order: 2, active: true },
+  { title: 'Technology & Fintech', description: 'Fintech innovators and technology companies entering regulated financial markets require both regulatory expertise and commercial acumen. We bridge the gap between innovation and compliance.', challenges: ['Obtaining payment institution or e-money licences', 'PSD2 and open banking compliance', 'Data privacy and GDPR obligations', 'Navigating sandbox environments and fast-changing rules'], support: ['Fintech regulatory strategy and licensing', 'Product compliance review', 'Data protection framework design', 'Partnership and distribution structuring'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-technology-fintech.png', order: 3, active: true },
+  { title: 'Real Estate & Property', description: 'Institutional investors and developers operating across Europe need nuanced understanding of local property markets, tax regimes, and investment structures. We provide clarity on every dimension of cross-border real estate transactions.', challenges: ['Complex multi-jurisdiction transaction structures', 'Tax treatment and transfer pricing', 'Regulatory approvals and foreign ownership rules', 'Financing and capital stack optimisation'], support: ['Transaction structuring and due diligence', 'Tax-efficient ownership structures', 'Regulatory approvals management', 'Ongoing asset management advisory'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-real-estate.png', order: 4, active: true },
+  { title: 'Shipping & Maritime', description: "Cyprus and the Netherlands are among Europe's premier shipping jurisdictions. We advise shipping groups on flag registration, corporate structuring, tax optimisation, and regulatory compliance in these strategic hubs.", challenges: ['Flag state selection and registration complexity', 'Tonnage tax eligibility and optimisation', 'Crew management and employment compliance', 'Environmental and ESG reporting requirements'], support: ['Shipping company formation and structuring', 'Tonnage tax and fiscal advisory', 'Flag registration and management', 'Regulatory compliance monitoring'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/industry-shipping-maritime.png', order: 5, active: true },
 ];
 
 const CASE_STUDIES = [
-  { title: 'Regulatory Restructuring for a Pan-European Asset Manager', subtitle: 'Transforming compliance complexity into strategic advantage', situation: 'A mid-sized asset manager with AUM of €2.3bn faced increasingly fragmented regulatory obligations across three EU jurisdictions. Disparate compliance teams, duplicated processes, and escalating regulatory costs were impeding growth and attracting supervisory scrutiny.', approach: 'We conducted a full regulatory gap analysis and designed a unified compliance framework leveraging Cyprus as a passporting hub. By consolidating licensing under a single CySEC authorisation and implementing a shared-services compliance model, we reduced operational duplication while maintaining full local regulatory coverage.', outcomes: ['38% reduction in compliance operating costs within 12 months', 'Successful CySEC authorisation obtained within regulatory target timelines', 'Unified reporting framework reducing regulatory filings by 40%', 'Zero supervisory findings in subsequent examination cycle'], image: 'https://www.figma.com/api/mcp/asset/18976f01-a671-4601-92b7-3ad6b427e17c', order: 1, active: true },
-  { title: 'Cross-Border Fintech Licensing Strategy', subtitle: 'Accelerating market entry across the Netherlands and Cyprus', situation: 'A UK-based fintech group sought to maintain EU market access following Brexit. With existing operations facing regulatory uncertainty and a product roadmap dependent on PSD2 compliance, the group needed a rapid, cost-effective EU regulatory footprint.', approach: 'We designed a dual-jurisdiction licensing strategy, establishing an Electronic Money Institution in the Netherlands for Northern European operations and a CIF authorisation in Cyprus for investment-related services. We managed the full licensing lifecycle, from regulatory business plan drafting to competent authority liaison.', outcomes: ['EMI licence obtained from DNB within 7 months', 'CIF authorisation from CySEC secured within 9 months', 'Full EU passporting operational across 22 member states', 'Post-Brexit revenue continuity achieved without client disruption'], image: 'https://www.figma.com/api/mcp/asset/4a97ff9b-f97d-4b46-ab20-9af0efa130ee', order: 2, active: true },
-  { title: 'Strategic Advisory for a Shipping Group Restructuring', subtitle: 'Optimising corporate structure across maritime jurisdictions', situation: 'A Greek shipping family office with a fleet of 14 vessels sought to restructure its corporate holdings to optimise for tonnage tax treatment, estate planning, and third-party investor entry. The existing structure had grown organically and was tax-inefficient.', approach: 'Our team performed a comprehensive structural audit and redesigned the holding architecture using a Cyprus-based intermediate holding company, supported by a Limassol ship management entity. We coordinated with tax counsel across three jurisdictions to model and implement the optimal structure.', outcomes: ['Estimated annual tax savings of €1.8m through tonnage tax optimisation', 'Clear inheritance structure established for third-generation succession', 'New investor admitted with ring-fenced liability at vessel-level SPVs', 'Full regulatory compliance maintained throughout restructure'], image: 'https://www.figma.com/api/mcp/asset/979533b3-e5e4-411f-94a6-ae0a2cf06006', order: 3, active: true },
-  { title: 'Market Entry Advisory for a Global Investment Bank', subtitle: 'Establishing a regulated EU presence in Southeast Europe', situation: 'A global investment bank with no direct EU presence required a regulated entity to access Hellenic capital markets and participate in Greek government bond auctions and privatisation advisory mandates.', approach: 'We identified Athens as the optimal jurisdiction and managed the HCMC authorisation process from inception. In parallel, we advised on local governance requirements, designed the organisational structure, and coordinated the recruitment of approved persons to satisfy supervisory requirements.', outcomes: ['HCMC authorisation obtained within target 11-month timeline', 'Successful participation in two sovereign bond issuances in year one', 'Three privatisation advisory mandates secured in first 18 months', 'Full MiFID II compliance framework operational at launch'], image: 'https://www.figma.com/api/mcp/asset/c8526372-9326-46ab-9994-6c062d980025', order: 4, active: true },
+  { title: 'Regulatory Restructuring for a Pan-European Asset Manager', subtitle: 'Transforming compliance complexity into strategic advantage', situation: 'A mid-sized asset manager with AUM of €2.3bn faced increasingly fragmented regulatory obligations across three EU jurisdictions. Disparate compliance teams, duplicated processes, and escalating regulatory costs were impeding growth and attracting supervisory scrutiny.', approach: 'We conducted a full regulatory gap analysis and designed a unified compliance framework leveraging Cyprus as a passporting hub. By consolidating licensing under a single CySEC authorisation and implementing a shared-services compliance model, we reduced operational duplication while maintaining full local regulatory coverage.', outcomes: ['38% reduction in compliance operating costs within 12 months', 'Successful CySEC authorisation obtained within regulatory target timelines', 'Unified reporting framework reducing regulatory filings by 40%', 'Zero supervisory findings in subsequent examination cycle'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-asset-manager.png', order: 1, active: true },
+  { title: 'Cross-Border Fintech Licensing Strategy', subtitle: 'Accelerating market entry across the Netherlands and Cyprus', situation: 'A UK-based fintech group sought to maintain EU market access following Brexit. With existing operations facing regulatory uncertainty and a product roadmap dependent on PSD2 compliance, the group needed a rapid, cost-effective EU regulatory footprint.', approach: 'We designed a dual-jurisdiction licensing strategy, establishing an Electronic Money Institution in the Netherlands for Northern European operations and a CIF authorisation in Cyprus for investment-related services. We managed the full licensing lifecycle, from regulatory business plan drafting to competent authority liaison.', outcomes: ['EMI licence obtained from DNB within 7 months', 'CIF authorisation from CySEC secured within 9 months', 'Full EU passporting operational across 22 member states', 'Post-Brexit revenue continuity achieved without client disruption'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-fintech-licensing.png', order: 2, active: true },
+  { title: 'Strategic Advisory for a Shipping Group Restructuring', subtitle: 'Optimising corporate structure across maritime jurisdictions', situation: 'A Greek shipping family office with a fleet of 14 vessels sought to restructure its corporate holdings to optimise for tonnage tax treatment, estate planning, and third-party investor entry. The existing structure had grown organically and was tax-inefficient.', approach: 'Our team performed a comprehensive structural audit and redesigned the holding architecture using a Cyprus-based intermediate holding company, supported by a Limassol ship management entity. We coordinated with tax counsel across three jurisdictions to model and implement the optimal structure.', outcomes: ['Estimated annual tax savings of €1.8m through tonnage tax optimisation', 'Clear inheritance structure established for third-generation succession', 'New investor admitted with ring-fenced liability at vessel-level SPVs', 'Full regulatory compliance maintained throughout restructure'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-shipping-restructure.png', order: 3, active: true },
+  { title: 'Market Entry Advisory for a Global Investment Bank', subtitle: 'Establishing a regulated EU presence in Southeast Europe', situation: 'A global investment bank with no direct EU presence required a regulated entity to access Hellenic capital markets and participate in Greek government bond auctions and privatisation advisory mandates.', approach: 'We identified Athens as the optimal jurisdiction and managed the HCMC authorisation process from inception. In parallel, we advised on local governance requirements, designed the organisational structure, and coordinated the recruitment of approved persons to satisfy supervisory requirements.', outcomes: ['HCMC authorisation obtained within target 11-month timeline', 'Successful participation in two sovereign bond issuances in year one', 'Three privatisation advisory mandates secured in first 18 months', 'Full MiFID II compliance framework operational at launch'], image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-investment-bank.png', order: 4, active: true },
 ];
 
 const JURISDICTIONS = [
   {
-    country: 'Cyprus', slug: 'cyprus', flagCode: 'cy', flagUrl: 'https://www.figma.com/api/mcp/asset/f0489053-8e02-4c15-8922-ce5f45efb882', heroImage: 'https://www.figma.com/api/mcp/asset/054bdc3d-2f42-4812-a78d-cba568e34419',
+    country: 'Cyprus', slug: 'cyprus', flagCode: 'cy', flagUrl: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-cyprus-photo.png', heroImage: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-1.png',
     tagline: 'A strategic gateway for international business within the EU.',
     intro: 'Cyprus offers one of the most business-friendly regulatory environments in Europe, combining a competitive tax framework, strong legal infrastructure, and full EU membership. Solved Financial Services leverages deep local expertise to support businesses establishing or expanding their presence in Cyprus.',
     partnerFirm: null,
@@ -152,7 +154,7 @@ const JURISDICTIONS = [
     order: 1, active: true,
   },
   {
-    country: 'Netherlands', slug: 'netherlands', flagCode: 'nl', flagUrl: 'https://www.figma.com/api/mcp/asset/91c26ec4-adc4-494d-a295-e086b62c21e6', heroImage: 'https://www.figma.com/api/mcp/asset/324bd48e-b95a-4fb6-8d31-2f5dd99a254b',
+    country: 'Netherlands', slug: 'netherlands', flagCode: 'nl', flagUrl: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-netherlands-photo.png', heroImage: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-2.png',
     tagline: "Europe's leading gateway for international trade and finance.",
     intro: 'The Netherlands is renowned for its pro-business environment, sophisticated financial infrastructure, and strategic location at the heart of Europe. It remains the preferred jurisdiction for multinational headquarters, holding structures, and international trading companies.',
     partnerFirm: null,
@@ -167,7 +169,7 @@ const JURISDICTIONS = [
     order: 2, active: true,
   },
   {
-    country: 'Greece', slug: 'greece', flagCode: 'gr', flagUrl: 'https://www.figma.com/api/mcp/asset/a05c1fb1-3d2f-43f5-8b1b-dc664dd33f60', heroImage: 'https://www.figma.com/api/mcp/asset/52452a28-b309-478c-82ff-9af8074ad68a',
+    country: 'Greece', slug: 'greece', flagCode: 'gr', flagUrl: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-greece-photo.png', heroImage: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-detail-photo-3.png',
     tagline: 'An emerging strategic hub with deep European roots.',
     intro: 'Greece presents a compelling opportunity for businesses seeking access to South-Eastern European markets. With a modernising regulatory environment, EU membership, and growing technology and shipping sectors, Greece is increasingly attractive for international investment.',
     partnerFirm: { name: 'Revival Consulting Services', description: 'Solved Financial Services operates in Greece through its strategic partnership with Revival Consulting Services, a leading Greek advisory firm with extensive expertise in local regulatory compliance, tax advisory, and business establishment services.' },
@@ -190,7 +192,7 @@ const METRICS = [
 ];
 
 const TEAM = [
-  { name: 'Alice Bradley', role: 'Founder & Managing Partner', bio: 'Alice brings over 20 years of senior financial leadership across European jurisdictions, guiding ambitious enterprises through growth, restructuring, and cross-border expansion.', image: 'https://www.figma.com/api/mcp/asset/451cb826-3d2d-4486-9c64-6d8a2d8229d4', linkedin: 'https://linkedin.com', order: 1, active: true },
+  { name: 'Alice Bradley', role: 'Founder & Managing Partner', bio: 'Alice brings over 20 years of senior financial leadership across European jurisdictions, guiding ambitious enterprises through growth, restructuring, and cross-border expansion.', image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png', linkedin: 'https://linkedin.com', order: 1, active: true },
 ];
 
 // ─── Route ────────────────────────────────────────────────────────────────────
@@ -307,6 +309,165 @@ router.post('/force', protect, async (req, res) => {
   } catch (err) {
     console.error('Force seed error:', err);
     res.status(500).json({ message: err.message });
+  }
+});
+
+// ─── One-time image URL migration ────────────────────────────────────────────
+// Replaces any broken Figma / localhost / /uploads/ image URLs in the live
+// database with the correct permanent S3 URLs.
+// Protected — requires admin JWT.  Safe to call multiple times (idempotent).
+router.post('/migrate-images', protect, async (req, res) => {
+  const BASE = S3; // already defined at top of file
+
+  const SERVICE_IMAGES = {
+    'cfo-strategic-advisory':                `${BASE}/service-cfo-advisory.png`,
+    'cfo-advisory':                          `${BASE}/service-cfo-advisory.png`,
+    'finance-setup-structuring':             `${BASE}/service-finance-setup.png`,
+    'accounting-compliance':                 `${BASE}/service-accounting.png`,
+    'accounting-financial-administration':   `${BASE}/service-accounting.png`,
+    'audit-assurance':                       `${BASE}/service-audit-assurance.png`,
+    'company-incorporation':                 `${BASE}/service-company-incorporation.png`,
+    'cross-border-advisory':                 `${BASE}/service-cross-border-advisory.png`,
+    'cross-border-international-advisory':   `${BASE}/service-cross-border-advisory.png`,
+    'operations-performance-advisory':       `${BASE}/service-operations-advisory.png`,
+  };
+
+  const ARTICLE_IMAGES = {
+    'navigating-cross-border-tax-structures': `${BASE}/insight-article-1.png`,
+    'cfo-role-scale-ups':                     `${BASE}/insight-article-2.png`,
+    'cyprus-holding-structures':              `${BASE}/insight-article-3.png`,
+    'financial-readiness-series-a':           `${BASE}/insight-article-4.png`,
+    'netherlands-holding-gateway':            `${BASE}/insight-article-5.png`,
+    'greece-non-dom-regime':                  `${BASE}/insight-article-6.png`,
+    'transfer-pricing-european-smes':         `${BASE}/insight-article-1.png`,
+    'fintech-licensing-eu-landscape':         `${BASE}/insight-article-2.png`,
+  };
+
+  const INDUSTRY_IMAGES = {
+    'financial-services-banking': `${BASE}/industry-financial-services.png`,
+    'financial-services':         `${BASE}/industry-financial-services.png`,
+    'investment-management':      `${BASE}/industry-investment-management.png`,
+    'technology-fintech':         `${BASE}/industry-technology-fintech.png`,
+    'real-estate-property':       `${BASE}/industry-real-estate.png`,
+    'real-estate':                `${BASE}/industry-real-estate.png`,
+    'shipping-maritime':          `${BASE}/industry-shipping-maritime.png`,
+  };
+
+  const CASE_STUDY_IMAGES = {
+    1: `${BASE}/case-study-asset-manager.png`,
+    2: `${BASE}/case-study-fintech-licensing.png`,
+    3: `${BASE}/case-study-shipping-restructure.png`,
+    4: `${BASE}/case-study-investment-bank.png`,
+  };
+
+  const JURISDICTION_IMAGES = {
+    cyprus: {
+      flagUrl:   `${BASE}/jurisdiction-cyprus-photo.png`,
+      heroImage: `${BASE}/jurisdiction-detail-photo-1.png`,
+    },
+    netherlands: {
+      flagUrl:   `${BASE}/jurisdiction-netherlands-photo.png`,
+      heroImage: `${BASE}/jurisdiction-detail-photo-2.png`,
+    },
+    greece: {
+      flagUrl:   `${BASE}/jurisdiction-greece-photo.png`,
+      heroImage: `${BASE}/jurisdiction-detail-photo-3.png`,
+    },
+  };
+
+  const TEAM_IMAGE = `${BASE}/team-photo-1.png`;
+
+  function isBroken(url) {
+    if (!url) return false;
+    return (
+      url.includes('figma.com') ||
+      url.includes('localhost') ||
+      url.startsWith('/uploads/')
+    );
+  }
+
+  function slugify(str) {
+    return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  const log = [];
+  let fixed = 0;
+
+  try {
+    // Services
+    const services = await Service.find({});
+    for (const s of services) {
+      if (!isBroken(s.image)) continue;
+      const url = SERVICE_IMAGES[s.slug];
+      if (!url) { log.push(`⚠ No S3 mapping for service: ${s.slug}`); continue; }
+      await Service.updateOne({ _id: s._id }, { $set: { image: url } });
+      log.push(`✔ Service: ${s.title} → ${url.split('/').pop()}`);
+      fixed++;
+    }
+
+    // Articles
+    const articles = await Article.find({});
+    for (const a of articles) {
+      if (!isBroken(a.image)) continue;
+      const url = ARTICLE_IMAGES[a.slug];
+      if (!url) { log.push(`⚠ No S3 mapping for article: ${a.slug}`); continue; }
+      await Article.updateOne({ _id: a._id }, { $set: { image: url } });
+      log.push(`✔ Article: ${a.slug} → ${url.split('/').pop()}`);
+      fixed++;
+    }
+
+    // Industries
+    const industries = await Industry.find({});
+    for (const ind of industries) {
+      if (!isBroken(ind.image)) continue;
+      const key = ind.slug || slugify(ind.title);
+      const url = INDUSTRY_IMAGES[key];
+      if (!url) { log.push(`⚠ No S3 mapping for industry: ${key}`); continue; }
+      await Industry.updateOne({ _id: ind._id }, { $set: { image: url } });
+      log.push(`✔ Industry: ${ind.title} → ${url.split('/').pop()}`);
+      fixed++;
+    }
+
+    // Case Studies
+    const caseStudies = await CaseStudy.find({}).sort({ order: 1 });
+    let csIndex = 1;
+    for (const cs of caseStudies) {
+      if (!isBroken(cs.image)) { csIndex++; continue; }
+      const url = CASE_STUDY_IMAGES[cs.order || csIndex] || CASE_STUDY_IMAGES[csIndex];
+      if (!url) { log.push(`⚠ No S3 mapping for case study order ${cs.order}`); csIndex++; continue; }
+      await CaseStudy.updateOne({ _id: cs._id }, { $set: { image: url } });
+      log.push(`✔ Case Study: ${(cs.title || '').slice(0, 40)} → ${url.split('/').pop()}`);
+      fixed++;
+      csIndex++;
+    }
+
+    // Jurisdictions
+    const jurisdictions = await Jurisdiction.find({});
+    for (const j of jurisdictions) {
+      const mapping = JURISDICTION_IMAGES[j.slug];
+      if (!mapping) { log.push(`⚠ No S3 mapping for jurisdiction: ${j.slug}`); continue; }
+      const updates = {};
+      if (isBroken(j.flagUrl))   updates.flagUrl   = mapping.flagUrl;
+      if (isBroken(j.heroImage)) updates.heroImage  = mapping.heroImage;
+      if (Object.keys(updates).length === 0) continue;
+      await Jurisdiction.updateOne({ _id: j._id }, { $set: updates });
+      log.push(`✔ Jurisdiction: ${j.country} → ${Object.keys(updates).join(', ')}`);
+      fixed++;
+    }
+
+    // Team Members
+    const team = await TeamMember.find({});
+    for (const t of team) {
+      if (!isBroken(t.image)) continue;
+      await TeamMember.updateOne({ _id: t._id }, { $set: { image: TEAM_IMAGE } });
+      log.push(`✔ Team: ${t.name} → ${TEAM_IMAGE.split('/').pop()}`);
+      fixed++;
+    }
+
+    res.json({ message: `Migration complete — ${fixed} record(s) updated`, fixed, log });
+  } catch (err) {
+    console.error('migrate-images error:', err);
+    res.status(500).json({ message: err.message, log });
   }
 });
 

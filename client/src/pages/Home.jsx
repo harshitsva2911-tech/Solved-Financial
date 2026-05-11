@@ -49,7 +49,7 @@ function MidCTA({ ctaTitle }) {
         style={{ background: 'linear-gradient(90deg, transparent, rgba(212,182,132,0.3), transparent)' }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

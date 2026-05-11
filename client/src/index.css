@@ -25,6 +25,19 @@
 .swiper-pagination-bullet-active { background: #D4B684 !important; opacity: 1 !important; }
 .swiper-button-next::after, .swiper-button-prev::after { color: #D4B684 !important; font-size: 1.25rem !important; }
 
+/* Logo marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Hide scrollbars cross-browser */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* Prevent horizontal overflow on mobile */
+html, body { overflow-x: hidden; }
+
 /* Quill editor */
 .ql-toolbar { border-color: #e5e7eb !important; border-radius: 6px 6px 0 0 !important; }
 .ql-container { border-color: #e5e7eb !important; border-radius: 0 0 6px 6px !important; min-height: 200px; font-family: 'Inter', sans-serif !important; }

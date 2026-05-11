@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { Save, MapPin, Phone, Mail, Layout } from 'lucide-react';
+import { Save, MapPin, Phone, Mail, Layout, Database, RefreshCw } from 'lucide-react';
 import api from '../utils/api';
 
 const LinkedInIcon = ({ size = 18, className = '' }) => (
@@ -82,6 +82,8 @@ export default function Settings() {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [savingSections, setSavingSections] = useState({});
+  const [migratingImages, setMigratingImages] = useState(false);
+  const [migrationLog, setMigrationLog] = useState(null);
 
   const fetchSettings = useCallback(async () => {
     setLoading(true);
@@ -99,6 +101,25 @@ export default function Settings() {
 
   const updateField = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const runImageMigration = async () => {
+    setMigratingImages(true);
+    setMigrationLog(null);
+    try {
+      const res = await api.post('/seed/migrate-images');
+      const { fixed, log, message } = res.data;
+      setMigrationLog(log || []);
+      if (fixed === 0) {
+        toast.success('All image URLs are already correct — nothing to fix!');
+      } else {
+        toast.success(`${message}`);
+      }
+    } catch (e) {
+      toast.error(e?.response?.data?.message || 'Migration failed');
+    } finally {
+      setMigratingImages(false);
+    }
   };
 
   const saveSection = async (sectionKey, fields) => {
@@ -230,6 +251,55 @@ export default function Settings() {
               Each section saves independently to avoid overwriting unrelated fields.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Database Maintenance */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-100">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E6EDF3' }}>
+            <Database size={16} style={{ color: '#001B2F' }} />
+          </div>
+          <h2 className="font-semibold text-gray-900">Database Maintenance</h2>
+        </div>
+        <div className="p-6 space-y-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-gray-800">Fix Image URLs</p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Scans all records in the database and replaces any broken Figma or localhost image URLs
+                with the correct permanent S3 URLs. Safe to run multiple times — only broken URLs are updated.
+              </p>
+            </div>
+            <button
+              onClick={runImageMigration}
+              disabled={migratingImages}
+              className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white disabled:opacity-60 transition-all"
+              style={{ backgroundColor: '#001B2F' }}
+              onMouseEnter={(e) => !migratingImages && (e.currentTarget.style.backgroundColor = '#002d4f')}
+              onMouseLeave={(e) => !migratingImages && (e.currentTarget.style.backgroundColor = '#001B2F')}
+            >
+              <RefreshCw size={14} className={migratingImages ? 'animate-spin' : ''} />
+              {migratingImages ? 'Running...' : 'Fix Image URLs'}
+            </button>
+          </div>
+
+          {migrationLog !== null && (
+            <div className="rounded-lg bg-gray-50 border border-gray-200 p-4 max-h-64 overflow-y-auto">
+              <p className="text-xs font-semibold text-gray-600 mb-2">Migration Log</p>
+              {migrationLog.length === 0 ? (
+                <p className="text-xs text-gray-400">No broken URLs found — database is clean.</p>
+              ) : (
+                <ul className="space-y-1">
+                  {migrationLog.map((line, i) => (
+                    <li key={i} className={`text-xs font-mono ${line.startsWith('⚠') ? 'text-amber-600' : 'text-green-700'}`}>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
