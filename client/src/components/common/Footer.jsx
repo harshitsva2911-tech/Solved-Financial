@@ -89,9 +89,9 @@ export default function Footer() {
     <footer className="bg-midnight border-t border-white/10" aria-label="Site footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
-        <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+        <div className="py-12 sm:py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-10 lg:gap-x-8">
           {/* Brand column */}
-          <div className="lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Link
               to="/"
               className="inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-sm mb-5"
@@ -100,7 +100,7 @@ export default function Footer() {
               <SolvedLogo height={60} />
             </Link>
 
-            <p className="text-cream/55 text-sm leading-relaxed max-w-xs mt-4">
+            <p className="text-cream/55 text-sm leading-relaxed max-w-sm mt-4">
               Expert financial and corporate advisory across key European jurisdictions.
               Empowering businesses with clarity, structure, and strategic insight.
             </p>
@@ -125,13 +125,19 @@ export default function Footer() {
           </div>
 
           {/* Company links */}
-          <FooterLinkGroup title="Company" links={COMPANY_LINKS} />
+          <div className="lg:col-span-2">
+            <FooterLinkGroup title="Company" links={COMPANY_LINKS} />
+          </div>
 
           {/* Jurisdictions links */}
-          <FooterLinkGroup title="Jurisdictions" links={JURISDICTION_LINKS} />
+          <div className="lg:col-span-2">
+            <FooterLinkGroup title="Jurisdictions" links={JURISDICTION_LINKS} />
+          </div>
 
           {/* Newsletter subscribe */}
-          <NewsletterSubscribe />
+          <div className="sm:col-span-2 lg:col-span-4">
+            <NewsletterSubscribe />
+          </div>
         </div>
 
         {/* Bottom bar */}

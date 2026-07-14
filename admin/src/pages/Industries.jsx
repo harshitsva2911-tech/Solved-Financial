@@ -97,6 +97,7 @@ export default function Industries() {
         {loading ? (
           <div className="p-8 text-center text-gray-400">Loading...</div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
@@ -137,6 +138,7 @@ export default function Industries() {
               {!items.length && <tr><td colSpan={5} className="text-center py-12 text-gray-400">No industries yet. Add one to get started.</td></tr>}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 
@@ -148,29 +150,29 @@ export default function Industries() {
               <button onClick={close} className="text-gray-400 hover:text-gray-700"><X size={20} /></button>
             </div>
             <form onSubmit={submit} className="p-5 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="label">Title *</label>
                   <input className="input-field" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} required placeholder="e.g. Startups & Scale-ups" />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="label">Description</label>
                   <textarea className="input-field resize-none" rows={3} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Brief description of this industry sector..." />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="label">Challenges (one per line)</label>
                   <textarea className="input-field resize-none font-mono text-xs" rows={4} value={form.challenges} onChange={e => setForm(f => ({ ...f, challenges: e.target.value }))} placeholder={"Rapid growth without financial infrastructure\nInvestor reporting requirements\nCash flow management"} />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="label">How We Support (one per line)</label>
                   <textarea className="input-field resize-none font-mono text-xs" rows={4} value={form.support} onChange={e => setForm(f => ({ ...f, support: e.target.value }))} placeholder={"Fractional CFO services\nInvestor-ready financial reporting\nGrowth financial modelling"} />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <ImageUpload
                     value={form.image}
                     onChange={(url) => setForm(f => ({ ...f, image: url }))}
                     label="Industry Image"
-                    hint="900 × 560 px"
+                    hint="900 Ã— 560 px"
                     aspectHint="16:10"
                   />
                 </div>

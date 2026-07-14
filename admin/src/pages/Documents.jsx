@@ -212,6 +212,7 @@ export default function Documents() {
             </button>
           </div>
         ) : (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50 text-xs text-gray-400 uppercase tracking-wide">
@@ -231,9 +232,9 @@ export default function Documents() {
                       <div className="flex items-center gap-3">
                         <FileIcon mimeType={doc.mimeType} />
                         <div>
-                          <p className="text-sm font-medium text-gray-900">{doc.name}</p>
+                          <p className="text-sm font-medium text-gray-900 max-w-xs truncate">{doc.name}</p>
                           {doc.description && (
-                            <p className="text-xs text-gray-400">{doc.description}</p>
+                            <p className="text-xs text-gray-400 max-w-xs truncate">{doc.description}</p>
                           )}
                         </div>
                       </div>
@@ -274,6 +275,7 @@ export default function Documents() {
               })}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

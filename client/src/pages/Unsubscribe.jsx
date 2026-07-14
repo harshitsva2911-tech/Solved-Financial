@@ -27,8 +27,9 @@ export default function Unsubscribe() {
   return (
     <div className="bg-cream min-h-screen flex flex-col">
       <Navbar />
+      <div className="h-[80px]" aria-hidden="true" />
 
-      <section className="flex-1 flex items-center justify-center py-24 px-4">
+      <section className="flex-1 flex items-center justify-center py-16 px-4">
         <div className="max-w-md w-full text-center bg-white rounded shadow-md border border-gray-100 p-10">
           {status === 'loading' && (
             <>

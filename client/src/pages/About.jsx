@@ -310,7 +310,7 @@ export default function About() {
       {/* 3. Team photos row */}
       <section className="py-14 bg-cream overflow-hidden" aria-label="Team gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png', wide: false },
               { src: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png', wide: true },
@@ -416,7 +416,7 @@ export default function About() {
       {/* 6. Gallery row */}
       <section className="py-8 bg-cream overflow-hidden" aria-label="Office gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png',
               'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/team-photo-1.png',

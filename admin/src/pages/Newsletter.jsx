@@ -339,7 +339,7 @@ export default function Newsletter() {
                   <tbody>
                     {subscribers.map((s) => (
                       <tr key={s._id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4 text-sm text-gray-900">{s.email}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900 max-w-[220px] truncate">{s.email}</td>
                         <td className="px-6 py-4">
                           <span
                             className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${

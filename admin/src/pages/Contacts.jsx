@@ -142,7 +142,7 @@ export default function Contacts() {
   return (
     <div>
       {/* Stats cards */}
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
         {STATS_CARDS.map((s) => (
           <div
             key={s.key}

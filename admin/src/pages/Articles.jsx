@@ -208,8 +208,8 @@ export default function Articles() {
             </div>
 
             <form onSubmit={handleSave} className="p-6 space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">Title *</label>
                   <input
                     required

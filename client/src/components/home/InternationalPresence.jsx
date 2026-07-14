@@ -201,7 +201,7 @@ export default function InternationalPresence() {
 
         {/* Jurisdiction cards */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => <CardSkeleton key={i} />)}
           </div>
         ) : (
@@ -210,7 +210,7 @@ export default function InternationalPresence() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {jurisdictions.map((j) => (
               <JurisdictionCard key={j._id || j.id || j.slug} jurisdiction={j} />

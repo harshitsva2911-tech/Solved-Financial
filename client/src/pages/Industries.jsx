@@ -376,7 +376,7 @@ export default function Industries() {
             subtitle="We operate across three strategic European jurisdictions, providing our clients with localised expertise and seamless cross-border capability."
             className="mb-12 [&_h2]:text-white [&_p]:text-cream/60"
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {JURISDICTIONS.map((j, i) => (
               <JurisdictionCard key={j.country} jurisdiction={j} delay={i * 0.1} />
             ))}

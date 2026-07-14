@@ -93,7 +93,7 @@ export default function Logos() {
           <p className="mb-3">No partner logos yet.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
           {logos.map((logo) => (
             <div
               key={logo._id}

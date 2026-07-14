@@ -35,7 +35,7 @@ function formatDate(dateStr) {
 function FeaturedSkeletonLeft() {
   return (
     <div className="animate-pulse flex flex-col gap-4">
-      <div className="w-full h-[300px] sm:h-[572px] bg-gray-200 rounded" />
+      <div className="w-full h-[300px] sm:h-[400px] lg:h-[572px] bg-gray-200 rounded" />
       <div className="h-5 bg-gray-200 rounded w-1/3" />
       <div className="h-8 bg-gray-200 rounded w-4/5" />
       <div className="h-8 bg-gray-200 rounded w-3/5" />
@@ -86,7 +86,7 @@ function FeaturedLargeCard({ article }) {
       className="group block relative overflow-hidden rounded"
       aria-label={article.title}
     >
-      <div className="relative h-[300px] sm:h-[572px] overflow-hidden bg-midnight">
+      <div className="relative h-[300px] sm:h-[400px] lg:h-[572px] overflow-hidden bg-midnight">
         {article.image && !imgError ? (
           <img
             src={article.image}

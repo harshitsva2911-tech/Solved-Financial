@@ -120,6 +120,7 @@ export default function Jurisdictions() {
 
       <div className="card p-0 overflow-hidden">
         {loading ? <div className="p-8 text-center text-gray-400">Loading...</div> : (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
@@ -150,6 +151,7 @@ export default function Jurisdictions() {
               {!items.length && <tr><td colSpan={5} className="text-center py-12 text-gray-400">No jurisdictions found.</td></tr>}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 
@@ -176,7 +178,7 @@ export default function Jurisdictions() {
               {/* Basic Info Tab */}
               {tab === 'basic' && (
                 <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="label">Country Name *</label>
                       <input className="input-field" value={form.country} onChange={e => setForm(f => ({ ...f, country: e.target.value }))} required placeholder="e.g. Cyprus" />
@@ -185,26 +187,26 @@ export default function Jurisdictions() {
                       <label className="label">Slug *</label>
                       <input className="input-field font-mono" value={form.slug} onChange={e => setForm(f => ({ ...f, slug: e.target.value.toLowerCase().replace(/\s+/g, '-') }))} required placeholder="e.g. cyprus" />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-1 sm:col-span-2">
                       <label className="label">Tagline</label>
                       <input className="input-field" value={form.tagline} onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))} placeholder="A strategic gateway for international business..." />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-1 sm:col-span-2">
                       <label className="label">Intro Paragraph</label>
                       <textarea className="input-field resize-none" rows={4} value={form.intro} onChange={e => setForm(f => ({ ...f, intro: e.target.value }))} placeholder="Overview of this jurisdiction..." />
                     </div>
                   </div>
                   <div className="border border-gray-200 rounded-xl p-4 bg-amber-50/40">
                     <h3 className="text-sm font-semibold text-gray-700 mb-3">Partner Firm (optional — e.g. for Greece)</h3>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="label">Firm Name</label>
                         <input className="input-field" value={form.partnerFirm?.name || ''} onChange={e => updateField('partnerFirm.name', e.target.value)} placeholder="e.g. Revival Consulting Services" />
                       </div>
-                      <div>
+                      <div className="hidden sm:block">
                         <label className="label text-transparent select-none">_</label>
                       </div>
-                      <div className="col-span-2">
+                      <div className="col-span-1 sm:col-span-2">
                         <label className="label">Firm Description</label>
                         <textarea className="input-field resize-none" rows={2} value={form.partnerFirm?.description || ''} onChange={e => updateField('partnerFirm.description', e.target.value)} placeholder="Brief description of the partner relationship..." />
                       </div>
@@ -242,12 +244,12 @@ export default function Jurisdictions() {
                       {(form.strategyPivot?.points || []).map((pt, i) => (
                         <div key={i} className="border border-gray-200 rounded-xl p-4 relative">
                           <button type="button" onClick={() => removePivotPoint(i)} className="absolute top-3 right-3 text-gray-300 hover:text-red-500"><MinusCircle size={16} /></button>
-                          <div className="grid grid-cols-2 gap-3 pr-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pr-6">
                             <div>
                               <label className="label">Title</label>
                               <input className="input-field" value={pt.title} onChange={e => { const pts = [...form.strategyPivot.points]; pts[i] = { ...pts[i], title: e.target.value }; updateField('strategyPivot.points', pts); }} placeholder="e.g. Low Corporate Tax" />
                             </div>
-                            <div className="col-span-2">
+                            <div className="col-span-1 sm:col-span-2">
                               <label className="label">Description</label>
                               <textarea className="input-field resize-none" rows={2} value={pt.description} onChange={e => { const pts = [...form.strategyPivot.points]; pts[i] = { ...pts[i], description: e.target.value }; updateField('strategyPivot.points', pts); }} placeholder="Explanation of this strategic point..." />
                             </div>

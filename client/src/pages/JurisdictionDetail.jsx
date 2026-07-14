@@ -572,9 +572,10 @@ export default function JurisdictionDetail() {
   /* Loading state */
   if (loading) {
     return (
-      <div className="min-h-screen bg-midnight flex items-center justify-center">
+      <div className="min-h-screen bg-midnight flex flex-col">
         <Navbar />
-        <div className="flex flex-col items-center gap-4">
+        <div className="h-[80px]" aria-hidden="true" />
+        <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <div
             className="w-10 h-10 rounded-full border-2 border-t-transparent animate-spin"
             style={{ borderColor: '#D4B684 transparent transparent transparent' }}
@@ -590,6 +591,7 @@ export default function JurisdictionDetail() {
     return (
       <div className="min-h-screen bg-cream flex flex-col">
         <Navbar />
+        <div className="h-[80px]" aria-hidden="true" />
         <div className="flex-1 flex flex-col items-center justify-center px-4 text-center">
           <h1 className="text-4xl font-bold text-midnight mb-4">Jurisdiction not found</h1>
           <p className="text-gray-500 mb-8">

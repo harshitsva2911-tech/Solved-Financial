@@ -77,7 +77,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" \"https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png\")",
       "Bash(vercel --version)",
       "Bash(ls vercel.json)",
-      "PowerShell(vercel --version 2>&1)"
+      "PowerShell(vercel --version 2>&1)",
+      "Bash(Get-ChildItem -Recurse -Depth 2)",
+      "Bash(Select-Object FullName)",
+      "Bash(curl -s -i https://solved-financial-api.applore.in/api/health --max-time 15)",
+      "Bash(sleep 2 && cat /tmp/server_out.log 2>&1; echo \"---checking process---\"; ps aux | grep \"node server.js\" | grep -v grep)",
+      "Bash(curl -s -i -X POST http://localhost:5000/api/newsletter/subscribe -H \"Content-Type: application/json\" -d '{\"email\":\"localtest@test.com\",\"agreed\":true}' --max-time 15)"
     ]
   }
 }

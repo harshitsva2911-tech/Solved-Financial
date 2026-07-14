@@ -32,7 +32,7 @@ function getTransporter() {
 const sendEmail = async (to, subject, html) => {
   const t = getTransporter();
   if (!t) return;
-  await t.sendMail({ from: `"${SITE_NAME}" <${process.env.EMAIL_USER}>`, to, subject, html });
+  await t.sendMail({ from: `"${SITE_NAME}" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`, to, subject, html });
 };
 
 const emailShell = (bodyHtml, unsubscribeUrl) => `

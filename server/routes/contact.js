@@ -18,7 +18,7 @@ const sendEmail = async (to, subject, html) => {
     port: process.env.EMAIL_PORT,
     auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
   });
-  await transporter.sendMail({ from: process.env.EMAIL_USER, to, subject, html });
+  await transporter.sendMail({ from: process.env.EMAIL_FROM || process.env.EMAIL_USER, to, subject, html });
 };
 
 // Public — submit contact form

@@ -174,7 +174,7 @@ export default function MetricsSection() {
             variants={containerVariants}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
-            className="grid grid-cols-2 lg:grid-cols-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           >
             {metrics.map((metric, i) => (
               <MetricCard
