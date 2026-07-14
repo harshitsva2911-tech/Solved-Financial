@@ -19,6 +19,7 @@ const Logos      = lazy(() => import('./pages/Logos'));
 const Settings   = lazy(() => import('./pages/Settings'));
 const LegalPages = lazy(() => import('./pages/LegalPages'));
 const Documents  = lazy(() => import('./pages/Documents'));
+const Newsletter = lazy(() => import('./pages/Newsletter'));
 
 const Loader = () => (
   <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
@@ -52,6 +53,7 @@ function AppRoutes() {
         <Route path="/settings"     element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
         <Route path="/legal"        element={<ProtectedRoute><Layout><LegalPages /></Layout></ProtectedRoute>} />
         <Route path="/documents"    element={<ProtectedRoute><Layout><Documents /></Layout></ProtectedRoute>} />
+        <Route path="/newsletter"   element={<ProtectedRoute><Layout><Newsletter /></Layout></ProtectedRoute>} />
         <Route path="*"             element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>

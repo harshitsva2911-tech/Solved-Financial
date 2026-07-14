@@ -57,6 +57,16 @@ All 12 modules fully implemented:
 #### Remaining
 - [ ] **Logo** — `SolvedLogo.jsx` placeholder needs replacing with actual company logo SVG/PNG
 - [x] **Images** — All 41 images migrated to S3 (2026-05-01). Permanent URLs — no expiry. See `server/scripts/image-mapping.json` for full mapping.
+- [ ] **Newsletter email creds** — feature is built (see below); awaiting `EMAIL_HOST`/`EMAIL_USER`/`EMAIL_PASS` from client to enable actual sending.
+
+#### Newsletter Subscription (added 2026-07-14)
+- **Client** — Footer now has a "Newsletter" column (`NewsletterSubscribe.jsx`) with email input + consent checkbox, styled to match footer tokens (bg-midnight, text-gold, font-urbanist label). Posts to `POST /api/newsletter/subscribe`.
+- **Unsubscribe** — `client/src/pages/Unsubscribe.jsx` at route `/unsubscribe/:token`, calls `GET /api/newsletter/unsubscribe/:token`. Every newsletter/welcome email includes a personalized unsubscribe link.
+- **Admin** — New "Newsletter" sidebar module (`admin/src/pages/Newsletter.jsx`) with two tabs:
+  - Campaigns — create/edit draft newsletters (React Quill editor, same pattern as Articles), Send button (confirms subscriber count, sends in batches of 8 via Nodemailer, marks `sent`/`sending`/`draft`).
+  - Subscribers — stats cards (total/active/unsubscribed), list, CSV export, delete.
+- **Backend** — `server/models/Subscriber.js` (email, status, unsubscribeToken), `server/models/Newsletter.js` (subject, content, status, recipientCount), `server/routes/newsletter.js` registered at `/api/newsletter` in `server.js`. Reuses existing `EMAIL_HOST`/`EMAIL_USER`/`EMAIL_PASS`/`EMAIL_PORT` env vars (same as contact form) — no new env vars required.
+- **Single opt-in with consent checkbox** (not double opt-in) — chosen to keep friction low for a B2B advisory site; welcome email + unsubscribe link cover compliance basics (CAN-SPAM/GDPR unsubscribe requirement).
 
 ---
 

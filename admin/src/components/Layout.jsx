@@ -18,6 +18,7 @@ import {
   X,
   Scale,
   FolderOpen,
+  Send,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import SolvedLogo from './SolvedLogo';
@@ -34,6 +35,7 @@ const navItems = [
   { to: '/metrics', icon: BarChart3, label: 'Metrics' },
   { to: '/logos', icon: Image, label: 'Partner Logos' },
   { to: '/documents', icon: FolderOpen, label: 'Documents' },
+  { to: '/newsletter', icon: Send, label: 'Newsletter' },
   { to: '/legal', icon: Scale, label: 'Legal Pages' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ];
@@ -50,6 +52,7 @@ const pageTitles = {
   '/metrics': 'Metrics',
   '/logos': 'Partner Logos',
   '/documents': 'Document Library',
+  '/newsletter': 'Newsletter',
   '/legal': 'Legal Pages',
   '/settings': 'Settings',
 };

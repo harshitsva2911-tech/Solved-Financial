@@ -315,13 +315,17 @@ export default function InsightDetail() {
           </motion.article>
 
           {/* â”€â”€â”€â”€ RIGHT: Sidebar (35%) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-          <motion.aside
-            className="w-full lg:w-[320px] xl:w-[360px] flex-shrink-0 self-start sticky top-28"
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          {/* Sticky is on a plain div — Framer Motion transforms on the element
+              itself would create a new stacking context and break position:sticky */}
+          <aside
+            className="w-full lg:w-[320px] xl:w-[360px] flex-shrink-0 self-start lg:sticky lg:top-[100px]"
             aria-label="Sidebar"
           >
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
             <div className="bg-white rounded shadow-sm border border-gray-100 p-6">
               {/* Related articles */}
               <div className="flex items-center gap-3 mb-5">
@@ -353,7 +357,8 @@ export default function InsightDetail() {
                 Back to all insights
               </Link>
             </div>
-          </motion.aside>
+            </motion.div>
+          </aside>
         </div>
       </div>
 

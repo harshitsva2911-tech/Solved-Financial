@@ -174,29 +174,32 @@ export default function ServicesCarousel() {
               What We Do
             </h2>
           </div>
-          <Link
-            to="/services"
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-midnight hover:text-gold transition-colors duration-200 whitespace-nowrap"
-          >
-            View all services
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
+
+          {/* Nav arrows + view-all — keep arrows in header so they never overlap cards */}
+          <div className="flex items-center gap-3">
+            <button
+              className="swiper-prev-services flex w-9 h-9 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-md flex-shrink-0"
+              aria-label="Previous service"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              className="swiper-next-services flex w-9 h-9 rounded-full bg-white border border-gray-200 shadow-sm items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-md flex-shrink-0"
+              aria-label="Next service"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            <Link
+              to="/services"
+              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-midnight hover:text-gold transition-colors duration-200 whitespace-nowrap"
+            >
+              View all services
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Custom navigation buttons — hidden on mobile, visible on md+ */}
         <div className="relative">
-          <button
-            className="swiper-prev-services hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            className="swiper-next-services hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-6 z-10 w-11 h-11 rounded-full bg-white border border-gray-200 shadow-md items-center justify-center text-midnight hover:border-gold hover:text-gold transition-all duration-200 hover:shadow-lg"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
 
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SolvedLogo from './SolvedLogo';
+import NewsletterSubscribe from './NewsletterSubscribe';
 
 const LinkedInIcon = ({ size = 17 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -88,7 +89,7 @@ export default function Footer() {
     <footer className="bg-midnight border-t border-white/10" aria-label="Site footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
-        <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-2">
             <Link
@@ -128,6 +129,9 @@ export default function Footer() {
 
           {/* Jurisdictions links */}
           <FooterLinkGroup title="Jurisdictions" links={JURISDICTION_LINKS} />
+
+          {/* Newsletter subscribe */}
+          <NewsletterSubscribe />
         </div>
 
         {/* Bottom bar */}

@@ -93,14 +93,15 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[100svh] min-h-screen flex items-center overflow-hidden bg-midnight">
-      {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-home.png')",
-          backgroundPosition: 'center 20%',
-        }}
+      {/* Background image with overlay.
+          object-position is responsive: on mobile show centre of image (portrait crop),
+          on tablet show 35% down, on desktop keep the original 20%-from-top framing. */}
+      <img
+        src="https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/hero-home.png"
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        className="absolute inset-0 w-full h-full object-cover object-[center_55%] sm:object-[center_35%] lg:object-[center_20%]"
       />
       {/* Multi-layer dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-midnight/95 via-midnight/80 to-midnight/50" />

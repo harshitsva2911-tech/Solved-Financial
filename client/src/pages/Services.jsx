@@ -145,7 +145,8 @@ function ServiceTabs({ services, activeSlug }) {
   const scrollToService = useCallback((slug) => {
     const el = document.getElementById(slug);
     if (!el) return;
-    const offset = 80; // navbar height
+    // 80px navbar + ~52px sticky tab bar + 16px breathing room
+    const offset = 148;
     const top = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: 'smooth' });
   }, []);

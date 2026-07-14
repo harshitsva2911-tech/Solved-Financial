@@ -35,8 +35,10 @@
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-/* Prevent horizontal overflow on mobile */
-html, body { overflow-x: hidden; }
+/* Prevent horizontal overflow on mobile.
+   NOTE: overflow-x on the <html> element would create a new scroll container
+   and break position:sticky everywhere — apply only to body. */
+body { overflow-x: hidden; }
 
 /* Quill editor */
 .ql-toolbar { border-color: #e5e7eb !important; border-radius: 6px 6px 0 0 !important; }

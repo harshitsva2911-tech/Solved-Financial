@@ -14,6 +14,7 @@ const Industries       = lazy(() => import('./pages/Industries'));
 const Experience       = lazy(() => import('./pages/Experience'));
 const Contact          = lazy(() => import('./pages/Contact'));
 const LegalPage        = lazy(() => import('./pages/LegalPage'));
+const Unsubscribe      = lazy(() => import('./pages/Unsubscribe'));
 
 function PageLoader() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
             <Route path="/terms-of-service"         element={<LegalPage />} />
             <Route path="/cookie-policy"            element={<LegalPage />} />
             <Route path="/regulatory-disclosure"    element={<LegalPage />} />
+            <Route path="/unsubscribe/:token"       element={<Unsubscribe />} />
             <Route path="*"                         element={<Home />} />
           </Routes>
         </AppLayout>

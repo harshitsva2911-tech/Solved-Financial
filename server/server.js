@@ -124,6 +124,7 @@ app.use('/api/jurisdictions', require('./routes/jurisdictions'));
 app.use('/api/industries', require('./routes/industries'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/documents', require('./routes/documents'));
+app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/seed', require('./routes/seed'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
