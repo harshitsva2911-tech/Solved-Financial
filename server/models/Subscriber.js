@@ -11,11 +11,10 @@ const subscriberSchema = new mongoose.Schema({
 
 subscriberSchema.index({ status: 1 });
 
-subscriberSchema.pre('save', function (next) {
+subscriberSchema.pre('save', function () {
   if (!this.unsubscribeToken) {
     this.unsubscribeToken = crypto.randomBytes(24).toString('hex');
   }
-  next();
 });
 
 module.exports = mongoose.model('Subscriber', subscriberSchema);

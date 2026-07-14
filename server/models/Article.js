@@ -20,12 +20,11 @@ articleSchema.index({ published: 1, publishedAt: -1 });
 articleSchema.index({ published: 1, category: 1 });
 articleSchema.index({ published: 1, featured: 1 });
 
-articleSchema.pre('save', function (next) {
+articleSchema.pre('save', function () {
   if (this.isModified('title') || this.isNew) {
     this.slug = slugify(this.title, { lower: true, strict: true }) + '-' + Date.now();
   }
   if (this.published && !this.publishedAt) this.publishedAt = new Date();
-  next();
 });
 
 module.exports = mongoose.model('Article', articleSchema);
