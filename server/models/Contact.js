@@ -4,7 +4,7 @@ const contactSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true },
   organizationName: { type: String },
-  executiveRole: { type: String },
+  serviceRequired: { type: String },
   jurisdiction: { type: String },
   phoneNumber: { type: String },
   inquiryDetails: { type: String, required: true },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { Plus, Edit2, Trash2, X, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Edit2, Trash2, X } from 'lucide-react';
 import api from '../utils/api';
 import ImageUpload from '../components/ImageUpload';
 
@@ -32,7 +32,7 @@ export default function Team() {
   const fetchMembers = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await api.get('/team');
+      const res = await api.get('/team/admin/all');
       const data = Array.isArray(res.data) ? res.data : res.data.members || [];
       setMembers(data.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
     } catch (e) {

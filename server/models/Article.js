@@ -6,14 +6,16 @@ const articleSchema = new mongoose.Schema({
   slug: { type: String, unique: true },
   excerpt: { type: String, required: true },
   content: { type: String, required: true },
-  image: { type: String },
-  category: { type: String, enum: ['All Insights', 'Regulatory', 'Strategy', 'Markets', 'Technology'], default: 'All Insights' },
+  image: { type: String, default: '' },
+  category: { type: String, enum: ['Cyprus', 'Netherlands', 'CFO & Business Finance'], default: 'Cyprus' },
   tags: [String],
   published: { type: Boolean, default: false },
   featured: { type: Boolean, default: false },
-  author: { type: String, default: 'Solved Financial Services' },
+  author: { type: String, default: 'Chris Kyriakides' },
+  reviewer: { type: String, default: 'Solved Financial Services' },
   readTime: { type: Number, default: 5 },
   publishedAt: { type: Date },
+  lastReviewedAt: { type: Date },
 }, { timestamps: true });
 
 articleSchema.index({ published: 1, publishedAt: -1 });

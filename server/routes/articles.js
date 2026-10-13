@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     if (featured === 'true') filter.featured = true;
     const skip = (page - 1) * limit;
     const [articles, total] = await Promise.all([
-      Article.find(filter).sort({ publishedAt: -1 }).skip(skip).limit(Number(limit)),
+      Article.find(filter).sort({ publishedAt: -1, createdAt: -1 }).skip(skip).limit(Number(limit)),
       Article.countDocuments(filter)
     ]);
     res.json({ articles, total, pages: Math.ceil(total / limit) });
@@ -25,7 +25,7 @@ router.get('/:slug', async (req, res) => {
   try {
     const article = await Article.findOne({ slug: req.params.slug, published: true });
     if (!article) return res.status(404).json({ message: 'Article not found' });
-    const related = await Article.find({ published: true, _id: { $ne: article._id } }).sort({ publishedAt: -1 }).limit(4);
+    const related = await Article.find({ published: true, _id: { $ne: article._id } }).sort({ publishedAt: -1, createdAt: -1 }).limit(4);
     res.json({ article, related });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -44,7 +44,11 @@ router.get('/admin/all', protect, async (req, res) => {
 
 router.post('/', protect, async (req, res) => {
   try {
-    const article = await Article.create(req.body);
+    const data = { ...req.body };
+    if (data.published && !data.publishedAt) {
+      data.publishedAt = new Date();
+    }
+    const article = await Article.create(data);
     res.status(201).json(article);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -53,7 +57,11 @@ router.post('/', protect, async (req, res) => {
 
 router.put('/:id', protect, async (req, res) => {
   try {
-    const article = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const updateData = { ...req.body };
+    if (updateData.published && !updateData.publishedAt) {
+      updateData.publishedAt = new Date();
+    }
+    const article = await Article.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
     if (!article) return res.status(404).json({ message: 'Article not found' });
     res.json(article);
   } catch (err) {

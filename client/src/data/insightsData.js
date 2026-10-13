@@ -26,7 +26,7 @@ export const FALLBACK_ARTICLES = [
 
       <h2>What Has Changed Under BEPS 2.0</h2>
       <p>The two-pillar solution introduced under BEPS 2.0 represents the most significant overhaul of international tax rules in a generation. Pillar One reapportions taxing rights to market jurisdictions for the largest multinationals, while Pillar Two introduces a global minimum corporate tax rate of 15% — the Qualified Domestic Minimum Top-Up Tax (QDMTT).</p>
-      <p>For businesses operating across Cyprus, the Netherlands, and Greece, the practical implications depend heavily on group size, industry, and the substance of operations in each jurisdiction. What constitutes a legitimate holding or operating structure is under greater scrutiny than ever.</p>
+      <p>For businesses operating across Cyprus and the Netherlands, the practical implications depend heavily on group size, industry, and the substance of operations in each jurisdiction. What constitutes a legitimate holding or operating structure is under greater scrutiny than ever.</p>
 
       <h2>Substance Over Form: The New Compliance Standard</h2>
       <p>Tax authorities across the EU have significantly increased their focus on substance requirements. A company cannot simply be registered in a jurisdiction to benefit from its tax treaties or local rates — it must demonstrate genuine economic activity, including:</p>
@@ -54,7 +54,7 @@ export const FALLBACK_ARTICLES = [
       <p>The most effective tax structures are no longer those that minimise tax at any cost — they are those that align with genuine business substance, meet all documentation obligations, and can withstand regulatory scrutiny at any point.</p>
 
       <h2>How Solved Financial Services Can Help</h2>
-      <p>Our teams across Cyprus, the Netherlands, and Greece work together to design and maintain tax-efficient structures that are fully compliant with post-BEPS requirements. From initial structuring advice to ongoing transfer pricing support and substance reviews, we provide end-to-end guidance for businesses operating across multiple European jurisdictions.</p>
+      <p>Our teams across Cyprus and the Netherlands work together to design and maintain tax-efficient structures that are fully compliant with post-BEPS requirements. From initial structuring advice to ongoing transfer pricing support and substance reviews, we provide end-to-end guidance for businesses operating across multiple European jurisdictions.</p>
     `,
   },
   {
@@ -100,7 +100,7 @@ export const FALLBACK_ARTICLES = [
       </ul>
 
       <h2>Our Approach at Solved Financial Services</h2>
-      <p>We provide outsourced and fractional CFO services to ambitious businesses across Cyprus, the Netherlands, and Greece. Our approach combines technical financial expertise with genuine strategic partnership — helping founders and management teams make better decisions, raise capital more effectively, and build scalable financial infrastructure.</p>
+      <p>We provide outsourced and fractional CFO services to ambitious businesses across Cyprus and the Netherlands. Our approach combines technical financial expertise with genuine strategic partnership — helping founders and management teams make better decisions, raise capital more effectively, and build scalable financial infrastructure.</p>
     `,
   },
   {
@@ -115,13 +115,13 @@ export const FALLBACK_ARTICLES = [
     author: 'Solved Financial Services',
     featured: true,
     content: `
-      <p>Cyprus has long been one of Europe's most attractive jurisdictions for international holding structures. Its combination of a low 12.5% corporate tax rate, an extensive double tax treaty network, EU membership, and a sophisticated legal and professional services infrastructure has made it a first choice for businesses structuring cross-border investments and IP ownership.</p>
+      <p>Cyprus has long been one of Europe's most attractive jurisdictions for international holding structures. Its combination of a competitive corporate tax rate, an extensive double tax treaty network, EU membership, and a sophisticated legal and professional services infrastructure has made it a first choice for businesses structuring cross-border investments and IP ownership.</p>
       <p>But the regulatory environment is evolving rapidly. Understanding the current landscape — and the changes underway — is essential for anyone considering or maintaining a Cyprus holding structure.</p>
 
       <h2>The Core Advantages Remain Compelling</h2>
       <p>Despite increased scrutiny and regulatory change, the fundamental advantages of Cyprus as a holding jurisdiction remain intact:</p>
       <ul>
-        <li><strong>12.5% corporate income tax</strong> — one of the lowest rates in the EU</li>
+        <li><strong>Competitive corporate income tax</strong> — one of the most efficient rates in the EU</li>
         <li><strong>Dividend exemption:</strong> Dividends received from subsidiaries are generally exempt from corporate tax (subject to anti-avoidance rules)</li>
         <li><strong>Capital gains exemption:</strong> Gains on disposal of shares are exempt from tax (with limited exceptions)</li>
         <li><strong>IP Box regime:</strong> An 80% notional deduction on qualifying IP income, resulting in an effective rate of 2.5%</li>
@@ -250,51 +250,7 @@ export const FALLBACK_ARTICLES = [
       <p>Solved Financial Services supports clients in establishing and maintaining compliant Dutch holding structures. Our Amsterdam-connected advisory practice provides guidance on structure design, substance requirements, treaty analysis, and ongoing compliance — ensuring your Dutch holding entity operates within the letter and spirit of current regulatory expectations.</p>
     `,
   },
-  {
-    _id: '6',
-    slug: 'greece-non-dom-regime',
-    title: "Greece's Non-Dom Tax Regime: What High-Net-Worth Individuals Need to Know",
-    excerpt: 'A practical guide to the Greek non-domicile programme and its implications for international investors.',
-    image: ARTICLE_IMAGES.f,
-    publishedAt: '2026-03-08',
-    readTime: '5 min read',
-    category: 'Regulatory',
-    author: 'Solved Financial Services',
-    featured: false,
-    content: `
-      <p>Since its introduction in 2020, Greece's non-domicile tax regime has attracted significant interest from high-net-worth individuals seeking a European base with a favourable tax framework. The programme — modelled broadly on similar regimes in Portugal, Italy, and Malta — offers a flat annual tax on foreign-source income in exchange for qualifying as a Greek tax resident.</p>
 
-      <h2>How the Greek Non-Dom Regime Works</h2>
-      <p>Under Article 5A of the Greek Income Tax Code, qualifying individuals can elect to pay a flat annual tax of €100,000 on all their foreign-source income, regardless of the amount. This means an individual with €5 million of foreign dividends, capital gains, or rental income would pay just €100,000 in Greek tax on that income — an effective rate of 2%.</p>
-      <p>Greek-source income remains taxable under standard Greek tax rules. Only foreign-source income benefits from the flat tax treatment.</p>
-
-      <h2>Eligibility Conditions</h2>
-      <p>To qualify for the non-dom regime, applicants must:</p>
-      <ul>
-        <li>Not have been a Greek tax resident in at least 7 of the previous 8 tax years</li>
-        <li>Invest a minimum of €500,000 in Greek real estate, businesses, securities, or government bonds (or have a family member do so)</li>
-        <li>Apply to the Greek tax authority and receive approval of their application</li>
-        <li>Maintain Greek tax residency (spending at least 183 days per year in Greece, or demonstrating vital interests in Greece)</li>
-      </ul>
-
-      <h2>Duration and Renewal</h2>
-      <p>The non-dom status can be maintained for up to 15 years. It is not automatically renewed each year — the taxpayer must continue to meet the conditions and pay the annual flat tax. Family members can be added to the arrangement for an additional €20,000 per person per year.</p>
-      <blockquote>Greece's non-dom regime is particularly attractive for individuals relocating from high-tax jurisdictions who derive significant income from international investments, businesses, or property portfolios.</blockquote>
-
-      <h2>Comparison With Other European Non-Dom Regimes</h2>
-      <p>Greece's regime compares favourably with alternatives:</p>
-      <ul>
-        <li><strong>Portugal's NHR:</strong> Subject to significant changes from 2024, with a new IFICI programme replacing the original scheme</li>
-        <li><strong>Italy's flat tax:</strong> Similar structure, but the flat tax is €200,000 per year — double the Greek amount</li>
-        <li><strong>Malta's HNWI regime:</strong> Complex application process with a minimum tax of €15,000 per year</li>
-      </ul>
-      <p>For those who find Greece's lifestyle, climate, and infrastructure attractive, the non-dom regime offers a compelling tax-efficient relocation option.</p>
-
-      <h2>Important Considerations</h2>
-      <p>The regime does not exempt income from all taxes — social security contributions, stamp duty, and taxes on Greek-source income apply as normal. Individuals considering the non-dom route should also consider the impact on their home country's exit tax rules and any controlled foreign company provisions that may apply to their international structures.</p>
-      <p>Our team in Athens advises high-net-worth individuals on the Greek non-dom application process, investment structuring, and ongoing compliance. We work closely with international private client advisors to ensure the regime is accessed correctly and sustainably.</p>
-    `,
-  },
   {
     _id: '7',
     slug: 'transfer-pricing-european-smes',

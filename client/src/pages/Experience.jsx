@@ -19,68 +19,19 @@ const API = API_BASE;
 const STATIC_CASE_STUDIES = [
   {
     id: 1,
-    title: 'Regulatory Restructuring for a Pan-European Asset Manager',
-    subtitle: 'Transforming compliance complexity into strategic advantage',
+    title: 'Cross-Border Corporate Structuring',
+    subtitle: 'Optimising corporate structure across European jurisdictions',
     situation:
-      'A mid-sized asset manager with AUM of €2.3bn faced increasingly fragmented regulatory obligations across three EU jurisdictions. Disparate compliance teams, duplicated processes, and escalating regulatory costs were impeding growth and attracting supervisory scrutiny.',
+      'A European technology firm required financial due diligence and transaction structuring for a strategic acquisition.',
     approach:
-      'We conducted a full regulatory gap analysis and designed a unified compliance framework leveraging Cyprus as a passporting hub. By consolidating licensing under a single CySEC authorisation and implementing a shared-services compliance model, we reduced operational duplication while maintaining full local regulatory coverage.',
+      'We provided comprehensive corporate advisory, ensuring tax-efficient structuring and smooth integration of financial operations across Cyprus and the Netherlands.',
     outcomes: [
-      '38% reduction in compliance operating costs within 12 months',
-      'Successful CySEC authorisation obtained within regulatory target timelines',
-      'Unified reporting framework reducing regulatory filings by 40%',
-      'Zero supervisory findings in subsequent examination cycle',
+      'Successful transaction completion',
+      'Optimised corporate holding structure',
+      'Unified financial reporting framework',
     ],
     image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-asset-manager.png',
-  },
-  {
-    id: 2,
-    title: 'Cross-Border Fintech Licensing Strategy',
-    subtitle: 'Accelerating market entry across the Netherlands and Cyprus',
-    situation:
-      'A UK-based fintech group sought to maintain EU market access following Brexit. With existing operations facing regulatory uncertainty and a product roadmap dependent on PSD2 compliance, the group needed a rapid, cost-effective EU regulatory footprint.',
-    approach:
-      'We designed a dual-jurisdiction licensing strategy, establishing an Electronic Money Institution in the Netherlands for Northern European operations and a CIF authorisation in Cyprus for investment-related services. We managed the full licensing lifecycle, from regulatory business plan drafting to competent authority liaison.',
-    outcomes: [
-      'EMI licence obtained from DNB within 7 months',
-      'CIF authorisation from CySEC secured within 9 months',
-      'Full EU passporting operational across 22 member states',
-      'Post-Brexit revenue continuity achieved without client disruption',
-    ],
-    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-fintech-licensing.png',
-  },
-  {
-    id: 3,
-    title: 'Strategic Advisory for a Shipping Group Restructuring',
-    subtitle: 'Optimising corporate structure across maritime jurisdictions',
-    situation:
-      'A Greek shipping family office with a fleet of 14 vessels sought to restructure its corporate holdings to optimise for tonnage tax treatment, estate planning, and third-party investor entry. The existing structure had grown organically and was tax-inefficient.',
-    approach:
-      'Our team performed a comprehensive structural audit and redesigned the holding architecture using a Cyprus-based intermediate holding company, supported by a Limassol ship management entity. We coordinated with tax counsel across three jurisdictions to model and implement the optimal structure.',
-    outcomes: [
-      'Estimated annual tax savings of €1.8m through tonnage tax optimisation',
-      'Clear inheritance structure established for third-generation succession',
-      'New investor admitted with ring-fenced liability at vessel-level SPVs',
-      'Full regulatory compliance maintained throughout restructure',
-    ],
-    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-shipping-restructure.png',
-  },
-  {
-    id: 4,
-    title: 'Market Entry Advisory for a Global Investment Bank',
-    subtitle: 'Establishing a regulated EU presence in Southeast Europe',
-    situation:
-      'A global investment bank with no direct EU presence required a regulated entity to access Hellenic capital markets and participate in Greek government bond auctions and privatisation advisory mandates.',
-    approach:
-      'We identified Athens as the optimal jurisdiction and managed the HCMC authorisation process from inception. In parallel, we advised on local governance requirements, designed the organisational structure, and coordinated the recruitment of approved persons to satisfy supervisory requirements.',
-    outcomes: [
-      'HCMC authorisation obtained within target 11-month timeline',
-      'Successful participation in two sovereign bond issuances in year one',
-      'Three privatisation advisory mandates secured in first 18 months',
-      'Full MiFID II compliance framework operational at launch',
-    ],
-    image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/case-study-investment-bank.png',
-  },
+  }
 ];
 
 // â”€â”€â”€ International presence data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -90,23 +41,17 @@ const JURISDICTIONS = [
     country: 'Cyprus',
     flag: '🇨🇾',
     description:
-      'Our primary hub for EU financial services, offering CySEC regulatory expertise and access to EU passporting rights.',
-    highlights: ['CySEC licensed advisory', 'EU passporting', 'Holding company structures'],
+      'Our primary hub for corporate and financial services in the EU.',
+    highlights: ['Corporate structuring', 'Accounting & VAT', 'Holding company structures'],
   },
   {
     country: 'Netherlands',
     flag: '🇳🇱',
     description:
-      'A gateway to Northern European markets with AFM/DNB regulatory coverage and extensive double-tax treaty networks.',
-    highlights: ['AFM & DNB regulated', 'Extensive treaty network', 'Fund domiciliation'],
+      'A gateway to Northern European markets with extensive double-tax treaty networks.',
+    highlights: ['Corporate administration', 'Extensive treaty network', 'CFO advisory'],
   },
-  {
-    country: 'Greece',
-    flag: '🇬🇷',
-    description:
-      'Strategic presence supporting Hellenic market entry, HCMC compliance, and investment opportunities in SE Europe.',
-    highlights: ['HCMC compliance', 'SE Europe market access', 'Investment incentives'],
-  },
+
 ];
 
 const CASE_GRADIENTS = [
@@ -282,10 +227,10 @@ export default function Experience() {
       <Navbar />
       {/* 1 â€” Hero */}
       <PageHero
-        title="Experience"
+        title="Selected Experience"
         subtitle="Proven expertise across complex financial environments."
         bgImage={HERO_BG}
-        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Experience' }]}
+        breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Selected Experience' }]}
       />
 
       {/* 2 â€” Tagline */}
@@ -346,7 +291,7 @@ export default function Experience() {
           <SectionHeader
             label="Global reach"
             title="International Presence"
-            subtitle="We operate across three strategic European jurisdictions, providing our clients with localised expertise and seamless cross-border capability."
+            subtitle="We operate across strategic European jurisdictions, providing our clients with localised expertise and seamless cross-border capability."
             className="mb-12 [&_h2]:text-white [&_p]:text-cream/60"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

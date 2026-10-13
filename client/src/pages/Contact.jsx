@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -73,7 +74,6 @@ const COUNTRY_CODES = [
   { code: '+995', flag: 'ðŸ‡¬ðŸ‡ª', name: 'Georgia' },
   { code: '+49',  flag: 'ðŸ‡©ðŸ‡ª', name: 'Germany' },
   { code: '+233', flag: 'ðŸ‡¬ðŸ‡­', name: 'Ghana' },
-  { code: '+30',  flag: 'ðŸ‡¬ðŸ‡·', name: 'Greece' },
   { code: '+502', flag: 'ðŸ‡¬ðŸ‡¹', name: 'Guatemala' },
   { code: '+224', flag: 'ðŸ‡¬ðŸ‡³', name: 'Guinea' },
   { code: '+245', flag: 'ðŸ‡¬ðŸ‡¼', name: 'Guinea-Bissau' },
@@ -195,12 +195,9 @@ const schema = yup.object({
   fullName: yup.string().required('Full name is required').min(2, 'Name must be at least 2 characters'),
   email: yup.string().required('Email is required').email('Please enter a valid email address'),
   organization: yup.string().required('Organisation name is required'),
-  executiveRole: yup.string().required('Executive role is required'),
-  jurisdiction: yup.string().required('Please select a jurisdiction'),
-  phone: yup
-    .string()
-    .required('Phone number is required')
-    .matches(/^[0-9\s\-()]+$/, 'Please enter a valid phone number'),
+  serviceRequired: yup.string().required('Service required is required'),
+  jurisdiction: yup.string().required('Please select a service country'),
+  phone: yup.string().nullable().notRequired(),
   inquiryDetails: yup
     .string()
     .required('Inquiry details are required'),
@@ -250,6 +247,13 @@ function InfoRow({ icon: Icon, label, value }) {
 // â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function Contact() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  let countryParam = queryParams.get('country') || '';
+  if (!['Cyprus', 'Netherlands', 'Both', 'Not sure'].includes(countryParam)) {
+    countryParam = '';
+  }
+
   // Settings
   const [settings, setSettings] = useState(null);
 
@@ -260,8 +264,8 @@ export default function Contact() {
       .catch(() => {/* use fallbacks */});
   }, []);
 
-  const address = settings?.address ?? '25 Griva Digeni Avenue\nLimassol, Cyprus';
-  const phone = settings?.phone ?? '+357 25 000 000';
+  const address = settings?.address ?? 'Cyprus & Netherlands';
+  const phone = settings?.phone ?? '';
   const email = settings?.email ?? 'info@solvedfinancial.com';
 
   // Country code selector
@@ -273,7 +277,10 @@ export default function Contact() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ 
+    resolver: yupResolver(schema),
+    defaultValues: { jurisdiction: countryParam }
+  });
 
   const onSubmit = async (data) => {
     try {
@@ -281,9 +288,9 @@ export default function Contact() {
         fullName: data.fullName,
         email: data.email,
         organization: data.organization,
-        executiveRole: data.executiveRole,
+        serviceRequired: data.serviceRequired,
         jurisdiction: data.jurisdiction,
-        phone: `${countryCode} ${data.phone}`,
+        phone: data.phone ? `${countryCode} ${data.phone}` : '',
         inquiryDetails: data.inquiryDetails,
       });
       toast.success('Your inquiry has been submitted. We will be in touch shortly.', {
@@ -323,7 +330,7 @@ export default function Contact() {
 
       {/* 1 â€” Hero */}
       <PageHero
-        title="Contact us"
+        title="Let's discuss your business"
         subtitle="Get in touch with our team to discuss your financial advisory needs."
         bgImage={HERO_BG}
         breadcrumb={[{ label: 'Home', to: '/' }, { label: 'Contact' }]}
@@ -387,33 +394,33 @@ export default function Contact() {
                       <FieldError message={errors.organization?.message} />
                     </div>
 
-                    {/* Executive Role */}
+                    {/* Service Required */}
                     <div>
-                      <Label htmlFor="executiveRole" required>Executive Role</Label>
+                      <Label htmlFor="serviceRequired" required>Service Required</Label>
                       <input
-                        id="executiveRole"
+                        id="serviceRequired"
                         type="text"
-                        placeholder="e.g. Chief Executive Officer"
-                        className={errors.executiveRole ? inputError : inputNormal}
-                        {...register('executiveRole')}
+                        placeholder="e.g. Digital Accounting, M&A Advisory"
+                        className={errors.serviceRequired ? inputError : inputNormal}
+                        {...register('serviceRequired')}
                       />
-                      <FieldError message={errors.executiveRole?.message} />
+                      <FieldError message={errors.serviceRequired?.message} />
                     </div>
 
                     {/* Jurisdiction */}
                     <div>
-                      <Label htmlFor="jurisdiction" required>Jurisdiction</Label>
+                      <Label htmlFor="jurisdiction" required>Service Country</Label>
                       <div className="relative">
                         <select
                           id="jurisdiction"
                           className={`appearance-none pr-10 ${errors.jurisdiction ? inputError : inputNormal}`}
                           {...register('jurisdiction')}
                         >
-                          <option value="">Select a jurisdiction...</option>
+                          <option value="">Select a country...</option>
                           <option value="Cyprus">Cyprus</option>
                           <option value="Netherlands">Netherlands</option>
-                          <option value="Greece">Greece</option>
-                          <option value="Other">Other</option>
+                          <option value="Both">Both</option>
+                          <option value="Not sure">Not sure</option>
                         </select>
                         <ChevronDown
                           size={16}
@@ -425,7 +432,7 @@ export default function Contact() {
 
                     {/* Phone Number with country code selector */}
                     <div>
-                      <Label htmlFor="phone" required>Phone Number</Label>
+                      <Label htmlFor="phone">Phone Number (Optional)</Label>
                       <div className={`flex rounded-sm overflow-hidden border ${errors.phone ? 'border-red-400' : 'border-gray-200 hover:border-gray-300'} transition-all duration-200 focus-within:ring-2 focus-within:ring-gold focus-within:border-gold`}>
                         {/* Country code dropdown */}
                         <div className="relative flex-shrink-0 border-r border-gray-200 bg-gray-50" style={{ width: '112px' }}>
@@ -484,7 +491,7 @@ export default function Contact() {
                           Submitting...
                         </>
                       ) : (
-                        'Submit Inquiry'
+                        'Request an introductory call'
                       )}
                     </button>
                   </div>
@@ -506,7 +513,7 @@ export default function Contact() {
                   <div className="flex items-center gap-3 mb-6">
                     <span className="w-6 h-[3px] rounded-full bg-gold flex-shrink-0" />
                     <h2 className="text-midnight font-bold text-sm uppercase tracking-[0.18em]">
-                      Global Headquarter
+                      Our Offices
                     </h2>
                   </div>
                 </div>

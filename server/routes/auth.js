@@ -10,11 +10,15 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Please provide email and password' });
-    const admin = await Admin.findOne({ email });
+    const cleanEmail = String(email).trim().toLowerCase();
+    const admin = await Admin.findOne({
+      email: { $regex: new RegExp(`^${cleanEmail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') }
+    });
     if (!admin || !(await admin.matchPassword(password)))
       return res.status(401).json({ message: 'Invalid credentials' });
     res.json({ token: signToken(admin._id), admin: { id: admin._id, name: admin.name, email: admin.email } });
   } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ message: err.message });
   }
 });

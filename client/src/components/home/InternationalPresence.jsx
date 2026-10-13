@@ -23,15 +23,6 @@ const FALLBACK_JURISDICTIONS = [
     description:
       "Europe's gateway for international holding structures, boasting an exceptional treaty network, participation exemption, and access to EU capital markets.",
   },
-  {
-    _id: '3',
-    slug: 'greece',
-    country: 'Greece',
-    flagEmoji: '🇬🇷',
-    flagUrl: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-greece-photo.png',
-    description:
-      'A strategic Mediterranean hub with attractive non-dom regimes, investment incentives, and growing opportunities across key sectors.',
-  },
 ];
 
 const containerVariants = {

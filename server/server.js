@@ -72,6 +72,8 @@ const allowedOrigins = [
   // Local development
   'http://localhost:3000',
   'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:3005',
 ].filter(Boolean);
 
 app.use(cors({
@@ -126,6 +128,7 @@ app.use('/api/upload', require('./routes/upload'));
 app.use('/api/documents', require('./routes/documents'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/seed', require('./routes/seed'));
+app.use('/api/homepage', require('./routes/homepage'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 

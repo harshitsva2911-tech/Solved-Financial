@@ -12,6 +12,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:slug', async (req, res) => {
   try {
+    if (req.params.slug.toLowerCase() === 'greece') {
+      return res.status(410).json({ message: 'Gone' });
+    }
     const j = await Jurisdiction.findOne({ slug: req.params.slug, active: true });
     if (!j) return res.status(404).json({ message: 'Not found' });
     res.json(j);

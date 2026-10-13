@@ -24,12 +24,12 @@ const sendEmail = async (to, subject, html) => {
 // Public — submit contact form
 router.post('/', contactLimiter, async (req, res) => {
   try {
-    const { fullName, email, organization, organizationName, executiveRole, jurisdiction, phone, phoneNumber, inquiryDetails } = req.body;
+    const { fullName, email, organization, organizationName, serviceRequired, jurisdiction, phone, phoneNumber, inquiryDetails } = req.body;
     const contact = await Contact.create({
       fullName: fullName || req.body.name,
       email,
       organizationName: organizationName || organization,
-      executiveRole,
+      serviceRequired,
       jurisdiction,
       phoneNumber: phoneNumber || phone,
       inquiryDetails,

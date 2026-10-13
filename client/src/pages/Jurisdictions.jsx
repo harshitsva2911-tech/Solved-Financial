@@ -34,24 +34,14 @@ const FALLBACK_JURISDICTIONS = [
       'The Netherlands is renowned for its pro-business environment, sophisticated financial infrastructure, and strategic location at the heart of Europe.',
     flagCode: 'nl',
   },
-  {
-    _id: '3',
-    country: 'Greece',
-    slug: 'greece',
-    tagline: 'An emerging strategic hub with deep European roots.',
-    intro:
-      'Greece presents a compelling opportunity for businesses seeking access to South-Eastern European markets, with a modernising regulatory environment and EU membership.',
-    flagCode: 'gr',
-  },
 ];
 
 const JURISDICTION_PHOTOS = {
   cyprus: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-cyprus-photo.png',
   netherlands: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-netherlands-photo.png',
-  greece: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/jurisdiction-greece-photo.png',
 };
 
-const FLAG_CODE_MAP = { cyprus: 'cy', netherlands: 'nl', greece: 'gr' };
+const FLAG_CODE_MAP = { cyprus: 'cy', netherlands: 'nl' };
 
 /* â”€â”€â”€ Jurisdiction Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function JurisdictionCard({ jurisdiction, index }) {
@@ -140,7 +130,7 @@ export default function Jurisdictions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="max-w-5xl">
             <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
-              Solved Financial Services operates across three key European jurisdictions,
+              Solved Financial Services operates across key European jurisdictions,
               providing locally-compliant, internationally-coordinated financial services
               tailored to each market. Our on-the-ground expertise ensures your business
               benefits from strategic insight rooted in genuine local knowledge.

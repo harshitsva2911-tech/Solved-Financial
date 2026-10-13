@@ -225,8 +225,8 @@ export default function Contacts() {
                     </td>
                     <td className="px-5 py-4">
                       <p className="text-sm text-gray-600">{contact.organizationName || '—'}</p>
-                      {contact.executiveRole && (
-                        <p className="text-xs text-gray-400">{contact.executiveRole}</p>
+                      {contact.serviceRequired && (
+                        <p className="text-xs text-gray-400">{contact.serviceRequired}</p>
                       )}
                     </td>
                     <td className="px-5 py-4 text-sm text-gray-500">{contact.jurisdiction || '—'}</td>
@@ -315,7 +315,7 @@ export default function Contacts() {
                     { icon: Mail,      label: 'Email',           value: selected.email },
                     { icon: Phone,     label: 'Phone',           value: selected.phoneNumber },
                     { icon: Building2, label: 'Organisation',    value: selected.organizationName },
-                    { icon: Briefcase, label: 'Executive Role',  value: selected.executiveRole },
+                    { icon: Briefcase, label: 'Service Required',  value: selected.serviceRequired },
                     { icon: Globe,     label: 'Jurisdiction',    value: selected.jurisdiction },
                     { icon: Calendar,  label: 'Submitted',       value: selected.createdAt ? new Date(selected.createdAt).toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }) : null },
                   ].map(({ icon: Icon, label, value }) =>

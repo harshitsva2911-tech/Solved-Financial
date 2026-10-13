@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FileText, Mail, CheckCircle, Briefcase, Plus, Eye, TrendingUp, Clock, Database, RefreshCw } from 'lucide-react';
+import { FileText, Mail, CheckCircle, Users, Plus, Eye, TrendingUp, Clock, Database, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
 
@@ -33,7 +33,7 @@ const STATUS_LABELS = {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [stats, setStats] = useState({ totalArticles: null, newContacts: null, publishedArticles: null, totalServices: null });
+  const [stats, setStats] = useState({ totalArticles: null, newContacts: null, publishedArticles: null, totalTeam: null });
   const [recentContacts, setRecentContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [seeding, setSeeding] = useState(false);
@@ -41,25 +41,25 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [articlesRes, contactsRes, servicesRes] = await Promise.allSettled([
+        const [articlesRes, contactsRes, teamRes] = await Promise.allSettled([
           api.get('/articles/admin/all'),
           api.get('/contact'),
-          api.get('/services/admin/all'),
+          api.get('/team/admin/all'),
         ]);
 
         const articles = articlesRes.status === 'fulfilled' ? articlesRes.value.data : [];
         const contacts = contactsRes.status === 'fulfilled' ? contactsRes.value.data : [];
-        const services = servicesRes.status === 'fulfilled' ? servicesRes.value.data : [];
+        const team = teamRes.status === 'fulfilled' ? teamRes.value.data : [];
 
         const articleList = Array.isArray(articles) ? articles : articles.articles || [];
         const contactList = Array.isArray(contacts) ? contacts : contacts.contacts || [];
-        const serviceList = Array.isArray(services) ? services : services.services || [];
+        const teamList = Array.isArray(team) ? team : team.members || [];
 
         setStats({
           totalArticles: articleList.length,
           newContacts: contactList.filter((c) => c.status === 'new').length,
           publishedArticles: articleList.filter((a) => a.published).length,
-          totalServices: serviceList.length,
+          totalTeam: teamList.length,
         });
         setRecentContacts(contactList.slice(0, 5));
       } catch (e) {
@@ -90,7 +90,7 @@ export default function Dashboard() {
     { icon: FileText, label: 'Total Articles', value: stats.totalArticles, color: '#001B2F', bg: '#E6EDF3' },
     { icon: Mail, label: 'New Contacts', value: stats.newContacts, color: '#2563EB', bg: '#EFF6FF' },
     { icon: CheckCircle, label: 'Published', value: stats.publishedArticles, color: '#16A34A', bg: '#F0FDF4' },
-    { icon: Briefcase, label: 'Services', value: stats.totalServices, color: '#D97706', bg: '#FFFBEB' },
+    { icon: Users, label: 'Team Members', value: stats.totalTeam, color: '#D97706', bg: '#FFFBEB' },
   ];
 
   return (
@@ -231,7 +231,7 @@ export default function Dashboard() {
               {[
                 { label: 'Published Articles', value: stats.publishedArticles || 0, total: stats.totalArticles || 1, color: '#001B2F' },
                 { label: 'New Contacts', value: stats.newContacts || 0, total: Math.max(stats.newContacts || 0, 10), color: '#2563EB' },
-                { label: 'Active Services', value: stats.totalServices || 0, total: Math.max(stats.totalServices || 0, 10), color: '#D4B684' },
+                { label: 'Team Members', value: stats.totalTeam || 0, total: Math.max(stats.totalTeam || 0, 5), color: '#D4B684' },
               ].map((item) => (
                 <div key={item.label}>
                   <div className="flex justify-between text-xs text-gray-500 mb-1">

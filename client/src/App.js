@@ -14,6 +14,9 @@ const Industries       = lazy(() => import('./pages/Industries'));
 const Experience       = lazy(() => import('./pages/Experience'));
 const Contact          = lazy(() => import('./pages/Contact'));
 const LegalPage        = lazy(() => import('./pages/LegalPage'));
+const CfoMa            = lazy(() => import('./pages/CfoMa'));
+const MaAdvisory       = lazy(() => import('./pages/MaAdvisory'));
+const HowWeWork        = lazy(() => import('./pages/HowWeWork'));
 const Unsubscribe      = lazy(() => import('./pages/Unsubscribe'));
 
 function PageLoader() {
@@ -52,6 +55,9 @@ export default function App() {
             <Route path="/industries"               element={<Industries />} />
             <Route path="/experience"               element={<Experience />} />
             <Route path="/contact"                  element={<Contact />} />
+            <Route path="/cfo-ma"                   element={<CfoMa />} />
+            <Route path="/ma-advisory"              element={<MaAdvisory />} />
+            <Route path="/how-we-work"              element={<HowWeWork />} />
             <Route path="/privacy-policy"           element={<LegalPage />} />
             <Route path="/terms-of-service"         element={<LegalPage />} />
             <Route path="/cookie-policy"            element={<LegalPage />} />

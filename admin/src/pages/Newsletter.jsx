@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import toast from 'react-hot-toast';
 import { Plus, Edit2, Trash2, X, Send, Users, Download, Mail, MailX } from 'lucide-react';
+import ConfirmModal from '../components/ConfirmModal';
 import api from '../utils/api';
 
 const emptyForm = { subject: '', content: '' };
@@ -43,6 +44,12 @@ export default function Newsletter() {
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
   const [sendingId, setSendingId] = useState(null);
+  const [deleteCampaignTarget, setDeleteCampaignTarget] = useState(null);
+  const [deletingCampaign, setDeletingCampaign] = useState(false);
+  const [sendCampaignTarget, setSendCampaignTarget] = useState(null);
+  const [sendingCampaign, setSendingCampaign] = useState(false);
+  const [deleteSubscriberTarget, setDeleteSubscriberTarget] = useState(null);
+  const [deletingSubscriber, setDeletingSubscriber] = useState(false);
 
   // Subscribers state
   const [subscribers, setSubscribers] = useState([]);
@@ -94,14 +101,22 @@ export default function Newsletter() {
     setShowModal(true);
   };
 
-  const handleDelete = async (id, subject) => {
-    if (!window.confirm(`Delete "${subject}"? This cannot be undone.`)) return;
+  const promptDeleteCampaign = (n) => {
+    setDeleteCampaignTarget({ id: n._id, subject: n.subject });
+  };
+
+  const confirmDeleteCampaign = async () => {
+    if (!deleteCampaignTarget) return;
+    setDeletingCampaign(true);
     try {
-      await api.delete(`/newsletter/${id}`);
+      await api.delete(`/newsletter/${deleteCampaignTarget.id}`);
       toast.success('Newsletter deleted');
+      setDeleteCampaignTarget(null);
       fetchNewsletters();
     } catch (e) {
-      toast.error('Failed to delete newsletter');
+      toast.error(e.response?.data?.message || 'Failed to delete newsletter');
+    } finally {
+      setDeletingCampaign(false);
     }
   };
 
@@ -129,33 +144,44 @@ export default function Newsletter() {
     }
   };
 
-  const handleSend = async (n) => {
-    if (
-      !window.confirm(
-        `Send "${n.subject}" to ${stats.active} active subscriber(s)? This cannot be undone.`
-      )
-    )
-      return;
-    setSendingId(n._id);
+  const promptSendCampaign = (n) => {
+    setSendCampaignTarget(n);
+  };
+
+  const confirmSendCampaign = async () => {
+    if (!sendCampaignTarget) return;
+    setSendingCampaign(true);
+    setSendingId(sendCampaignTarget._id);
     try {
-      const res = await api.post(`/newsletter/${n._id}/send`);
-      toast.success(res.data?.message || 'Newsletter sent');
+      const res = await api.post(`/newsletter/${sendCampaignTarget._id}/send`);
+      toast.success(res.data?.message || 'Newsletter sent successfully');
+      setSendCampaignTarget(null);
       fetchNewsletters();
+      fetchSubscribers();
     } catch (e) {
       toast.error(e.response?.data?.message || 'Failed to send newsletter');
     } finally {
+      setSendingCampaign(false);
       setSendingId(null);
     }
   };
 
-  const handleDeleteSubscriber = async (id, email) => {
-    if (!window.confirm(`Remove "${email}" from subscribers?`)) return;
+  const promptDeleteSubscriber = (s) => {
+    setDeleteSubscriberTarget({ id: s._id, email: s.email });
+  };
+
+  const confirmDeleteSubscriber = async () => {
+    if (!deleteSubscriberTarget) return;
+    setDeletingSubscriber(true);
     try {
-      await api.delete(`/newsletter/subscribers/${id}`);
+      await api.delete(`/newsletter/subscribers/${deleteSubscriberTarget.id}`);
       toast.success('Subscriber removed');
+      setDeleteSubscriberTarget(null);
       fetchSubscribers();
     } catch (e) {
-      toast.error('Failed to remove subscriber');
+      toast.error(e.response?.data?.message || 'Failed to remove subscriber');
+    } finally {
+      setDeletingSubscriber(false);
     }
   };
 
@@ -177,15 +203,22 @@ export default function Newsletter() {
       .catch(() => toast.error('Export failed'));
   };
 
-  const statusBadge = (status) => {
+  const statusBadge = (n) => {
+    if (n.status === 'sent' && n.recipientCount === 0 && n.failedCount > 0) {
+      return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
+          failed
+        </span>
+      );
+    }
     const styles = {
       draft: 'bg-yellow-100 text-yellow-700',
       sending: 'bg-blue-100 text-blue-700',
       sent: 'bg-green-100 text-green-700',
     };
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${styles[status] || 'bg-gray-100 text-gray-700'}`}>
-        {status}
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${styles[n.status] || 'bg-gray-100 text-gray-700'}`}>
+        {n.status}
       </span>
     );
   };
@@ -215,6 +248,7 @@ export default function Newsletter() {
 
       {tab === 'campaigns' && (
         <div>
+
           <div className="flex items-center justify-between mb-6">
             <p className="text-gray-500 text-sm">{newsletters.length} campaigns total</p>
             <button
@@ -256,7 +290,7 @@ export default function Newsletter() {
                         <td className="px-6 py-4">
                           <p className="text-sm font-medium text-gray-900 max-w-sm truncate">{n.subject}</p>
                         </td>
-                        <td className="px-6 py-4">{statusBadge(n.status)}</td>
+                        <td className="px-6 py-4">{statusBadge(n)}</td>
                         <td className="px-6 py-4 text-sm text-gray-500">
                           {n.status === 'sent' ? `${n.recipientCount} sent${n.failedCount ? `, ${n.failedCount} failed` : ''}` : '—'}
                         </td>
@@ -265,18 +299,22 @@ export default function Newsletter() {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2 justify-end">
-                            {n.status === 'draft' && (
+                            {(n.status === 'draft' || (n.recipientCount === 0 && n.failedCount > 0)) && (
                               <button
-                                onClick={() => handleSend(n)}
+                                onClick={() => promptSendCampaign(n)}
                                 disabled={sendingId === n._id}
                                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-white disabled:opacity-60"
                                 style={{ backgroundColor: '#D4B684', color: '#001B2F' }}
                               >
                                 <Send size={13} />
-                                {sendingId === n._id ? 'Sending...' : 'Send'}
+                                {sendingId === n._id
+                                  ? 'Sending...'
+                                  : n.recipientCount === 0 && n.failedCount > 0
+                                  ? 'Retry Send'
+                                  : 'Send'}
                               </button>
                             )}
-                            {n.status !== 'sent' && (
+                            {(n.status !== 'sent' || (n.recipientCount === 0 && n.failedCount > 0)) && (
                               <button
                                 onClick={() => openEdit(n)}
                                 className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
@@ -285,8 +323,9 @@ export default function Newsletter() {
                               </button>
                             )}
                             <button
-                              onClick={() => handleDelete(n._id, n.subject)}
+                              onClick={() => promptDeleteCampaign(n)}
                               className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              title="Delete newsletter"
                             >
                               <Trash2 size={14} />
                             </button>
@@ -355,8 +394,9 @@ export default function Newsletter() {
                         <td className="px-6 py-4">
                           <div className="flex items-center justify-end">
                             <button
-                              onClick={() => handleDeleteSubscriber(s._id, s.email)}
+                              onClick={() => promptDeleteSubscriber(s)}
                               className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              title="Remove subscriber"
                             >
                               <Trash2 size={14} />
                             </button>
@@ -435,6 +475,60 @@ export default function Newsletter() {
           </div>
         </div>
       )}
+
+      {/* Delete Campaign Modal */}
+      <ConfirmModal
+        isOpen={!!deleteCampaignTarget}
+        onClose={() => !deletingCampaign && setDeleteCampaignTarget(null)}
+        onConfirm={confirmDeleteCampaign}
+        title="Delete Newsletter Campaign"
+        message={
+          <span>
+            Are you sure you want to delete <strong className="text-gray-900 font-semibold">{deleteCampaignTarget?.subject}</strong>? This action cannot be undone.
+          </span>
+        }
+        confirmText="Delete Campaign"
+        confirmVariant="danger"
+        loading={deletingCampaign}
+      />
+
+      {/* Send Campaign Modal */}
+      <ConfirmModal
+        isOpen={!!sendCampaignTarget}
+        onClose={() => !sendingCampaign && setSendCampaignTarget(null)}
+        onConfirm={confirmSendCampaign}
+        title="Send Newsletter Campaign"
+        icon={Send}
+        message={
+          <div className="space-y-2">
+            <p>
+              Are you sure you want to send <strong className="text-gray-900 font-semibold">"{sendCampaignTarget?.subject}"</strong> to <strong className="text-gray-900 font-semibold">{stats.active}</strong> active subscriber{stats.active === 1 ? '' : 's'}?
+            </p>
+            <p className="text-xs text-gray-500">
+              This campaign will be delivered to subscriber inboxes immediately and cannot be undone.
+            </p>
+          </div>
+        }
+        confirmText="Send Campaign"
+        confirmVariant="gold"
+        loading={sendingCampaign}
+      />
+
+      {/* Delete Subscriber Modal */}
+      <ConfirmModal
+        isOpen={!!deleteSubscriberTarget}
+        onClose={() => !deletingSubscriber && setDeleteSubscriberTarget(null)}
+        onConfirm={confirmDeleteSubscriber}
+        title="Remove Subscriber"
+        message={
+          <span>
+            Remove <strong className="text-gray-900 font-semibold">{deleteSubscriberTarget?.email}</strong> from active subscribers?
+          </span>
+        }
+        confirmText="Remove Subscriber"
+        confirmVariant="danger"
+        loading={deletingSubscriber}
+      />
     </div>
   );
 }

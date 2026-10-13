@@ -6,12 +6,20 @@ const protect = async (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
   }
-  if (!token) return res.status(401).json({ message: 'Not authorized' });
+  if (!token) {
+    console.log('401: No token provided for', req.originalUrl);
+    return res.status(401).json({ message: 'Not authorized' });
+  }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.admin = await Admin.findById(decoded.id).select('-password');
+    if (!req.admin) {
+      console.log('401: Admin not found for ID', decoded.id, 'on', req.originalUrl);
+      return res.status(401).json({ message: 'Admin not found' });
+    }
     next();
-  } catch {
+  } catch (err) {
+    console.log('401: Token invalid for', req.originalUrl, '-', err.message);
     res.status(401).json({ message: 'Token invalid' });
   }
 };

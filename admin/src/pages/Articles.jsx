@@ -4,18 +4,19 @@ import 'react-quill-new/dist/quill.snow.css';
 import toast from 'react-hot-toast';
 import { Plus, Edit2, Trash2, X, Star, Eye, EyeOff } from 'lucide-react';
 import ImageUpload from '../components/ImageUpload';
+import ConfirmModal from '../components/ConfirmModal';
 import api from '../utils/api';
 
-const CATEGORIES = ['Tax', 'Compliance', 'Strategy', 'Insights', 'News', 'Case Study', 'Other'];
+const CATEGORIES = ['Cyprus', 'Netherlands', 'CFO & Business Finance'];
 
 const emptyForm = {
   title: '',
-  category: 'Insights',
+  category: 'Cyprus',
   excerpt: '',
   content: '',
   image: '',
   featured: false,
-  published: false,
+  published: true,
 };
 
 export default function Articles() {
@@ -25,6 +26,9 @@ export default function Articles() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const fetchArticles = useCallback(async () => {
     setLoading(true);
@@ -50,30 +54,42 @@ export default function Articles() {
   const openEdit = (article) => {
     setForm({
       title: article.title || '',
-      category: article.category || 'Insights',
+      category: CATEGORIES.includes(article.category) ? article.category : 'Cyprus',
       excerpt: article.excerpt || '',
       content: article.content || '',
       image: article.image || '',
       featured: !!article.featured,
-      published: !!article.published,
+      published: article.published !== undefined ? !!article.published : true,
     });
     setEditingId(article._id);
     setShowModal(true);
   };
 
-  const handleDelete = async (id, title) => {
-    if (!window.confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  const promptDelete = (article) => {
+    setDeleteTarget({ id: article._id, title: article.title });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
     try {
-      await api.delete(`/articles/${id}`);
+      await api.delete(`/articles/${deleteTarget.id}`);
       toast.success('Article deleted');
+      setDeleteTarget(null);
       fetchArticles();
     } catch (e) {
-      toast.error('Failed to delete article');
+      toast.error(e.response?.data?.message || 'Failed to delete article');
+    } finally {
+      setDeleting(false);
     }
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (imageUploading) {
+      toast.error('Please wait for the image upload to finish');
+      return;
+    }
     setSaving(true);
     try {
       if (editingId) {
@@ -133,6 +149,7 @@ export default function Articles() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wide">
+                  <th className="text-left px-6 py-3 font-medium">Image</th>
                   <th className="text-left px-6 py-3 font-medium">Title</th>
                   <th className="text-left px-6 py-3 font-medium">Category</th>
                   <th className="text-left px-6 py-3 font-medium">Status</th>
@@ -144,6 +161,28 @@ export default function Articles() {
               <tbody>
                 {articles.map((article) => (
                   <tr key={article._id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4">
+                      {article.image ? (
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-14 h-10 object-cover rounded-md border border-gray-200 shadow-sm"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            if (e.currentTarget.nextSibling) {
+                              e.currentTarget.nextSibling.style.display = 'flex';
+                            }
+                          }}
+                        />
+                      ) : null}
+                      <div
+                        className={`w-14 h-10 rounded-md bg-gray-100 border border-dashed border-gray-200 items-center justify-center text-[10px] text-gray-400 font-medium ${
+                          article.image ? 'hidden' : 'flex'
+                        }`}
+                      >
+                        No image
+                      </div>
+                    </td>
                     <td className="px-6 py-4">
                       <p className="text-sm font-medium text-gray-900 max-w-xs truncate">{article.title}</p>
                       {article.excerpt && (
@@ -179,8 +218,9 @@ export default function Articles() {
                           <Edit2 size={14} />
                         </button>
                         <button
-                          onClick={() => handleDelete(article._id, article.title)}
+                          onClick={() => promptDelete(article)}
                           className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                          title="Delete article"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -214,7 +254,7 @@ export default function Articles() {
                   <input
                     required
                     value={form.title}
-                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none"
                     onFocus={(e) => (e.target.style.borderColor = '#001B2F')}
                     onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
@@ -226,19 +266,20 @@ export default function Articles() {
                   <label className="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
                   <select
                     value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value })}
+                    onChange={(e) => setForm((prev) => ({ ...prev, category: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none bg-white"
                     onFocus={(e) => (e.target.style.borderColor = '#001B2F')}
                     onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                   >
-                    {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+                    {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
 
                 <div>
                   <ImageUpload
                     value={form.image}
-                    onChange={(url) => setForm({ ...form, image: url })}
+                    onChange={(url) => setForm((prev) => ({ ...prev, image: url }))}
+                    onUploadingChange={setImageUploading}
                     label="Article Image"
                     hint="1200 × 630 px"
                     aspectHint="16:9"
@@ -250,7 +291,7 @@ export default function Articles() {
                   <textarea
                     rows={2}
                     value={form.excerpt}
-                    onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
+                    onChange={(e) => setForm((prev) => ({ ...prev, excerpt: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none resize-none"
                     onFocus={(e) => (e.target.style.borderColor = '#001B2F')}
                     onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
@@ -264,7 +305,7 @@ export default function Articles() {
                 <div className="border border-gray-300 rounded-lg overflow-hidden">
                   <ReactQuill
                     value={form.content}
-                    onChange={(val) => setForm({ ...form, content: val })}
+                    onChange={(val) => setForm((prev) => ({ ...prev, content: val }))}
                     modules={quillModules}
                     style={{ minHeight: '200px' }}
                   />
@@ -276,7 +317,7 @@ export default function Articles() {
                   <div
                     className={`w-10 h-5 rounded-full transition-colors relative ${form.featured ? '' : 'bg-gray-200'}`}
                     style={{ backgroundColor: form.featured ? '#D4B684' : '' }}
-                    onClick={() => setForm({ ...form, featured: !form.featured })}
+                    onClick={() => setForm((prev) => ({ ...prev, featured: !prev.featured }))}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform shadow ${form.featured ? 'translate-x-5' : 'translate-x-0.5'}`} />
                   </div>
@@ -287,7 +328,7 @@ export default function Articles() {
                   <div
                     className={`w-10 h-5 rounded-full transition-colors relative`}
                     style={{ backgroundColor: form.published ? '#001B2F' : '#E5E7EB' }}
-                    onClick={() => setForm({ ...form, published: !form.published })}
+                    onClick={() => setForm((prev) => ({ ...prev, published: !prev.published }))}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform shadow ${form.published ? 'translate-x-5' : 'translate-x-0.5'}`} />
                   </div>
@@ -308,17 +349,33 @@ export default function Articles() {
                 </button>
                 <button
                   type="submit"
-                  disabled={saving}
+                  disabled={saving || imageUploading}
                   className="px-5 py-2 text-sm font-medium text-white rounded-lg disabled:opacity-60"
                   style={{ backgroundColor: '#001B2F' }}
                 >
-                  {saving ? 'Saving...' : editingId ? 'Update Article' : 'Create Article'}
+                  {imageUploading ? 'Uploading Image...' : saving ? 'Saving...' : editingId ? 'Update Article' : 'Create Article'}
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={!!deleteTarget}
+        onClose={() => !deleting && setDeleteTarget(null)}
+        onConfirm={confirmDelete}
+        title="Delete Article"
+        message={
+          <span>
+            Are you sure you want to delete <strong className="text-gray-900 font-semibold">{deleteTarget?.title}</strong>? This action cannot be undone.
+          </span>
+        }
+        confirmText="Delete Article"
+        confirmVariant="danger"
+        loading={deleting}
+      />
     </div>
   );
 }

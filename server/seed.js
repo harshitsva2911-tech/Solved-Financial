@@ -9,6 +9,7 @@ const Jurisdiction = require('./models/Jurisdiction');
 const Industry = require('./models/Industry');
 const CaseStudy = require('./models/CaseStudy');
 const Setting = require('./models/Setting');
+const Article = require('./models/Article');
 
 const seed = async () => {
   await mongoose.connect(process.env.MONGO_URI);
@@ -24,10 +25,10 @@ const seed = async () => {
   // Metrics
   await Metric.deleteMany();
   await Metric.insertMany([
-    { value: '123k+', label: 'Transactions Advised', description: 'Total financial transactions successfully advised across our global client base.', order: 1 },
-    { value: '15+', label: 'Years of Experience', description: 'Over a decade of senior-level financial leadership and advisory expertise.', order: 2 },
-    { value: '12+', label: 'Countries Served', description: 'Cross-border advisory spanning European and international jurisdictions.', order: 3 },
-    { value: '98%', label: 'Client Retention Rate', description: 'Our long-term client relationships reflect the trust we build through results.', order: 4 },
+    { value: 123, suffix: 'k+', label: 'Transactions Advised', description: 'Total financial transactions successfully advised across our global client base.', order: 1 },
+    { value: 15, suffix: '+', label: 'Years of Experience', description: 'Over a decade of senior-level financial leadership and advisory expertise.', order: 2 },
+    { value: 12, suffix: '+', label: 'Countries Served', description: 'Cross-border advisory spanning European and international jurisdictions.', order: 3 },
+    { value: 98, suffix: '%', label: 'Client Retention Rate', description: 'Our long-term client relationships reflect the trust we build through results.', order: 4 },
   ]);
 
   // Services
@@ -37,8 +38,8 @@ const seed = async () => {
     { title: 'Finance Setup & Structuring', slug: 'finance-setup-structuring', excerpt: 'Building scalable financial foundations for growing organisations.', description: 'We design and implement structured financial ecosystems that support sustainable growth. From establishing a new finance function to restructuring an existing one, we provide the framework for high-performance financial management.', features: ['Chart of accounts setup', 'Financial process design', 'Accounting system implementation', 'Reporting infrastructure', 'Financial controls framework'], order: 2 },
     { title: 'Accounting & Financial Administration', slug: 'accounting-financial-administration', excerpt: 'Structured, compliant, and transparent financial management.', description: 'Solved Financial Services delivers structured, compliant, and transparent financial administration tailored to the operational and regulatory needs of growing organisations. Our team handles the full spectrum of bookkeeping, reconciliations, payroll support, and financial reporting.', features: ['Bookkeeping & reconciliations', 'VAT filing & compliance', 'Financial statements preparation', 'Payroll administration support', 'Multi-currency accounting'], order: 3 },
     { title: 'Operations & Performance Advisory', slug: 'operations-performance-advisory', excerpt: 'Connecting financial insights to operational excellence.', description: 'We help leadership teams understand the financial drivers behind their operations. By linking financial data to operational KPIs, we support better decision-making and performance improvement across the business.', features: ['Cost optimisation strategies', 'Supply chain financial analysis', 'Performance management systems', 'Operational budgeting', 'Variance analysis & reporting'], order: 4 },
-    { title: 'Company Incorporation', slug: 'company-incorporation', excerpt: 'End-to-end support for establishing legal entities in key jurisdictions.', description: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece. We manage the full incorporation process, including nominee services, regulatory filings, and post-incorporation setup.', features: ['Jurisdiction selection advice', 'Full incorporation process', 'Nominee director services', 'Bank account opening support', 'Post-incorporation compliance'], order: 5 },
-    { title: 'Audit & Assurance', slug: 'audit-assurance', excerpt: 'Independent financial verification for investor-grade confidence.', description: 'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.', features: ['Statutory audit coordination', 'Financial due diligence', 'Internal audit support', 'Regulatory compliance review', 'Audit readiness preparation'], order: 6 },
+    { title: 'Company Incorporation', slug: 'company-incorporation', excerpt: 'End-to-end support for establishing legal entities in key jurisdictions.', description: 'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus and the Netherlands. We manage the full incorporation process, including nominee services, regulatory filings, and post-incorporation setup.', features: ['Jurisdiction selection advice', 'Full incorporation process', 'Nominee director services', 'Bank account opening support', 'Post-incorporation compliance'], order: 5 },
+    { title: 'Audit & Assurance', slug: 'audit-assurance', excerpt: 'Independent financial verification for investor-grade confidence.', description: 'Through our network of partner firms in Cyprus and the Netherlands, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.', features: ['Statutory audit coordination', 'Financial due diligence', 'Internal audit support', 'Regulatory compliance review', 'Audit readiness preparation'], order: 6 },
     { title: 'Cross-Border & International Advisory', slug: 'cross-border-international-advisory', excerpt: 'Navigating multi-jurisdictional financial complexity with expertise.', description: 'Solved Financial Services provides specialist advisory for businesses operating or expanding across borders. We help clients navigate the regulatory, structural, and financial complexities of international expansion, particularly within European jurisdictions.', features: ['Cross-border tax structuring', 'Transfer pricing advisory', 'International entity structuring', 'Regulatory mapping', 'Multi-jurisdiction compliance'], order: 7 },
   ]);
 
@@ -47,27 +48,29 @@ const seed = async () => {
   await Jurisdiction.insertMany([
     {
       country: 'Cyprus', slug: 'cyprus', order: 1,
-      tagline: 'A strategic gateway for international business within the EU.',
-      intro: 'Cyprus offers one of the most business-friendly regulatory environments in Europe, combining a competitive tax framework, strong legal infrastructure, and full EU membership. Solved Financial Services leverages deep local expertise to support businesses establishing or expanding their presence in Cyprus.',
+      tagline: 'Modern accounting. Personal support. A clearer view of your Cyprus business.',
+      intro: 'We support Cyprus companies with financial administration, practical business advice and a connected digital client experience. Submit documents, issue invoices and communicate with our team through the systems included in your agreed service package.',
       strategyPivot: {
         heading: 'Strategy Pivot',
         points: [
-          { title: 'Low Corporate Tax', description: 'Cyprus maintains one of the lowest corporate tax rates in the EU at 12.5%, making it highly attractive for holding and trading structures.' },
+          { title: 'Competitive Corporate Tax', description: 'Cyprus maintains a highly competitive and EU-compliant corporate tax rate, making it attractive for holding and trading structures.' },
           { title: 'EU Compliant', description: 'Full compliance with EU directives ensures access to European markets while maintaining a competitive regulatory environment.' }
         ]
       },
       services: [
-        { title: 'Accounting & Financial Structuring', description: 'Comprehensive accounting services tailored to Cyprus-based entities, including statutory compliance and financial reporting.', features: ['Statutory financial statements', 'Regulatory filings', 'VAT compliance', 'Corporate tax returns'] },
-        { title: 'Corporate & Financial Structuring', description: 'Strategic structuring of corporate entities to optimise tax efficiency and operational effectiveness within Cyprus.', features: ['Holding company structures', 'Tax planning', 'Shareholder agreements', 'Group structuring'] },
-        { title: 'CFO & Board Advisory', description: 'Senior financial leadership and strategic advisory for Cyprus-registered entities and their global management teams.', features: ['Cyprus-specific regulatory guidance', 'Financial reporting oversight', 'Board-level presentations', 'Investor communication'] },
-        { title: 'Company Incorporation', description: 'Full service company formation in Cyprus including nominee services, registered office, and compliance setup.', features: ['Company registration', 'Nominee directors', 'Registered office', 'Bank account support'] },
-        { title: 'Audit & Assurance Services', description: 'Coordination of statutory audit requirements in accordance with Cyprus regulatory obligations through our local partner network.', features: ['Audit coordination', 'Financial due diligence', 'Regulatory compliance', 'Audit readiness'] }
+        { title: 'M&A Advisory', description: 'Acquisition searches, target screening, financial analysis, financial due diligence coordination and transaction support for Cyprus businesses and investors; scope each stage explicitly.', features: ['Acquisition searches', 'Target screening', 'Financial analysis', 'Transaction support'] },
+        { title: 'Digital Accounting & VAT', description: 'Bookkeeping, transaction reviews, reconciliations, VAT support, missing-document follow-up and reporting records. Explain who delivers and files each element.', features: ['Bookkeeping', 'Transaction reviews', 'Reconciliations', 'VAT support'] },
+        { title: 'Client Invoicing & Financial Visibility', description: 'Invoice software setup, company branding, client access, training and agreed reports. State reporting frequency and invoice features accurately.', features: ['Invoice software setup', 'Company branding', 'Client access', 'Agreed reports'] },
+        { title: 'Company Formation & Ongoing Support', description: 'Coordinate formation, accounting setup, tax/VAT registration and the handover to ongoing support. Identify partner-led legal/corporate work.', features: ['Coordinate formation', 'Accounting setup', 'Tax/VAT registration', 'Ongoing support'] },
+        { title: 'Fractional CFO & Business Advisory', description: 'Cash planning, budgets, profitability reviews, forecasts and regular management discussions.', features: ['Cash planning', 'Budgets', 'Profitability reviews', 'Forecasts'] },
+        { title: 'Corporate Structuring & Specialist Coordination', description: 'Financial analysis and coordination with the relevant tax/legal specialists; describe eligibility review rather than blanket benefits.', features: ['Financial analysis', 'Specialist coordination', 'Eligibility review', 'Tax/legal alignment'] },
+        { title: 'Audit Readiness & Partner Coordination', description: 'Organised year-end records, schedules and responses for the independent auditor.', features: ['Year-end records', 'Audit schedules', 'Independent auditor coordination', 'Responses'] }
       ]
     },
     {
       country: 'Netherlands', slug: 'netherlands', order: 2,
-      tagline: 'Europe\'s leading gateway for international trade and finance.',
-      intro: 'The Netherlands is renowned for its pro-business environment, sophisticated financial infrastructure, and strategic location at the heart of Europe. It remains the preferred jurisdiction for multinational headquarters, holding structures, and international trading companies.',
+      tagline: 'Financial clarity for growing businesses in the Netherlands.',
+      intro: 'From accounting and VAT to hands-on CFO support, Solved helps entrepreneurs build reliable finance processes, understand performance and plan their next stage of growth.',
       strategyPivot: {
         heading: 'Strategy Pivot',
         points: [
@@ -76,30 +79,12 @@ const seed = async () => {
         ]
       },
       services: [
-        { title: 'Accounting & Financial Administration', description: 'Full-cycle accounting and financial administration for Netherlands-based entities, ensuring Dutch GAAP compliance.', features: ['Dutch GAAP compliance', 'Annual accounts preparation', 'VAT declarations', 'Payroll administration'] },
-        { title: 'Finance Setup & Structuring', description: 'Establishing robust financial frameworks for newly formed or expanding Netherlands entities.', features: ['Finance function setup', 'System implementation', 'Process documentation', 'Internal controls'] },
-        { title: 'CFO & Strategic Advisory', description: 'Strategic financial guidance for businesses using the Netherlands as their European base of operations.', features: ['Holding structure advice', 'Group financial oversight', 'Reporting to international boards', 'Budget & forecast management'] },
-        { title: 'Operations & Performance Advisory', description: 'Financial analysis and performance optimisation for Netherlands-based operational entities.', features: ['KPI development', 'Cost analysis', 'Operational efficiency', 'Management reporting'] },
-        { title: 'Company Incorporation', description: 'Complete BV incorporation services in the Netherlands, including compliance setup and ongoing administration.', features: ['BV formation', 'UBO registration', 'KVK registration', 'Opening corporate accounts'] }
-      ]
-    },
-    {
-      country: 'Greece', slug: 'greece', order: 3,
-      tagline: 'An emerging strategic hub with deep European roots.',
-      intro: 'Greece presents a compelling opportunity for businesses seeking access to South-Eastern European markets. With a modernising regulatory environment, EU membership, and growing technology and shipping sectors, Greece is increasingly attractive for international investment.',
-      partnerFirm: { name: 'Revival Consulting Services', description: 'Solved Financial Services operates in Greece through its strategic partnership with Revival Consulting Services, a leading Greek advisory firm with extensive expertise in local regulatory compliance, tax advisory, and business establishment services.' },
-      strategyPivot: {
-        heading: 'Strategy Pivot',
-        points: [
-          { title: 'Emerging Market', description: 'Greece\'s modernising economy and EU membership create attractive conditions for international investors and businesses expanding into South-Eastern Europe.' },
-          { title: 'Strategic Location', description: 'Greece\'s position as a gateway to the Balkans, Eastern Mediterranean, and Middle East makes it strategically significant for trade and logistics businesses.' }
-        ]
-      },
-      services: [
-        { title: 'Accounting & Compliance Support', description: 'Full compliance accounting for Greek entities, ensuring alignment with Greek GAAP and tax regulations.', features: ['Greek GAAP compliance', 'Corporate tax returns', 'VAT management', 'Regulatory filings'] },
-        { title: 'Corporate & Business Advisory', description: 'Strategic advisory for businesses establishing or growing their Greek presence, including sector-specific guidance.', features: ['Business setup advisory', 'Regulatory guidance', 'Strategic planning', 'Market entry support'] },
-        { title: 'Financial & Strategic Advisory', description: 'Senior financial advisory services for Greek entities, covering financial structuring, planning, and investor relations.', features: ['Financial modelling', 'Investor presentations', 'Funding strategy', 'CFO-level guidance'] },
-        { title: 'Audit & Assurance (via Partner Network)', description: 'Statutory audit coordination through Revival Consulting Services in compliance with Greek regulatory requirements.', features: ['Statutory audit', 'Financial due diligence', 'Internal controls review', 'Audit support'] }
+        { title: 'Accounting & VAT', description: 'Bookkeeping, reconciliations, VAT returns and financial reporting within the contracted scope. Separate payroll and annual accounts if they are add-ons or partner-delivered.', features: ['Bookkeeping', 'Reconciliations', 'VAT returns', 'Financial reporting'] },
+        { title: 'Fractional CFO', description: 'Rolling cash forecasts, budgets, management reporting, margins, board support and financial planning.', features: ['Cash forecasts', 'Budgets', 'Management reporting', 'Financial planning'] },
+        { title: 'Finance Setup & Automation', description: 'Accounting systems, invoicing, expense workflows, month-end processes, controls and reporting tools.', features: ['Accounting systems', 'Expense workflows', 'Month-end processes', 'Reporting tools'] },
+        { title: 'Growth & Performance Advisory', description: 'Unit economics, cost analysis, working capital, scenarios and decision support.', features: ['Unit economics', 'Cost analysis', 'Working capital', 'Decision support'] },
+        { title: 'International Business Support', description: 'Financial oversight across entities and coordination with local tax/legal advisers. Include company setup only as a clearly scoped partner-assisted service.', features: ['Financial oversight', 'Local adviser coordination', 'Multi-entity support', 'Partner-assisted company setup'] },
+        { title: 'M&A Advisory', description: 'Acquisition searches, target screening, financial analysis and transaction support for Dutch businesses and investors.', features: ['Acquisition searches', 'Target screening', 'Financial analysis', 'Transaction support'] }
       ]
     }
   ]);
@@ -107,20 +92,20 @@ const seed = async () => {
   // Industries
   await Industry.deleteMany();
   await Industry.insertMany([
-    { title: 'Startups & Scale-ups', description: 'Fast-growing companies that need financial structure, investor-ready reporting, and CFO-level strategic support without the cost of a full-time executive.', challenges: ['Rapid growth without financial infrastructure', 'Investor reporting requirements', 'Cash flow management'], support: ['Fractional CFO services', 'Investor-ready financial reporting', 'Growth financial modelling', 'Finance function buildout', 'KPI frameworks'], image: '', order: 1 },
-    { title: 'International / Cross-border Businesses', description: 'Companies operating across multiple jurisdictions requiring coordinated financial management, multi-currency accounting, and cross-border structuring expertise.', challenges: ['Multi-jurisdiction compliance', 'Transfer pricing complexities', 'Currency risk management'], support: ['Cross-border advisory', 'Multi-currency accounting', 'International entity structuring', 'Regulatory mapping', 'Group consolidation'], image: '', order: 2 },
-    { title: 'Trading, FMCG & Supply Chain Businesses', description: 'Businesses with complex supply chains and high transaction volumes requiring rigorous financial controls, margin analysis, and operational efficiency.', challenges: ['Thin margins requiring precise cost control', 'Complex inventory management', 'Cash conversion cycle optimisation'], support: ['Cost and margin analysis', 'Inventory accounting', 'Supply chain financial review', 'Working capital management', 'KPI tracking'], image: '', order: 3 },
-    { title: 'Private Equity-backed & Growth Companies', description: 'Portfolio companies and PE-backed businesses requiring institutional-grade financial reporting, governance, and M&A support.', challenges: ['Institutional reporting standards', 'Board-level financial governance', 'M&A due diligence requirements'], support: ['Board-level financial reporting', 'M&A financial advisory', 'Governance frameworks', 'Investor relations', 'Exit preparation'], image: '', order: 4 },
-    { title: 'SMEs & Family-owned Businesses', description: 'Established businesses seeking professional financial management, succession planning support, and structured growth strategies.', challenges: ['Professionalising financial management', 'Succession planning complexity', 'Growth funding requirements'], support: ['Financial professionalisation', 'Succession planning advisory', 'Access to funding support', 'Business performance improvement', 'Strategic financial planning'], image: '', order: 5 },
+    { title: 'Technology & Software', description: 'Fast-growing software, SaaS, and technology companies requiring scalable financial structures and investor-ready reporting.', challenges: ['Rapid growth without financial infrastructure', 'Investor reporting requirements', 'SaaS metric tracking (ARR, Churn)'], support: ['Finance function buildout', 'Investor-ready financial reporting', 'KPI frameworks', 'Fractional CFO support'], image: '', order: 1 },
+    { title: 'Ecommerce & Retail', description: 'Omnichannel and pure-play ecommerce businesses needing deep visibility into inventory, pricing, and working capital across multiple markets.', challenges: ['Complex inventory cash requirements', 'Understanding true margins after operational costs', 'Multi-market VAT and financial visibility'], support: ['Margin and inventory analysis', 'Working capital planning', 'Operational cost reviews', 'Multi-market financial visibility'], image: '', order: 2 },
+    { title: 'Professional Services', description: 'Consultancies, agencies, and service firms looking to optimise project profitability, cash flow, and operational efficiency.', challenges: ['Project-level profitability tracking', 'Cash flow management with varying payment terms', 'Scaling team costs vs revenue'], support: ['Profitability analysis', 'Cash flow forecasting', 'Management reporting', 'Partner compensation structuring'], image: '', order: 3 },
+    { title: 'Startups & Scale-ups', description: 'Early-stage and high-growth businesses that need financial structure, strategic funding support, and senior advisory without the cost of a full-time executive.', challenges: ['Securing and managing funding', 'Establishing basic financial controls', 'Scenario planning and runway management'], support: ['Fractional CFO services', 'Financial modelling', 'Growth advisory', 'Board support'], image: '', order: 4 },
+    { title: 'Owner-managed International Businesses', description: 'Established international businesses seeking professional financial management, structured growth strategies, and cross-border oversight.', challenges: ['Professionalising financial management', 'Multi-entity oversight', 'Succession or exit planning'], support: ['Group reporting and consolidation', 'Financial professionalisation', 'Exit preparation', 'Strategic financial planning'], image: '', order: 5 }
   ]);
 
   // Case Studies
   await CaseStudy.deleteMany();
   await CaseStudy.insertMany([
-    { title: 'Finance Transformation in International Trading Group', subtitle: 'Rapidly growing EU trading business with multi-warehouse operations and complex international supply chain reporting.', situation: 'The client operated across three EU countries with no centralised financial reporting, inconsistent accounting practices, and limited visibility into profitability by product line.', approach: 'Established real-world data flows from the Product ERP, Assets, and Financial systems. Implemented standardised reporting with monthly management accounts delivered within 5 business days of month-end.', outcomes: ['Improved margin visibility and cost control', 'Consolidated multi-entity financial reporting', 'Streamlined month-end close process', 'Implemented performance dashboards for leadership'], image: '', order: 1 },
-    { title: 'ERP Implementation & Finance Setup for Scale-up', subtitle: 'High-growth company transitioning from basic accounting to a structured finance function.', situation: 'A technology scale-up had outgrown its basic accounting setup and needed a professional finance function capable of supporting Series A investment requirements.', approach: 'Designed and implemented a full finance function including system selection, chart of accounts, financial controls, and investor reporting framework.', outcomes: ['Full financial statements aligned with investor expectations', 'Automated reporting reducing manual effort by 60%', 'Scalable finance infrastructure for further growth', 'Audit-ready financial records'], image: '', order: 2 },
-    { title: 'Cross-border VAT & Structuring Optimisation', subtitle: 'European workshop with intra-EU VAT movement and non-compliant VAT treatment across EU jurisdictions.', situation: 'A manufacturing business with operations in Cyprus, Netherlands, and Greece had inconsistent VAT treatment leading to regulatory exposure and financial leakage.', approach: 'Conducted a full VAT compliance review, restructured the inter-company billing model, and implemented jurisdiction-specific compliance processes.', outcomes: ['Eliminated VAT compliance exposure', 'Improved cash flow through VAT reclaim optimisation', 'Standardised cross-border transaction documentation', 'Ongoing monitoring framework'], image: '', order: 3 },
-    { title: 'Operational Cost & Margin Optimisation (Supply Chain)', subtitle: 'Business facing operational inefficiency between customer activity and operational suppliers and logistics costs.', situation: 'A logistics business was struggling with margin erosion due to uncontrolled supplier costs and poor visibility into per-route profitability.', approach: 'Identified key cost drivers, built a route-level profitability model, and restructured supplier terms with new performance metrics.', outcomes: ['Identified 18% cost reduction opportunity within supplier base', 'Implemented route-level P&L reporting', 'Reduced lost revenue from under-billing', 'Improved contract negotiation with financial data'], image: '', order: 4 },
+    { title: 'Finance Transformation (Technology)', subtitle: 'Founder\'s prior career experience', situation: 'A fast-growing technology business required an overhaul of its basic accounting processes to support rapid expansion.', approach: 'Designed and implemented end-to-end accounting workflows, automated approvals, and a structured month-end close process.', outcomes: ['Reduced month-end close from 15 to 5 days', 'Implemented automated approval workflows', 'Delivered reliable, investor-ready management reporting'], image: '', order: 1 },
+    { title: 'Ecommerce & Retail Operations', subtitle: 'Solved engagement', situation: 'An international ecommerce brand lacked visibility into true margins and suffered from working capital constraints tied to inventory.', approach: 'Analysed pricing structures, implemented inventory cash-requirement forecasting, and established multi-market financial visibility.', outcomes: ['Clarified true product margins across all markets', 'Optimised inventory purchasing cycles', 'Improved working capital and cash availability'], image: '', order: 2 },
+    { title: 'Group Reporting & Consolidation', subtitle: 'Founder\'s prior career experience', situation: 'A complex multi-entity group required a unified reporting structure and better oversight across international operations.', approach: 'Built a consolidated reporting framework, aligning chart of accounts and establishing clear reporting lines.', outcomes: ['Delivered unified multi-entity oversight', 'Standardised reporting structures across jurisdictions', 'Enhanced board-level decision making'], image: '', order: 3 },
+    { title: 'Cash-flow & Turnaround Work', subtitle: 'Solved engagement', situation: 'A business facing severe cash constraints needed immediate intervention to stabilize operations and rebuild stakeholder confidence.', approach: 'Implemented strict short-term cash planning, conducted deep performance reviews, and established transparent stakeholder reporting.', outcomes: ['Stabilised operational cash flow within 30 days', 'Identified and eliminated unprofitable operational costs', 'Restored stakeholder and creditor confidence'], image: '', order: 4 }
   ]);
 
   // Settings
@@ -130,11 +115,22 @@ const seed = async () => {
     { key: 'phone', value: '+357 25 123 456', group: 'contact' },
     { key: 'email', value: 'info@solvedfinancial.com', group: 'contact' },
     { key: 'linkedin', value: 'https://linkedin.com/company/solved-financial-services', group: 'social' },
-    { key: 'twitter', value: 'https://twitter.com/solvedfinancial', group: 'social' },
-    { key: 'instagram', value: 'https://instagram.com/solvedfinancial', group: 'social' },
     { key: 'heroTitle', value: 'Strategic Financial Leadership for Ambitious Enterprises', group: 'homepage' },
     { key: 'heroSubtitle', value: 'Board-level advisory, financial structuring, and international expansion services for scale-ups, start-ups, and established enterprises.', group: 'homepage' },
     { key: 'ctaTitle', value: 'Ready to Empower your vision?', group: 'homepage' },
+    { key: 'legalEntityCyprus', value: 'Solved Financial Services LTD', group: 'legal' },
+    { key: 'legalEntityNetherlands', value: 'Solved Financial Services B.V.', group: 'legal' }
+  ]);
+
+  // Articles
+  await Article.deleteMany();
+  await Article.insertMany([
+    { title: 'How to work with Solved’s digital accounting service', slug: 'how-to-work-digital-accounting-cyprus', excerpt: 'A guide to our digital accounting process in Cyprus.', content: '<p>A guide to our digital accounting process in Cyprus.</p>', category: 'Cyprus', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' },
+    { title: 'What to prepare when starting your company’s accounting', slug: 'what-to-prepare-starting-accounting-cyprus', excerpt: 'Essential preparations for Cyprus companies.', content: '<p>Essential preparations for Cyprus companies.</p>', category: 'Cyprus', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' },
+    { title: 'Building a reliable month-end process', slug: 'building-reliable-month-end-process-netherlands', excerpt: 'How to construct a month-end process for Dutch entities.', content: '<p>How to construct a month-end process for Dutch entities.</p>', category: 'Netherlands', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' },
+    { title: 'When your business needs fractional CFO support', slug: 'when-business-needs-fractional-cfo', excerpt: 'Recognising the signs that your business requires senior financial leadership.', content: '<p>Recognising the signs that your business requires senior financial leadership.</p>', category: 'CFO & Business Finance', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' },
+    { title: 'Why profit and cash flow can tell different stories', slug: 'profit-and-cash-flow-different-stories', excerpt: 'Understanding the gap between your P&L and bank balance.', content: '<p>Understanding the gap between your P&L and bank balance.</p>', category: 'CFO & Business Finance', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' },
+    { title: 'Understanding margins and inventory cash requirements', slug: 'ecommerce-margins-inventory-cash', excerpt: 'Key financial metrics for ecommerce businesses.', content: '<p>Key financial metrics for ecommerce businesses.</p>', category: 'CFO & Business Finance', published: true, publishedAt: new Date(), lastReviewedAt: new Date(), author: 'Chris Kyriakides', reviewer: 'Solved Financial Services' }
   ]);
 
   console.log('Seed completed successfully!');

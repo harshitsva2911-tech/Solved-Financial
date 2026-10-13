@@ -5,11 +5,12 @@ import { Menu, X } from 'lucide-react';
 import SolvedLogo from './SolvedLogo';
 
 const NAV_LINKS = [
-  { label: 'About Us', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Jurisdictions', to: '/jurisdictions' },
-  { label: 'Industries', to: '/industries' },
-  { label: 'Experience', to: '/experience' },
+  { label: 'About Solved', to: '/about' },
+  { label: 'Cyprus', to: '/jurisdictions/cyprus' },
+  { label: 'Netherlands', to: '/jurisdictions/netherlands' },
+  { label: 'CFO', to: '/cfo-ma' },
+  { label: 'M&A', to: '/ma-advisory' },
+  { label: 'How We Work', to: '/how-we-work' },
   { label: 'Insights', to: '/insights' },
 ];
 
@@ -73,42 +74,78 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav links */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-            {NAV_LINKS.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-200 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
-                  ${
-                    isActive(to)
-                      ? 'text-gold'
-                      : 'text-cream/80 hover:text-white'
-                  }
-                `}
-              >
-                {label}
-                {isActive(to) && (
-                  <motion.span
-                    layoutId="nav-active-underline"
-                    className="absolute bottom-0 left-4 right-4 h-[2px] bg-gold rounded-full"
-                    transition={{ type: 'spring', stiffness: 380, damping: 34 }}
-                  />
-                )}
-              </Link>
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Main navigation">
+            {NAV_LINKS.map(({ label, to, children }) => (
+              children ? (
+                <div key={label} className="relative group px-3 xl:px-4 py-2">
+                  <span className={`text-sm font-medium tracking-wide transition-colors duration-200 cursor-pointer ${children.some(c => isActive(c.to)) ? 'text-gold' : 'text-cream/80 group-hover:text-white'}`}>
+                    {label}
+                    {children.some(c => isActive(c.to)) && (
+                      <motion.span
+                        layoutId="nav-active-underline"
+                        className="absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-[2px] bg-gold rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+                      />
+                    )}
+                  </span>
+                  <div className="absolute left-0 top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
+                    <div className="bg-midnight border border-gold/20 rounded-md shadow-xl py-2 min-w-[200px] flex flex-col">
+                      {children.map(child => (
+                        <Link
+                          key={child.to}
+                          to={child.to}
+                          className={`px-4 py-2 text-sm transition-colors hover:bg-gold/10 ${isActive(child.to) ? 'text-gold font-bold' : 'text-white'}`}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={to}
+                  to={to}
+                  className={`relative px-3 xl:px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-200 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
+                    ${
+                      isActive(to)
+                        ? 'text-gold'
+                        : 'text-cream/80 hover:text-white'
+                    }
+                  `}
+                >
+                  {label}
+                  {isActive(to) && (
+                    <motion.span
+                      layoutId="nav-active-underline"
+                      className="absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-[2px] bg-gold rounded-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+                    />
+                  )}
+                </Link>
+              )
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
+            <a
+              href="https://taxdome.com/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold tracking-wide text-cream/80 hover:text-white transition-colors duration-200 whitespace-nowrap"
+            >
+              Client Portal
+            </a>
             <Link
               to="/contact"
-              className={`inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold tracking-wide rounded-sm
+              className={`inline-flex items-center gap-2 px-4 xl:px-5 py-2 xl:py-2.5 text-sm font-semibold tracking-wide rounded-sm whitespace-nowrap
                 bg-gold text-midnight hover:bg-gold-light active:bg-gold-dark
                 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-midnight
                 ${isActive('/contact') ? 'ring-2 ring-gold ring-offset-2 ring-offset-midnight' : ''}
               `}
             >
-              Contact us
+              Book an Introductory Call
             </Link>
           </div>
 
@@ -160,26 +197,51 @@ export default function Navbar() {
             className="lg:hidden overflow-hidden bg-midnight border-t border-white/10"
           >
             <nav className="flex flex-col px-4 py-4 gap-1" aria-label="Mobile navigation">
-              {NAV_LINKS.map(({ label, to }, i) => (
+              {NAV_LINKS.map(({ label, to, children }, i) => (
                 <motion.div
-                  key={to}
+                  key={label}
                   custom={i}
                   variants={mobileLinkVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  <Link
-                    to={to}
-                    className={`flex items-center px-4 py-3 rounded-sm text-sm font-medium tracking-wide border-l-2 transition-colors duration-200
-                      ${
-                        isActive(to)
-                          ? 'border-gold text-gold bg-gold/5'
-                          : 'border-transparent text-cream/75 hover:text-white hover:border-gold/40 hover:bg-white/5'
-                      }
-                    `}
-                  >
-                    {label}
-                  </Link>
+                  {children ? (
+                    <div className="flex flex-col">
+                      <div className="px-4 py-3 text-sm font-medium tracking-wide text-white/50 border-l-2 border-transparent">
+                        {label}
+                      </div>
+                      <div className="flex flex-col pl-4">
+                        {children.map(child => (
+                          <Link
+                            key={child.to}
+                            to={child.to}
+                            className={`flex items-center px-4 py-3 rounded-sm text-sm font-medium tracking-wide border-l-2 transition-colors duration-200
+                              ${
+                                isActive(child.to)
+                                  ? 'border-gold text-gold bg-gold/5'
+                                  : 'border-transparent text-cream/75 hover:text-white hover:border-gold/40 hover:bg-white/5'
+                              }
+                            `}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      to={to}
+                      className={`flex items-center px-4 py-3 rounded-sm text-sm font-medium tracking-wide border-l-2 transition-colors duration-200
+                        ${
+                          isActive(to)
+                            ? 'border-gold text-gold bg-gold/5'
+                            : 'border-transparent text-cream/75 hover:text-white hover:border-gold/40 hover:bg-white/5'
+                        }
+                      `}
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
 
@@ -188,14 +250,23 @@ export default function Navbar() {
                 variants={mobileLinkVariants}
                 initial="hidden"
                 animate="visible"
-                className="mt-3 px-4"
+                className="mt-3 px-4 flex flex-col gap-3"
               >
+                <a
+                  href="https://taxdome.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center px-5 py-3 text-sm font-semibold tracking-wide rounded-sm
+                    border border-white/20 text-cream/80 hover:text-white transition-colors duration-200"
+                >
+                  Client Portal
+                </a>
                 <Link
                   to="/contact"
                   className="block w-full text-center px-5 py-3 text-sm font-semibold tracking-wide rounded-sm
                     bg-gold text-midnight hover:bg-gold-light active:bg-gold-dark transition-colors duration-200"
                 >
-                  Contact us
+                  Book an Introductory Call
                 </Link>
               </motion.div>
             </nav>

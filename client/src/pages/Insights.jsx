@@ -18,10 +18,9 @@ const API = API_BASE;
 
 const CATEGORIES = [
   { label: 'All Insights', value: '' },
-  { label: 'Regulatory', value: 'Regulatory' },
-  { label: 'Strategy', value: 'Strategy' },
-  { label: 'Markets', value: 'Markets' },
-  { label: 'Technology', value: 'Technology' },
+  { label: 'Cyprus', value: 'Cyprus' },
+  { label: 'Netherlands', value: 'Netherlands' },
+  { label: 'CFO & Business Finance', value: 'CFO & Business Finance' },
 ];
 
 function formatDate(dateStr) {
@@ -80,6 +79,9 @@ function ArticleCardSkeleton() {
 
 function FeaturedLargeCard({ article }) {
   const [imgError, setImgError] = useState(false);
+  useEffect(() => {
+    setImgError(false);
+  }, [article.image]);
   return (
     <Link
       to={`/insights/${article.slug}`}
@@ -138,6 +140,9 @@ function FeaturedLargeCard({ article }) {
 
 function FeaturedSmallCard({ article }) {
   const [imgError, setImgError] = useState(false);
+  useEffect(() => {
+    setImgError(false);
+  }, [article.image]);
   return (
     <Link
       to={`/insights/${article.slug}`}
@@ -180,6 +185,9 @@ function FeaturedSmallCard({ article }) {
 
 function ArticleCard({ article }) {
   const [imgError, setImgError] = useState(false);
+  useEffect(() => {
+    setImgError(false);
+  }, [article.image]);
   return (
     <AnimatedSection>
       <Link

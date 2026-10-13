@@ -3,7 +3,7 @@ import { Upload, X, ImageIcon, Loader2, Link, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
 
-export default function ImageUpload({ value, onChange, hint, aspectHint, label = 'Image', required = false }) {
+export default function ImageUpload({ value, onChange, onUploadingChange, hint, aspectHint, label = 'Image', required = false }) {
   const inputRef = useRef();
   const [uploading, setUploading] = useState(false);
   const [showUrlInput, setShowUrlInput] = useState(false);
@@ -21,7 +21,7 @@ export default function ImageUpload({ value, onChange, hint, aspectHint, label =
       URL.revokeObjectURL(localPreview);
       setLocalPreview(null);
     }
-  }, [value]);
+  }, [value, localPreview]);
 
   const upload = async (file) => {
     if (!file) return;
@@ -36,6 +36,7 @@ export default function ImageUpload({ value, onChange, hint, aspectHint, label =
     if (localPreview) URL.revokeObjectURL(localPreview);
     setLocalPreview(blobUrl);
     setUploading(true);
+    onUploadingChange?.(true);
 
     try {
       const fd = new FormData();
@@ -52,6 +53,7 @@ export default function ImageUpload({ value, onChange, hint, aspectHint, label =
       toast.error(err?.response?.data?.message || 'Upload failed. Please try again.');
     } finally {
       setUploading(false);
+      onUploadingChange?.(false);
     }
   };
 

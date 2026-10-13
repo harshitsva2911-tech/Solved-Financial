@@ -121,23 +121,17 @@ const JURISDICTIONS = [
     country: 'Cyprus',
     flag: '🇨🇾',
     description:
-      'Our primary hub for EU financial services, offering CySEC regulatory expertise and access to EU passporting rights.',
-    highlights: ['CySEC licensed advisory', 'EU passporting', 'Holding company structures'],
+      'Our primary hub for corporate and financial services in the EU.',
+    highlights: ['Corporate structuring', 'Accounting & VAT', 'Holding company structures'],
   },
   {
     country: 'Netherlands',
     flag: '🇳🇱',
     description:
-      'A gateway to Northern European markets with AFM/DNB regulatory coverage and extensive double-tax treaty networks.',
-    highlights: ['AFM & DNB regulated', 'Extensive treaty network', 'Fund domiciliation'],
+      'A gateway to Northern European markets with extensive double-tax treaty networks.',
+    highlights: ['Corporate administration', 'Extensive treaty network', 'CFO advisory'],
   },
-  {
-    country: 'Greece',
-    flag: '🇬🇷',
-    description:
-      'Strategic presence supporting Hellenic market entry, HCMC compliance, and investment opportunities in SE Europe.',
-    highlights: ['HCMC compliance', 'SE Europe market access', 'Investment incentives'],
-  },
+
 ];
 
 // â”€â”€â”€ Gradient placeholder images â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -194,19 +188,19 @@ function IndustrySection({ industry, index }) {
         {industry.description}
       </p>
 
-      {/* Two columns: challenges / support */}
+      {/* Two columns: challenges / support renamed to Approach / Outcomes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {/* Challenges */}
+        {/* Approach */}
         {industry.challenges && industry.challenges.length > 0 && (
           <div>
             <h4 className="text-midnight font-bold text-sm uppercase tracking-[0.15em] mb-4 flex items-center gap-2">
-              <AlertTriangle size={14} className="text-amber-500 flex-shrink-0" />
-              Challenges
+              <CheckCircle2 size={14} className="text-gold flex-shrink-0" />
+              Approach
             </h4>
             <ul className="space-y-2.5">
               {industry.challenges.map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600">
-                  <X size={14} className="text-red-400 flex-shrink-0 mt-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold/60 mt-1.5 flex-shrink-0" />
                   {item}
                 </li>
               ))}
@@ -214,17 +208,17 @@ function IndustrySection({ industry, index }) {
           </div>
         )}
 
-        {/* How we support */}
+        {/* Outcomes */}
         {industry.support && industry.support.length > 0 && (
           <div>
             <h4 className="text-midnight font-bold text-sm uppercase tracking-[0.15em] mb-4 flex items-center gap-2">
               <CheckCircle2 size={14} className="text-gold flex-shrink-0" />
-              How We Support
+              Outcomes
             </h4>
             <ul className="space-y-2.5">
               {industry.support.map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
-                  <CheckCircle2 size={14} className="text-gold flex-shrink-0 mt-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold/60 mt-1.5 flex-shrink-0" />
                   {item}
                 </li>
               ))}
@@ -373,7 +367,7 @@ export default function Industries() {
           <SectionHeader
             label="Global reach"
             title="International Presence"
-            subtitle="We operate across three strategic European jurisdictions, providing our clients with localised expertise and seamless cross-border capability."
+            subtitle="We operate across strategic European jurisdictions, providing our clients with localised expertise and seamless cross-border capability."
             className="mb-12 [&_h2]:text-white [&_p]:text-cream/60"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

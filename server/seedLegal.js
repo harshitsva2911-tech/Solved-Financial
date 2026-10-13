@@ -49,7 +49,7 @@ We retain personal data only for as long as necessary to fulfil the purposes for
 7. DATA SHARING
 We do not sell or rent personal data to third parties. We may share data with:
 - Professional advisers (lawyers, accountants, auditors) bound by confidentiality obligations.
-- Technology service providers who process data on our behalf under data processing agreements.
+- Technology service providers who process data on our behalf under data processing agreements, including our secure client portal provider (TaxDome) and document capture systems (Dext).
 - Competent regulatory authorities where required by law.
 
 8. INTERNATIONAL TRANSFERS
@@ -84,7 +84,7 @@ Last updated: 1 May 2026
 These Terms of Service govern your use of the Solved Financial Services website (solvedfinancial.com) and any information or materials provided through it. By accessing this website, you agree to be bound by these Terms. If you do not agree, please discontinue use of the website immediately.
 
 2. ABOUT US
-Solved Financial Services provides financial, corporate, and strategic advisory services across Cyprus, the Netherlands, and Greece. In Greece, services are provided in collaboration with our strategic partner, Revival Consulting Services.
+Solved Financial Services provides financial, corporate, and strategic advisory services across Cyprus and the Netherlands.
 
 3. WEBSITE USE
 The content on this website is provided for general informational purposes only. It does not constitute financial, legal, tax, or investment advice and should not be relied upon as such. No client relationship is formed through use of this website alone.

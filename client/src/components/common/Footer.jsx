@@ -33,28 +33,11 @@ const COMPANY_LINKS = [
 ];
 
 const JURISDICTION_LINKS = [
-  { label: 'Greece', to: '/jurisdictions/greece' },
   { label: 'Netherlands', to: '/jurisdictions/netherlands' },
   { label: 'Cyprus', to: '/jurisdictions/cyprus' },
 ];
 
-const SOCIAL_LINKS = [
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com',
-    icon: LinkedInIcon,
-  },
-  {
-    label: 'X (Twitter)',
-    href: 'https://twitter.com',
-    icon: TwitterIcon,
-  },
-  {
-    label: 'Instagram',
-    href: 'https://instagram.com',
-    icon: InstagramIcon,
-  },
-];
+const SOCIAL_LINKS = [];
 
 const LEGAL_LINKS = [
   { label: 'Privacy Policy', to: '/privacy-policy' },
@@ -137,6 +120,16 @@ export default function Footer() {
           {/* Newsletter subscribe */}
           <div className="sm:col-span-2 lg:col-span-4">
             <NewsletterSubscribe />
+          </div>
+        </div>
+
+        {/* Legal Entities Information */}
+        <div className="border-t border-white/10 py-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-cream/40 text-xs leading-relaxed">
+          <div className="md:col-span-2">
+            <p>
+              Independent partner services are delivered directly by verified specialists under separate engagement terms. 
+              <a href="https://taxdome.com/login" target="_blank" rel="noopener noreferrer" className="ml-2 underline hover:text-gold transition-colors">Access Client Portal</a>
+            </p>
           </div>
         </div>
 

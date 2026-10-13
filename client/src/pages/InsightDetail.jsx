@@ -266,21 +266,30 @@ export default function InsightDetail() {
             </h1>
 
             {/* Meta: date + read time */}
-            <div className="flex flex-wrap items-center gap-5 text-gray-400 text-sm mb-8 pb-8 border-b border-gray-200">
+            <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
               {article.publishedAt && (
-                <span className="flex items-center gap-2">
-                  <Calendar size={14} />
-                  {formatDate(article.publishedAt)}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-gray-400 text-xs uppercase tracking-wider mb-1">Published</span>
+                  <span className="flex items-center gap-1.5"><Calendar size={14} className="text-gold" /> {formatDate(article.publishedAt)}</span>
+                </div>
               )}
-              {article.readTime && (
-                <span className="flex items-center gap-2">
-                  <Clock size={14} />
-                  {article.readTime}
-                </span>
+              {article.lastReviewedAt && (
+                <div className="flex flex-col border-l border-gray-200 pl-6">
+                  <span className="text-gray-400 text-xs uppercase tracking-wider mb-1">Reviewed</span>
+                  <span className="flex items-center gap-1.5"><Calendar size={14} className="text-gold" /> {formatDate(article.lastReviewedAt)}</span>
+                </div>
               )}
               {article.author && (
-                <span className="text-gray-500 font-medium">{article.author}</span>
+                <div className="flex flex-col border-l border-gray-200 pl-6">
+                  <span className="text-gray-400 text-xs uppercase tracking-wider mb-1">Author</span>
+                  <span className="font-medium text-midnight">{article.author}</span>
+                </div>
+              )}
+              {article.reviewer && (
+                <div className="flex flex-col border-l border-gray-200 pl-6">
+                  <span className="text-gray-400 text-xs uppercase tracking-wider mb-1">Reviewer</span>
+                  <span className="font-medium text-midnight">{article.reviewer}</span>
+                </div>
               )}
             </div>
 

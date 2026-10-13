@@ -113,7 +113,7 @@ export default function Jurisdictions() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Jurisdictions</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Manage country-specific content for Cyprus, Netherlands, and Greece</p>
+          <p className="text-sm text-gray-500 mt-0.5">Manage country-specific content for Cyprus and the Netherlands</p>
         </div>
         <button className="btn-primary" onClick={() => open()}><Plus size={16} /> Add Jurisdiction</button>
       </div>
@@ -197,7 +197,7 @@ export default function Jurisdictions() {
                     </div>
                   </div>
                   <div className="border border-gray-200 rounded-xl p-4 bg-amber-50/40">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3">Partner Firm (optional — e.g. for Greece)</h3>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3">Partner Firm (optional)</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="label">Firm Name</label>

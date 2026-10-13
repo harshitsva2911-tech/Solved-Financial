@@ -84,11 +84,11 @@ const FALLBACK_SERVICES = [
     slug: 'company-incorporation',
     image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-company-incorporation.png',
     description:
-      'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus, Netherlands, and Greece. We manage the full incorporation process, including nominee services, regulatory filings, and post-incorporation setup.',
+      'Solved Financial Services supports entrepreneurs and businesses seeking to establish or restructure their legal presence in Cyprus and the Netherlands. We coordinate the full incorporation process with qualified partners, including regulatory filings, and post-incorporation setup.',
     features: [
       'Jurisdiction selection advice',
-      'Full incorporation process',
-      'Nominee director services',
+      'Full incorporation coordination',
+      'Corporate governance setup',
       'Bank account opening support',
       'Post-incorporation compliance',
     ],
@@ -99,7 +99,7 @@ const FALLBACK_SERVICES = [
     slug: 'audit-assurance',
     image: 'https://imperial-ventures-assets.s3.eu-north-1.amazonaws.com/website/service-audit-assurance.png',
     description:
-      'Through our network of partner firms in Cyprus, Netherlands, and Greece, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.',
+      'Through our network of partner firms in Cyprus and the Netherlands, Solved Financial Services coordinates audit and assurance engagements that meet local regulatory requirements and international standards, giving stakeholders the confidence they need.',
     features: [
       'Statutory audit coordination',
       'Financial due diligence',

@@ -16,17 +16,20 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 const SITE_NAME = 'Solved Financial Services';
 
-let transporter = null;
 function getTransporter() {
-  if (!process.env.EMAIL_USER || process.env.EMAIL_USER === 'your_email@gmail.com') return null;
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-    });
+  const host = process.env.EMAIL_HOST || process.env.EEMAIL_HOST || 'email-smtp.eu-central-1.amazonaws.com';
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASS;
+  if (!user || user === 'your_email@gmail.com' || !pass || pass === 'your_gmail_app_password') {
+    return null;
   }
-  return transporter;
+  const port = Number(process.env.EMAIL_PORT) || 587;
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  });
 }
 
 const sendEmail = async (to, subject, html) => {
@@ -64,7 +67,14 @@ async function sendInBatches(subscribers, subject, content, batchSize = 8) {
         return sendEmail(sub.email, subject, emailShell(content, unsubscribeUrl));
       })
     );
-    results.forEach((r) => (r.status === 'fulfilled' ? sent++ : failed++));
+    results.forEach((r, idx) => {
+      if (r.status === 'fulfilled') {
+        sent++;
+      } else {
+        console.error(`[NEWSLETTER SEND ERROR] to ${batch[idx]?.email}:`, r.reason?.message || r.reason);
+        failed++;
+      }
+    });
   }
   return { sent, failed };
 }
@@ -189,6 +199,18 @@ router.delete('/subscribers/:id', protect, async (req, res) => {
   }
 });
 
+// ─── Admin: SMTP status check ────────────────────────────────────────────────
+router.get('/smtp-status', protect, (req, res) => {
+  const transporter = getTransporter();
+  const isConfigured = !!transporter;
+  res.json({
+    configured: isConfigured,
+    emailUser: isConfigured ? (process.env.EMAIL_FROM || process.env.EMAIL_USER) : null,
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: process.env.EMAIL_PORT || '587',
+  });
+});
+
 // ─── Admin: newsletter CRUD ─────────────────────────────────────────────────
 router.get('/', protect, async (req, res) => {
   try {
@@ -239,11 +261,8 @@ router.post('/:id/send', protect, async (req, res) => {
   try {
     const newsletter = await Newsletter.findById(req.params.id);
     if (!newsletter) return res.status(404).json({ message: 'Newsletter not found' });
-    if (newsletter.status === 'sent') {
+    if (newsletter.status === 'sent' && newsletter.recipientCount > 0) {
       return res.status(400).json({ message: 'This newsletter has already been sent.' });
-    }
-    if (!getTransporter()) {
-      return res.status(400).json({ message: 'Email service is not configured yet.' });
     }
 
     const subscribers = await Subscriber.find({ status: 'active' });
@@ -251,18 +270,43 @@ router.post('/:id/send', protect, async (req, res) => {
       return res.status(400).json({ message: 'There are no active subscribers to send to.' });
     }
 
+    const transporter = getTransporter();
+    if (!transporter) {
+      console.log(`[NEWSLETTER SIMULATION] SMTP not configured. Simulating delivery for: "${newsletter.subject}"`);
+      console.log(`[NEWSLETTER SIMULATION] Active subscribers (${subscribers.length}):`, subscribers.map((s) => s.email).join(', '));
+
+      newsletter.status = 'sent';
+      newsletter.sentAt = new Date();
+      newsletter.recipientCount = subscribers.length;
+      newsletter.failedCount = 0;
+      await newsletter.save();
+
+      return res.json({
+        message: `Newsletter processed in test/simulation mode for ${subscribers.length} subscriber(s). (To send live emails, configure EMAIL_USER and EMAIL_PASS in server/.env)`,
+        simulated: true,
+        newsletter,
+      });
+    }
+
     newsletter.status = 'sending';
     await newsletter.save();
 
     const { sent, failed } = await sendInBatches(subscribers, newsletter.subject, newsletter.content);
 
-    newsletter.status = 'sent';
-    newsletter.sentAt = new Date();
+    newsletter.status = sent > 0 ? 'sent' : 'draft';
+    newsletter.sentAt = sent > 0 ? new Date() : undefined;
     newsletter.recipientCount = sent;
     newsletter.failedCount = failed;
     await newsletter.save();
 
-    res.json({ message: `Newsletter sent to ${sent} subscriber(s).`, newsletter });
+    if (sent === 0 && failed > 0) {
+      return res.status(500).json({
+        message: `Delivery failed for all ${failed} subscriber(s).`,
+        newsletter,
+      });
+    }
+
+    res.json({ message: `Newsletter sent to ${sent} subscriber(s)${failed > 0 ? ` (${failed} failed)` : ''}.`, newsletter });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
