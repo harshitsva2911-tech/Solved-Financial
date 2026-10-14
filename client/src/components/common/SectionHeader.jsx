@@ -21,6 +21,7 @@ export default function SectionHeader({
   align = 'left',
   className = '',
   animate = true,
+  dark = false,
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.3, once: true });
@@ -73,7 +74,7 @@ export default function SectionHeader({
           custom={label ? 0.08 : 0}
           initial="hidden"
           animate={titleState}
-          className={`font-urbanist font-bold text-midnight dark:text-white leading-tight tracking-tight
+          className={`font-urbanist font-bold ${dark ? 'text-white' : 'text-midnight'} leading-tight tracking-tight
             text-3xl sm:text-4xl lg:text-[2.75rem]
             ${isCenter ? 'mx-auto' : ''}
           `}
@@ -89,7 +90,7 @@ export default function SectionHeader({
           custom={label ? 0.16 : 0.08}
           initial="hidden"
           animate={subtitleState}
-          className={`mt-4 text-base sm:text-lg text-gray-500 dark:text-cream/60 leading-relaxed
+          className={`mt-4 text-base sm:text-lg ${dark ? 'text-cream/70' : 'text-gray-600'} leading-relaxed
             ${isCenter ? 'mx-auto max-w-2xl' : 'max-w-2xl'}
           `}
         >

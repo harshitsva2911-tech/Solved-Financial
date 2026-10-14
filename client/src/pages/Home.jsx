@@ -1,13 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, TrendingUp, Laptop, CheckCircle2, Shield } from 'lucide-react';
+import { ArrowLeft, ArrowRight, TrendingUp, Laptop, CheckCircle2, Shield } from 'lucide-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import axios from 'axios';
 import API_BASE from '../utils/config';
+import { getTeam } from '../utils/api';
 
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import FeaturedArticles from '../components/home/FeaturedArticles';
+
+const LinkedInIcon = ({ size = 16, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const getImageUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
+    return url;
+  }
+  const baseUrl = API_BASE.replace(/\/api$/, '');
+  return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+};
+
+const formatExternalUrl = (url) => {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('//')) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+};
 
 // Animation variants
 const fadeInUp = {
@@ -16,8 +48,14 @@ const fadeInUp = {
 };
 
 export default function Home() {
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loadingTeam, setLoadingTeam] = useState(true);
+  const [teamSwiper, setTeamSwiper] = useState(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_BASE}/homepage`)
@@ -26,6 +64,18 @@ export default function Home() {
       })
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
+
+    getTeam()
+      .then((res) => {
+        const list = Array.isArray(res.data) ? res.data : (res.data?.members || []);
+        setTeamMembers(list.filter((m) => m.active !== false).sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+      })
+      .catch((err) => {
+        console.error('Failed to load team members:', err);
+      })
+      .finally(() => {
+        setLoadingTeam(false);
+      });
   }, []);
 
   if (loading) {
@@ -313,38 +363,173 @@ export default function Home() {
         </section>
 
         {/* 7. Meet the Team */}
-        <section className="py-24 bg-white border-t border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-3 gap-16 items-center">
+        <section className="py-24 bg-white border-t border-gray-100 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            {/* Desktop / Tablet slider navigation buttons */}
+            <button
+              type="button"
+              onClick={() => teamSwiper?.slidePrev()}
+              disabled={isBeginning}
+              className="hidden sm:flex absolute -left-3 lg:-left-6 top-1/2 -translate-y-1/2 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-midnight text-white hover:bg-gold hover:text-midnight transition-all duration-300 items-center justify-center shadow-xl z-20 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+              aria-label="Previous team member"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => teamSwiper?.slideNext()}
+              disabled={isEnd}
+              className="hidden sm:flex absolute -right-3 lg:-right-6 top-1/2 -translate-y-1/2 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-midnight text-white hover:bg-gold hover:text-midnight transition-all duration-300 items-center justify-center shadow-xl z-20 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer"
+              aria-label="Next team member"
+            >
+              <ArrowRight className="w-5 h-5" />
+            </button>
+
+            <div className="grid lg:grid-cols-3 gap-12 lg:gap-16 items-center">
               <div className="lg:col-span-1">
                 <span className="text-gold font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Meet the Team</span>
                 <h2 className="text-4xl font-bold font-urbanist text-midnight mb-6 leading-tight">Professionals at your service.</h2>
                 <p className="text-gray-600 mb-8 leading-relaxed">Our core leadership team brings decades of combined experience in international finance, accounting, and M&A advisory across European markets.</p>
-                <Link to="/about" className="inline-flex items-center gap-2 text-gold font-bold hover:text-midnight transition-colors border-b-2 border-gold/30 hover:border-midnight pb-1">
-                  View Full Profile <ArrowRight size={18} />
-                </Link>
+                <div className="flex items-center justify-between">
+                  <Link to="/about" className="inline-flex items-center gap-2 text-gold font-bold hover:text-midnight transition-colors border-b-2 border-gold/30 hover:border-midnight pb-1">
+                    View Full Profile <ArrowRight size={18} />
+                  </Link>
+
+                  {/* Mobile slider navigation buttons */}
+                  <div className="flex sm:hidden items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => teamSwiper?.slidePrev()}
+                      disabled={isBeginning}
+                      className="w-9 h-9 rounded-full bg-midnight text-white flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed"
+                      aria-label="Previous team member"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => teamSwiper?.slideNext()}
+                      disabled={isEnd}
+                      className="w-9 h-9 rounded-full bg-midnight text-white flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed"
+                      aria-label="Next team member"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                <div className="group relative rounded-sm overflow-hidden aspect-[4/5] shadow-lg bg-midnight">
-                  <img src={`${API_BASE.replace(/\/api$/, '')}/uploads/1777556433499-797707328.jpeg`} alt="Chris Kyriakides" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <h3 className="text-white font-bold font-urbanist text-2xl mb-1">Chris</h3>
-                    <p className="text-gold text-sm font-semibold tracking-wide uppercase">Managing Partner</p>
+
+              <div className="lg:col-span-2">
+                {loadingTeam ? (
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {[1, 2].map((n) => (
+                      <div key={n} className="rounded-sm overflow-hidden aspect-[4/5] bg-gray-100 animate-pulse" />
+                    ))}
                   </div>
-                </div>
-                <div className="group relative rounded-sm overflow-hidden aspect-[4/5] shadow-lg bg-midnight">
-                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Client Support Team" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <h3 className="text-white font-bold font-urbanist text-2xl mb-1">Advisory Team</h3>
-                    <p className="text-gold text-sm font-semibold tracking-wide uppercase">Accounting & Client Support</p>
+                ) : teamMembers.length === 0 ? (
+                  <div className="py-12 text-center text-gray-500">
+                    <p>Team information will be available shortly.</p>
                   </div>
-                </div>
+                ) : (
+                  <Swiper
+                    key={`team-swiper-${teamMembers.length}`}
+                    modules={[Navigation, A11y]}
+                    spaceBetween={24}
+                    onSwiper={(swiper) => {
+                      setTeamSwiper(swiper);
+                      setIsBeginning(swiper.isBeginning);
+                      setIsEnd(swiper.isEnd);
+                    }}
+                    onSlideChange={(swiper) => {
+                      setIsBeginning(swiper.isBeginning);
+                      setIsEnd(swiper.isEnd);
+                    }}
+                    breakpoints={{
+                      0: { slidesPerView: 1 },
+                      640: { slidesPerView: Math.min(teamMembers.length, 2) },
+                    }}
+                    className="team-swiper !overflow-hidden sm:!overflow-visible"
+                  >
+                    {teamMembers.map((member, i) => {
+                      const imageUrl = getImageUrl(member.image);
+                      const initials = member.name
+                        ? member.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+                        : 'TM';
+
+                      return (
+                        <SwiperSlide key={member._id || i} className="h-auto">
+                          <div 
+                            onClick={() => navigate('/about')}
+                            className="group relative rounded-sm overflow-hidden aspect-[4/5] shadow-lg bg-midnight flex flex-col justify-end cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-midnight/20"
+                          >
+                            {imageUrl ? (
+                              <img
+                                src={imageUrl}
+                                alt={member.name}
+                                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none';
+                                  const fallback = e.currentTarget.nextElementSibling;
+                                  if (fallback) fallback.style.display = 'flex';
+                                }}
+                              />
+                            ) : null}
+
+                            {/* Initials Fallback */}
+                            <div
+                              className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center text-white ${
+                                imageUrl ? 'hidden' : 'flex'
+                              }`}
+                              style={{ background: 'linear-gradient(135deg, #001B2F 0%, #003666 100%)' }}
+                            >
+                              <div className="w-24 h-24 rounded-full border-2 border-gold/40 flex items-center justify-center text-3xl font-bold font-urbanist text-gold bg-midnight/50 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                                {initials}
+                              </div>
+                            </div>
+
+                            {/* Gradient Overlay for text contrast */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-midnight/95 via-midnight/25 to-transparent pointer-events-none" />
+
+                            {/* LinkedIn Icon */}
+                            {member.linkedin ? (
+                              <a
+                                href={formatExternalUrl(member.linkedin)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                aria-label={`${member.name}'s LinkedIn profile`}
+                                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 hover:bg-gold hover:text-white text-midnight flex items-center justify-center shadow-md backdrop-blur-sm transition-all duration-200 z-20"
+                              >
+                                <LinkedInIcon size={16} />
+                              </a>
+                            ) : null}
+
+                            {/* Bottom Name & Role */}
+                            <div className="relative p-6 sm:p-8 w-full z-10">
+                              <h3 className="text-white font-bold font-urbanist text-2xl mb-1 group-hover:text-gold transition-colors duration-300">
+                                {member.name}
+                              </h3>
+                              <p className="text-gold text-sm font-semibold tracking-wide uppercase">
+                                {member.role}
+                              </p>
+                            </div>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                )}
               </div>
             </div>
           </div>
         </section>
+
+        {/* Swiper custom styles */}
+        <style>{`
+          .team-swiper .swiper-slide {
+            height: auto !important;
+          }
+        `}</style>
 
         {/* 8. Selected Insights */}
         <div className="border-t border-gray-100">

@@ -28,6 +28,16 @@ const getImageUrl = (url) => {
   return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
 };
 
+const formatExternalUrl = (url) => {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+  if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith('//')) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+};
+
 const roles = [
   {
     role: 'Accounting team',
@@ -221,7 +231,7 @@ export default function About() {
                       {/* Floating LinkedIn Icon */}
                       {member.linkedin && (
                         <a
-                          href={member.linkedin}
+                          href={formatExternalUrl(member.linkedin)}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${member.name} on LinkedIn`}

@@ -21,6 +21,13 @@ const emptyForm = {
   active: true,
 };
 
+const formatExternalUrl = (url) => {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 export default function Team() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +86,11 @@ export default function Team() {
     e.preventDefault();
     setSaving(true);
     try {
-      const payload = { ...form, order: Number(form.order) };
+      const payload = {
+        ...form,
+        linkedin: form.linkedin ? formatExternalUrl(form.linkedin) : '',
+        order: Number(form.order),
+      };
       if (editingId) {
         await api.put(`/team/${editingId}`, payload);
         toast.success('Member updated');
@@ -163,7 +174,7 @@ export default function Team() {
                   <div className="flex items-center gap-1">
                     {member.linkedin && (
                       <a
-                        href={member.linkedin}
+                        href={formatExternalUrl(member.linkedin)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
